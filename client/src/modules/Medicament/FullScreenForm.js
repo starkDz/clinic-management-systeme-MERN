@@ -55,7 +55,7 @@ export default function FullScreenDialog() {
         onClick={handleClickOpen}
         variant='extended'
         color='primary'
-        aria-label='Ajouter une operation'
+        aria-label='Ajouter un nouveau medicament'
         className={classes.fateh}
       >
         <AddIcon />
@@ -78,7 +78,7 @@ export default function FullScreenDialog() {
               <CloseIcon />
             </IconButton>
             <Typography variant='h6' className={classes.title}>
-              Ajouter une operation
+              Ajouter un Nouveau Medicament
             </Typography>
           </Toolbar>
         </AppBar>

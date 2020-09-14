@@ -76,7 +76,7 @@ export default function FullScreenDialog() {
               <CloseIcon />
             </IconButton>
             <Typography variant='h6' className={classes.title}>
-              Ajouter une operation
+              Ajouter un Nouveau Patient
             </Typography>
           </Toolbar>
         </AppBar>

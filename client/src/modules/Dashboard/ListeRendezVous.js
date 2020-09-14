@@ -123,7 +123,24 @@ class Call_Api extends Component {
     });
   };
   async DeleteThis(id, index) {}
-  async componentDidMount() {}
+  async componentDidMount() {
+    fetch(url + '/api/rendezVous')
+      .then((response) => response.json())
+      .then(
+        (res) => {
+          this.setState({
+            isLoaded: true,
+            items: res,
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error,
+          });
+        }
+      );
+  }
 
   render() {
     const {
@@ -138,7 +155,7 @@ class Call_Api extends Component {
     } = this.state;
     if (error) {
       return <div>Erreur : {error.message}</div>;
-    } else if (isLoaded) {
+    } else if (!isLoaded) {
       return (
         <div>
           <Loading_Item />
@@ -162,16 +179,16 @@ class Call_Api extends Component {
             columns={[
               {
                 title: 'Nom',
-                field: 'type.description_Fr',
+                field: 'nom',
                 width: '20%',
               },
-              { title: 'Prenom', field: 'marque.description_Fr', width: '20%' },
+              { title: 'Prenom', field: 'prenom', width: '20%' },
               {
                 title: 'Numero Telephone',
-                field: 'categorie.description_Fr',
+                field: 'telephone',
                 width: '20%',
               },
-              { title: 'Date Rendez-Vous', field: 'observation', width: '20%' },
+              { title: 'Date Rendez-Vous', field: 'telephone', width: '20%' },
               { title: 'Recu par', field: 'owner.name', width: '10%' },
             ]}
             data={items}
