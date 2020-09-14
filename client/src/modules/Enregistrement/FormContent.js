@@ -15,7 +15,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Cookies from 'universal-cookie';
 import PropTypes from 'prop-types';
-axios.defaults.baseURL = url;
 
 const useStyles = makeStyles((theme) => ({
   root: {

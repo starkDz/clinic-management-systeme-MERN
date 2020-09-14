@@ -19,7 +19,6 @@ import SignUp from './SignUp';
 import { url } from './defaults/default';
 import Cookies from 'universal-cookie';
 
-axios.defaults.baseURL = url;
 function Copyright() {
   return (
     <Typography variant='body2' color='textSecondary' align='center'>
