@@ -57,13 +57,17 @@ export default function VerticalLinearStepper() {
 
     try {
       const body = JSON.stringify(element);
-      const res = await axios.post('/api/rendezVous', body, {
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-          'Access-Control-Allow-Origin': '*',
-          'x-auth-token': cookies.get('token'),
-        },
-      });
+      const res = await axios.post(
+        'https://cabinetmedicale.herokuapp.com/api/rendezVous',
+        body,
+        {
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Access-Control-Allow-Origin': '*',
+            'x-auth-token': cookies.get('token'),
+          },
+        }
+      );
     } catch (err) {}
   };
 

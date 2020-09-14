@@ -25,7 +25,6 @@ import { url } from '../../defaults/default';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
-axios.defaults.baseURL = url;
 const tableIcons = {
   Add: forwardRef((props, ref: React.Ref<SVGSVGElement>) => (
     <AddBox {...props} ref={ref} />
@@ -124,7 +123,7 @@ class Call_Api extends Component {
   };
   async DeleteThis(id, index) {}
   async componentDidMount() {
-    fetch(url + '/api/rendezVous')
+    fetch('https://cabinetmedicale.herokuapp.com/api/rendezVous')
       .then((response) => response.json())
       .then(
         (res) => {
