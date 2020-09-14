@@ -19,8 +19,6 @@ import SignUp from './SignUp';
 import { url } from './defaults/default';
 import Cookies from 'universal-cookie';
 
-const baseUrl = process.env.baseURL || url;
-axios.defaults.baseURL = baseUrl;
 function Copyright() {
   return (
     <Typography variant='body2' color='textSecondary' align='center'>
@@ -76,12 +74,16 @@ export default function SignIn() {
     };
     try {
       const body = JSON.stringify(user);
-      const res = await axios.post('/api/auth', body, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
-      });
+      const res = await axios.post(
+        'https://cabinetmedicale.herokuapp.com/api/auth',
+        body,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          },
+        }
+      );
       const token = res.data.token;
       let d = new Date();
       d.setTime(d.getTime() + 2 * 60 * 1000);
