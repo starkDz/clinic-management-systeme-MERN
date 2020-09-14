@@ -3,8 +3,14 @@ import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 // npm install --save-dev @iconify/react @iconify/icons-medical-icon
 import { Icon, InlineIcon } from '@iconify/react';
 import iRegistration from '@iconify/icons-medical-icon/i-registration';
-
-const Enregistrement = () => <div>Enregistrement</div>;
+import FullScreenDialog from './FullScreenForm';
+import SpeedDial from './SpeedDial';
+const Enregistrement = () => (
+  <div>
+    <FullScreenDialog />
+    <SpeedDial />
+  </div>
+);
 
 export default {
   routeProps: {

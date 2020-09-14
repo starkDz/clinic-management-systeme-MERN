@@ -1,10 +1,11 @@
 import React from 'react';
-import PersonIcon from '@material-ui/icons/Person';
-import SpeedDial from '../../template/SpeedDial';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import FullScreenDialog from './FullScreenForm';
+import SpeedDial from './SpeedDial';
 const Patient = () => (
   <div>
+    <FullScreenDialog />
     <SpeedDial />
   </div>
 );

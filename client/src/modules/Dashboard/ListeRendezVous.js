@@ -104,7 +104,7 @@ class Call_Api extends Component {
       selectedRow: null,
       opensnack: false,
       msg: 'Suppression a ete fait avec success',
-      Title: 'Liste des articles',
+      Title: 'Liste des Rendez-Vous',
       a: null,
     };
 

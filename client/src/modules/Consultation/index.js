@@ -1,12 +1,12 @@
 import React from 'react';
 import LocalGasStationIcon from '@material-ui/icons/LocalGasStation';
-import SpeedDial from '../../template/SpeedDial';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserMd } from '@fortawesome/free-solid-svg-icons';
+import FullScreenDialog from './FullScreenForm';
+import SpeedDial from './SpeedDial';
 const Consultation = () => (
   <div>
-    Consultation Module
+    <FullScreenDialog />
     <SpeedDial />
   </div>
 );
