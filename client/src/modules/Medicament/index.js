@@ -3,7 +3,7 @@ import LocalGasStationIcon from '@material-ui/icons/LocalGasStation';
 import SpeedDial from '../../template/SpeedDial';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHospitalUser } from '@fortawesome/free-solid-svg-icons';
+import { faCapsules } from '@fortawesome/free-solid-svg-icons';
 const Medicament = () => (
   <div>
     Medicament Module
@@ -18,5 +18,5 @@ export default {
   },
 
   name: 'Medicament',
-  icon: <FontAwesomeIcon icon={faHospitalUser} size='2x' />,
+  icon: <FontAwesomeIcon icon={faCapsules} size='2x' pull='right' />,
 };
