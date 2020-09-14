@@ -19,6 +19,8 @@ import SignUp from './SignUp';
 import { url } from './defaults/default';
 import Cookies from 'universal-cookie';
 
+const baseUrl = process.env.baseURL || url;
+axios.defaults.baseURL = baseUrl;
 function Copyright() {
   return (
     <Typography variant='body2' color='textSecondary' align='center'>
