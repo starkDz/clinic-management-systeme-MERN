@@ -29,8 +29,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 import StorageIcon from '@material-ui/icons/Storage';
 import LanguageIcon from '@material-ui/icons/Language';
 import modules from './modules'; // All the parent knows is that it has modules ...
+import confs from './Conf'; // All the parent knows is that it has modules ...
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faHospitalUser } from '@fortawesome/free-solid-svg-icons';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -314,7 +316,7 @@ export default function Home() {
               noWrap
               align='center'
             >
-              <FontAwesomeIcon icon={['fas', 'stethoscope']} />
+              <FontAwesomeIcon icon={faHospitalUser} color='#3f51b5' />
             </Typography>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'rtl' ? (
@@ -344,6 +346,24 @@ export default function Home() {
             ))}
           </List>
           <Divider />
+          <List>
+            {confs.map((
+              module // with a name, and routes
+            ) => (
+              <Tooltip title={module.name} key={module.name} placement='right'>
+                <ListItem
+                  button
+                  key={module.name}
+                  component={Link}
+                  to={module.routeProps.path}
+                  onClick={() => setCurrentTab(module.name)}
+                >
+                  <ListItemIcon>{module.icon}</ListItemIcon>
+                  <ListItemText primary={module.name} />
+                </ListItem>
+              </Tooltip>
+            ))}
+          </List>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
