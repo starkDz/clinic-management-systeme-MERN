@@ -77,4 +77,16 @@ router.delete('/', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+router.get('/getCount', async (req, res) => {
+  try {
+    const NumberArticle = await RendezVous.count();
+    const NumberDocument = await RendezVous.count();
+    const NumberDocument_Entre = await RendezVous.count();
+
+    res.json([NumberArticle, NumberDocument, NumberDocument_Entre]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 module.exports = router;

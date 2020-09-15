@@ -121,9 +121,33 @@ class Call_Api extends Component {
       opensnack: false,
     });
   };
-  async DeleteThis(id, index) {}
+  async DeleteThis(id, index) {
+    try {
+      const cookie = new Cookies();
+      const res = await axios.delete(url + '/api/rendezVous/' + id, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'x-auth-token': cookie.get('token'),
+        },
+      });
+      this.setState({
+        opensnack: true,
+        type: 'success',
+        msg: 'Suppression a ete fait avec Success ',
+      });
+      const { items } = this.state;
+      items.splice(index, 1);
+      this.setState({ items });
+    } catch {
+      this.setState({
+        opensnack: true,
+        type: 'error',
+        msg: 'Erreur lors de la suppression',
+      });
+    }
+  }
   async componentDidMount() {
-    fetch('https://cabinetmedicale.herokuapp.com/api/rendezVous')
+    fetch(url + '/api/rendezVous')
       .then((response) => response.json())
       .then(
         (res) => {

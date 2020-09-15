@@ -74,16 +74,12 @@ export default function SignIn() {
     };
     try {
       const body = JSON.stringify(user);
-      const res = await axios.post(
-        'https://cabinetmedicale.herokuapp.com/api/auth',
-        body,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          },
-        }
-      );
+      const res = await axios.post(url + '/api/auth', body, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      });
       const token = res.data.token;
       let d = new Date();
       d.setTime(d.getTime() + 2 * 60 * 1000);
@@ -94,7 +90,7 @@ export default function SignIn() {
       cookies.set('email', email, { path: '/' });
       console.log('connexion avec Success');
     } catch (err) {
-      alert('connexion a echoue');
+      alert('connexion a echoue' + url + 'api/auth');
     }
   };
   return (

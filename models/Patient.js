@@ -10,11 +10,14 @@ const PatientSchema = new mongoose.Schema({
   prenom: {
     type: String,
   },
-  age: {
+  dateNaissance: {
     type: String,
   },
   telephone: {
     type: String,
+  },
+  consultation: {
+    type: [String],
   },
   date: {
     type: Date,
