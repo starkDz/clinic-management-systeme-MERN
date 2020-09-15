@@ -11,6 +11,7 @@ app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/profile', require('./routes/api/profile'));
 app.use('/api/rendezVous', require('./routes/api/rendezVous'));
+app.use('/api/patient', require('./routes/api/patient'));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

@@ -35,32 +35,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function VerticalLinearStepper() {
   const classes = useStyles();
-  const cookies = new Cookies();
-  const TypeDoc = JSON.parse(localStorage.getItem('typedoc'));
-  const TypeMouv = JSON.parse(localStorage.getItem('typemouv'));
-  const Service = JSON.parse(localStorage.getItem('service'));
 
   const [formData, setFormData] = React.useState({
-    num_document: '',
-    code_type_doc: '',
-    code_type_mouv: '',
-    code_service_dist: '',
-    code_service_anc: '',
-    code_service_dest: '',
-    matricule_per_sign: '/',
-    matricule_per_use: '/',
+    nom: '',
+    prenom: '',
+    address: '',
+    telephone: '',
     observation: '/',
   });
   const {
+    nom,
+    prenom,
+    sexe,
+    address,
+    telephone,
     observation,
-    matricule_per_use,
-    matricule_per_sign,
-    code_service_dest,
-    code_service_anc,
-    code_service_dist,
-    code_type_mouv,
-    code_type_doc,
-    num_document,
+    dateNaissance,
   } = formData;
   const onChange = (e) =>
     setFormData({
@@ -70,20 +60,19 @@ export default function VerticalLinearStepper() {
   const send = async (e) => {
     e.preventDefault();
     const element = {
-      num_document,
-      code_type_doc,
-      code_type_mouv,
-      code_service_dist,
-      code_service_anc,
-      code_service_dest,
-      matricule_per_sign,
-      matricule_per_use,
+      nom,
+      prenom,
+      sexe,
+      address,
+      telephone,
       observation,
+      dateNaissance,
     };
 
     try {
+      const cookies = new Cookies();
       const body = JSON.stringify(element);
-      const res = await axios.post('/api/document', body, {
+      const res = await axios.post('/api/patient', body, {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
           'Access-Control-Allow-Origin': '*',
@@ -99,110 +88,94 @@ export default function VerticalLinearStepper() {
       <Grid container justify='left' spacing={2}>
         <Grid item xs={12} sm={12} lg={6}>
           <TextField
-            label='Numero de document'
-            placeholder='Numero de document'
+            label='Nom'
+            placeholder='Nom'
             helperText=''
             fullWidth
             margin='normal'
             variant='outlined'
-            name='num_document'
-            value={num_document}
+            name='nom'
+            value={nom}
             onChange={(e) => onChange(e)}
           />
         </Grid>
-        <Grid item xs={12} sm={12} lg={6}></Grid>
         <Grid item xs={12} sm={12} lg={6}>
+          <TextField
+            label='Prenom'
+            placeholder='Prenom'
+            helperText=''
+            fullWidth
+            margin='normal'
+            variant='outlined'
+            name='prenom'
+            value={prenom}
+            onChange={(e) => onChange(e)}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} lg={12}>
           <FormControl
             variant='outlined'
             className={classes.formControl}
             style={{ minWidth: '100%' }}
           >
-            <InputLabel id='demo-simple-select-outlined-label'>
-              Type de document
-            </InputLabel>
+            <InputLabel id='demo-simple-select-outlined-label'>Sexe</InputLabel>
             <Select
-              label='Type de document'
-              name='code_type_doc'
-              value={code_type_doc}
+              label='Sexe'
+              name='Sexe'
+              value={sexe}
               onChange={(e) => onChange(e)}
-            ></Select>
+            >
+              <MenuItem value='Homme'>Homme</MenuItem>
+              <MenuItem value='Femme'>Femme</MenuItem>
+            </Select>
           </FormControl>
+        </Grid>
+        <Grid item xs={12} sm={6} md={6} lg={12}>
+          <TextField
+            placeholder='YYYY-MM-DD'
+            style={{ margin: 0 }}
+            helperText=''
+            fullWidth
+            type='date'
+            name='dateNaissance'
+            value={dateNaissance}
+            onChange={(e) => onChange(e)}
+            variant='outlined'
+          />
         </Grid>
         <Grid item xs={12} sm={12} lg={6}>
-          <FormControl
+          <TextField
+            label='Numero de telephone'
+            placeholder='Numero de telephone'
+            helperText=''
+            fullWidth
+            margin='normal'
             variant='outlined'
-            className={classes.formControl}
-            style={{ minWidth: '100%' }}
-          >
-            <InputLabel id='demo-simple-select-outlined-label'>
-              Type de mouvement
-            </InputLabel>
-            <Select
-              label='Type de mouvement'
-              name='code_type_mouv'
-              value={code_type_mouv}
-              onChange={(e) => onChange(e)}
-            ></Select>
-          </FormControl>
+            name='telephone'
+            value={telephone}
+            onChange={(e) => onChange(e)}
+          />
         </Grid>
-        <Grid item xs={12} sm={12} lg={7}>
-          <FormControl
+        <Grid item xs={12} sm={12} lg={12}>
+          <TextField
+            label='Address'
+            placeholder='Address'
+            helperText=''
+            fullWidth
+            margin='normal'
             variant='outlined'
-            className={classes.formControl}
-            style={{ minWidth: '100%' }}
-          >
-            <InputLabel id='demo-simple-select-outlined-label'>
-              Service de distribution
-            </InputLabel>
-            <Select
-              label='Service de distribution'
-              name='code_service_dist'
-              value={code_service_dist}
-              onChange={(e) => onChange(e)}
-            ></Select>
-          </FormControl>
+            name='address'
+            value={address}
+            onChange={(e) => onChange(e)}
+          />
         </Grid>
-        <Grid item xs={12} sm={12} lg={7}>
-          <FormControl
-            variant='outlined'
-            className={classes.formControl}
-            style={{ minWidth: '100%' }}
-          >
-            <InputLabel id='demo-simple-select-outlined-label'>
-              Service de destination
-            </InputLabel>
-            <Select
-              label='Service de destination'
-              name='code_service_dest'
-              value={code_service_dest}
-              onChange={(e) => onChange(e)}
-            ></Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={12} lg={7}>
-          <FormControl
-            variant='outlined'
-            className={classes.formControl}
-            style={{ minWidth: '100%' }}
-          >
-            <InputLabel id='demo-simple-select-outlined-label'>
-              Ancienne Service
-            </InputLabel>
-            <Select
-              label='Ancienne Service'
-              name='code_service_anc'
-              value={code_service_anc}
-              onChange={(e) => onChange(e)}
-            ></Select>
-          </FormControl>
-        </Grid>
-
         <Grid item xs={12} sm={12} lg={12}>
           <TextField
             label='Observation'
             placeholder='Observation'
             helperText=''
             fullWidth
+            margin='normal'
             variant='outlined'
             name='observation'
             value={observation}

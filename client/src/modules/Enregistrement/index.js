@@ -5,8 +5,12 @@ import { Icon, InlineIcon } from '@iconify/react';
 import iRegistration from '@iconify/icons-medical-icon/i-registration';
 import FullScreenDialog from './FullScreenForm';
 import SpeedDial from './SpeedDial';
+import Add_New from './GlobaleStats';
+import Call_Api from './ListeRendezVous';
 const Enregistrement = () => (
   <div>
+    <Add_New />
+    <Call_Api />
     <FullScreenDialog />
     <SpeedDial />
   </div>

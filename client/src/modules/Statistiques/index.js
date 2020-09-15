@@ -1,18 +1,21 @@
 import React from 'react';
 import TimelineIcon from '@material-ui/icons/Timeline';
+import Add_New from './GlobaleStats';
 
 const Statistique = () => (
-    <div>Statistique Module
-    </div>
-
+  <div>
+    <Add_New />
+    <Add_New />
+    <Add_New />
+  </div>
 );
 
 export default {
-    routeProps: {
-        path: '/Statistique',
-        component: Statistique
-    },
+  routeProps: {
+    path: '/Statistique',
+    component: Statistique,
+  },
 
-    name: 'Statistique',
-    icon:<TimelineIcon fontSize='large' />,
-}
+  name: 'Statistique',
+  icon: <TimelineIcon fontSize='large' />,
+};

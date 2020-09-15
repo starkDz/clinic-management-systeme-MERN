@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const PatientSchema = new mongoose.Schema({
-  user: {
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
   },
@@ -10,14 +10,20 @@ const PatientSchema = new mongoose.Schema({
   prenom: {
     type: String,
   },
-  dateNaissance: {
+  observation: {
     type: String,
+  },
+  sexe: {
+    type: String,
+  },
+  dateNaissance: {
+    type: Date,
   },
   telephone: {
     type: String,
   },
-  consultation: {
-    type: [String],
+  address: {
+    type: String,
   },
   date: {
     type: Date,

@@ -4,8 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserMd } from '@fortawesome/free-solid-svg-icons';
 import FullScreenDialog from './FullScreenForm';
 import SpeedDial from './SpeedDial';
+import Add_New from './GlobaleStats';
+import Call_Api from './ListeRendezVous';
 const Consultation = () => (
   <div>
+    <Add_New />
+    <Call_Api />
     <FullScreenDialog />
     <SpeedDial />
   </div>
