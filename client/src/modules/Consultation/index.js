@@ -4,9 +4,12 @@ import { faUserMd } from '@fortawesome/free-solid-svg-icons';
 import FullScreenDialog from './FullScreenForm';
 import SpeedDial from './SpeedDial';
 import CenteredTabs from './Tabs';
+import MediaCard from './Items';
+import Add_New from './GlobaleStats';
 const Consultation = () => (
   <div>
-    <CenteredTabs />
+    <Add_New />
+    <MediaCard />
     <FullScreenDialog />
     <SpeedDial />
   </div>

@@ -25,6 +25,9 @@ import { url } from '../../defaults/default';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
+import TripOriginIcon from '@material-ui/icons/TripOrigin';
+import LensIcon from '@material-ui/icons/Lens';
+import Brightness1Icon from '@material-ui/icons/Brightness1';
 const tableIcons = {
   Add: forwardRef((props, ref: React.Ref<SVGSVGElement>) => (
     <AddBox {...props} ref={ref} />
@@ -221,15 +224,7 @@ class Call_Api extends Component {
             data={items}
             actions={[
               {
-                icon: () => <EditIcon color='primary' />,
-                tooltip: 'Edit User',
-                onClick: (event, rowData) => alert('You saved ' + rowData._id),
-              },
-              {
-                icon: () => <DeleteIcon color='secondary' />,
-                tooltip: 'Delete User',
-                onClick: (event, rowData) =>
-                  this.DeleteThis(rowData._id, rowData.tableData.id),
+                icon: () => <LensIcon color='secondary' />,
               },
             ]}
             onRowClick={(evt, selectedRow) => this.setState({ selectedRow })}

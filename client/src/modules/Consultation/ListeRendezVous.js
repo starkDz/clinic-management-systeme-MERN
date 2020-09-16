@@ -24,6 +24,7 @@ import Cookies from 'universal-cookie';
 import { url } from '../../defaults/default';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import FolderSharedIcon from '@material-ui/icons/FolderShared';
 import { makeStyles } from '@material-ui/core/styles';
 const tableIcons = {
   Add: forwardRef((props, ref: React.Ref<SVGSVGElement>) => (
@@ -217,15 +218,12 @@ class Call_Api extends Component {
             data={items}
             actions={[
               {
-                icon: () => <EditIcon color='primary' />,
-                tooltip: 'Edit User',
-                onClick: (event, rowData) => alert('You saved ' + rowData._id),
-              },
-              {
-                icon: () => <DeleteIcon color='secondary' />,
-                tooltip: 'Delete User',
+                icon: () => (
+                  <FolderSharedIcon color='secondary' fontSize='large' />
+                ),
+                tooltip: 'Afficher le dossier medicale',
                 onClick: (event, rowData) =>
-                  this.DeleteThis(rowData._id, rowData.tableData.id),
+                  alert('Afficher le dossier medicale N*' + rowData._id),
               },
             ]}
             onRowClick={(evt, selectedRow) => this.setState({ selectedRow })}

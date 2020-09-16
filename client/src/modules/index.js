@@ -8,9 +8,9 @@ import Statistique from './Statistiques';
 export default [
   Dashboard,
   Enregistrement,
-  Patient,
   Consultation,
   Medicament,
+  Patient,
   Configurations,
   Statistique,
 ];

@@ -13,8 +13,6 @@ import ThumbDown from '@material-ui/icons/ThumbDown';
 import ThumbUp from '@material-ui/icons/ThumbUp';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import MediaCard from './Items';
-import Add_New from './GlobaleStats';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -82,7 +80,7 @@ export default function ScrollableTabsButtonForce(props) {
         >
           <Tab
             className={classes.tab}
-            label='Visualiser la liste des Consultations'
+            label='Visualiser le Dossier Medicale de ...'
             icon={<ViewListIcon />}
             {...a11yProps(0)}
           />
@@ -94,10 +92,7 @@ export default function ScrollableTabsButtonForce(props) {
           />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0} className={classes.content}>
-        <Add_New />
-        <MediaCard />
-      </TabPanel>
+      <TabPanel value={value} index={0} className={classes.content}></TabPanel>
       <TabPanel value={value} index={1} className={classes.content}></TabPanel>
     </div>
   );

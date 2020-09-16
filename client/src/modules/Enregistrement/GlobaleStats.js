@@ -38,6 +38,8 @@ import Language from '@material-ui/icons/Language';
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import PersonIcon from '@material-ui/icons/Person';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Icon, InlineIcon } from '@iconify/react';
 import iRegistration from '@iconify/icons-medical-icon/i-registration';
 
@@ -91,7 +93,7 @@ const Add_New = () => {
         <Card>
           <CardHeader color='success' stats icon>
             <CardIcon color='success'>
-              <DescriptionIcon />
+              <FontAwesomeIcon icon={faUser} size='2x' />
             </CardIcon>
             <p className={classes.cardCategory}>Nombre des patient</p>
             <h1 className={classes.cardTitle}>{countData.NumberDocument}</h1>

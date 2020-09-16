@@ -17,6 +17,8 @@ import clsx from 'clsx';
 import VerticalLinearStepper from './FormContent';
 import SaveIcon from '@material-ui/icons/Save';
 
+import FolderSharedIcon from '@material-ui/icons/FolderShared';
+import CenteredTabs from './Tabs';
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
@@ -76,13 +78,14 @@ export default function FullScreenDialog() {
               <CloseIcon />
             </IconButton>
             <Typography variant='h6' className={classes.title}>
-              Ajouter une operation
+              Dossier Medicale
             </Typography>
+            <IconButton color='inherit' aria-label='close'>
+              <FolderSharedIcon style={{ fontSize: 50 }} />
+            </IconButton>
           </Toolbar>
         </AppBar>
-        <Container maxWidth='md'>
-          <VerticalLinearStepper />
-        </Container>
+        <CenteredTabs />
       </Dialog>
     </div>
   );
