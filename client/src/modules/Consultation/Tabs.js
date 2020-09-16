@@ -81,13 +81,13 @@ export default function ScrollableTabsButtonForce(props) {
           <Tab
             className={classes.tab}
             label='Visualiser le Dossier Medicale de ...'
-            icon={<ViewListIcon />}
+            icon={<ViewListIcon fontSize='large' />}
             {...a11yProps(0)}
           />
           <Tab
             className={classes.tab}
             label='Generation des Ordonnances'
-            icon={<PostAddIcon />}
+            icon={<PostAddIcon fontSize='large' />}
             {...a11yProps(1)}
           />
         </Tabs>
