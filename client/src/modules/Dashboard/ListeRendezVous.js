@@ -203,16 +203,20 @@ class Call_Api extends Component {
               {
                 title: 'Nom',
                 field: 'nom',
-                width: '20%',
+                width: '15%',
               },
-              { title: 'Prenom', field: 'prenom', width: '20%' },
+              { title: 'Prenom', field: 'prenom', width: '15%' },
               {
                 title: 'Numero Telephone',
                 field: 'telephone',
-                width: '20%',
+                width: '10%',
               },
-              { title: 'Date Rendez-Vous', field: 'telephone', width: '20%' },
-              { title: 'Recu par', field: 'owner.name', width: '10%' },
+              {
+                title: 'Date Rendez-Vous',
+                field: 'dateReservation',
+                width: '10%',
+              },
+              { title: 'Observation', field: 'observation', width: '20%' },
             ]}
             data={items}
             actions={[

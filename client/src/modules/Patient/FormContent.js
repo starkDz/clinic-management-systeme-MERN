@@ -15,6 +15,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Cookies from 'universal-cookie';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 axios.defaults.baseURL = url;
 
 const useStyles = makeStyles((theme) => ({
@@ -86,6 +88,9 @@ export default function VerticalLinearStepper() {
     <div className={classes.root} lg={5}>
       <div className={classes.toolbar} />
       <Grid container justify='left' spacing={2}>
+        <Grid container justify='center' xs={12} sm={12} lg={12}>
+          <FontAwesomeIcon icon={faUser} size='8x' />
+        </Grid>
         <Grid item xs={12} sm={12} lg={6}>
           <TextField
             label='Nom'
@@ -112,9 +117,24 @@ export default function VerticalLinearStepper() {
             onChange={(e) => onChange(e)}
           />
         </Grid>
-        <Grid item xs={12} sm={12} lg={12}>
+
+        <Grid item xs={12} sm={12} lg={6}>
+          <TextField
+            label='Numero de telephone'
+            placeholder='Numero de telephone'
+            helperText=''
+            fullWidth
+            margin='normal'
+            variant='outlined'
+            name='telephone'
+            value={telephone}
+            onChange={(e) => onChange(e)}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} lg={6}>
           <FormControl
             variant='outlined'
+            margin='normal'
             className={classes.formControl}
             style={{ minWidth: '100%' }}
           >
@@ -143,19 +163,6 @@ export default function VerticalLinearStepper() {
             variant='outlined'
           />
         </Grid>
-        <Grid item xs={12} sm={12} lg={6}>
-          <TextField
-            label='Numero de telephone'
-            placeholder='Numero de telephone'
-            helperText=''
-            fullWidth
-            margin='normal'
-            variant='outlined'
-            name='telephone'
-            value={telephone}
-            onChange={(e) => onChange(e)}
-          />
-        </Grid>
         <Grid item xs={12} sm={12} lg={12}>
           <TextField
             label='Address'
@@ -182,14 +189,14 @@ export default function VerticalLinearStepper() {
             onChange={(e) => onChange(e)}
           />
         </Grid>
-        <Grid item xs={12} sm={12} lg={3}>
+        <Grid item xs={12} sm={12} lg={10}>
           <Button
             variant='contained'
             color='primary'
             size='large'
             onClick={send}
           >
-            Ajouter un document
+            Enregistrer le patient
           </Button>
         </Grid>
       </Grid>

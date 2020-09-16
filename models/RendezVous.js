@@ -13,7 +13,10 @@ const RendezVousSchema = new mongoose.Schema({
   telephone: {
     type: String,
   },
-  time: {
+  observation: {
+    type: String,
+  },
+  dateReservation: {
     type: Date,
   },
   date: {

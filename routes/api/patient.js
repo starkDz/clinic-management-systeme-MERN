@@ -92,9 +92,9 @@ router.delete('/', auth, async (req, res) => {
 });
 router.get('/getCount', async (req, res) => {
   try {
-    const NumberArticle = await Patient.count();
-    const NumberDocument = await Patient.count();
-    const NumberDocument_Entre = await Patient.count();
+    const NumberArticle = await Patient.countDocuments();
+    const NumberDocument = await Patient.countDocuments();
+    const NumberDocument_Entre = await Patient.countDocuments();
 
     res.json([NumberArticle, NumberDocument, NumberDocument_Entre]);
   } catch (err) {

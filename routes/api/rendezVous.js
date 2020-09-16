@@ -23,7 +23,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { nom, prenom, telephone } = req.body;
+    const { nom, prenom, telephone, observation, dateReservation } = req.body;
 
     //Build type objects
     const Fields = {};
@@ -31,6 +31,8 @@ router.post(
     if (nom) Fields.nom = nom;
     if (prenom) Fields.prenom = prenom;
     if (telephone) Fields.telephone = telephone;
+    if (observation) Fields.observation = observation;
+    if (dateReservation) Fields.dateReservation = dateReservation;
 
     try {
       element = new RendezVous(Fields);
@@ -79,9 +81,9 @@ router.delete('/', auth, async (req, res) => {
 });
 router.get('/getCount', async (req, res) => {
   try {
-    const NumberArticle = await RendezVous.count();
-    const NumberDocument = await RendezVous.count();
-    const NumberDocument_Entre = await RendezVous.count();
+    const NumberArticle = await RendezVous.countDocuments();
+    const NumberDocument = await RendezVous.countDocuments();
+    const NumberDocument_Entre = await RendezVous.countDocuments();
 
     res.json([NumberArticle, NumberDocument, NumberDocument_Entre]);
   } catch (err) {

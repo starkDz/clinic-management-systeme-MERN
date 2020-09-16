@@ -14,6 +14,8 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Cookies from 'universal-cookie';
+import { Icon, InlineIcon } from '@iconify/react';
+import iRegistration from '@iconify/icons-medical-icon/i-registration';
 import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
@@ -41,7 +43,14 @@ export default function VerticalLinearStepper() {
     prenom: '',
     telephone: '',
   });
-  const { nom, prenom, telephone } = formData;
+  const {
+    nom,
+    prenom,
+    telephone,
+    dateReservation,
+    observation,
+    identifiant,
+  } = formData;
   const onChange = (e) =>
     setFormData({
       ...formData,
@@ -53,21 +62,20 @@ export default function VerticalLinearStepper() {
       nom,
       prenom,
       telephone,
+      dateReservation,
+      observation,
+      identifiant,
     };
 
     try {
       const body = JSON.stringify(element);
-      const res = await axios.post(
-        'https://cabinetmedicale.herokuapp.com/api/rendezVous',
-        body,
-        {
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-            'Access-Control-Allow-Origin': '*',
-            'x-auth-token': cookies.get('token'),
-          },
-        }
-      );
+      const res = await axios.post(url + '/api/rendezVous', body, {
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Access-Control-Allow-Origin': '*',
+          'x-auth-token': cookies.get('token'),
+        },
+      });
     } catch (err) {}
   };
 
@@ -75,6 +83,22 @@ export default function VerticalLinearStepper() {
     <div className={classes.root} lg={5}>
       <div className={classes.toolbar} />
       <Grid container spacing={2}>
+        <Grid container justify='center' xs={12} sm={12} lg={12}>
+          <Icon icon={iRegistration} height={100} />
+        </Grid>
+        <Grid item xs={12} sm={12} lg={12}>
+          <TextField
+            label='Identifiant'
+            placeholder='Identifiant'
+            helperText=''
+            fullWidth
+            margin='normal'
+            variant='outlined'
+            name='identifiant'
+            value={identifiant}
+            onChange={(e) => onChange(e)}
+          />
+        </Grid>
         <Grid item xs={12} sm={12} lg={6}>
           <TextField
             label='Nom'
@@ -88,14 +112,14 @@ export default function VerticalLinearStepper() {
             onChange={(e) => onChange(e)}
           />
         </Grid>
-        <Grid item xs={12} sm={12} lg={6}></Grid>
 
-        <Grid item xs={12} sm={12} lg={12}>
+        <Grid item xs={12} sm={12} lg={6}>
           <TextField
             label='Prenom'
             placeholder='Prenom'
             helperText=''
             fullWidth
+            margin='normal'
             variant='outlined'
             name='prenom'
             value={prenom}
@@ -108,13 +132,40 @@ export default function VerticalLinearStepper() {
             placeholder='Telephone'
             helperText=''
             fullWidth
+            margin='normal'
             variant='outlined'
             name='telephone'
             value={telephone}
             onChange={(e) => onChange(e)}
           />
         </Grid>
-        <Grid item xs={12} sm={12} lg={5}>
+        <Grid item xs={12} sm={6} md={6} lg={12}>
+          <TextField
+            placeholder='YYYY-MM-DD'
+            style={{ margin: 0 }}
+            helperText=''
+            fullWidth
+            type='date'
+            name='dateReservation'
+            value={dateReservation}
+            onChange={(e) => onChange(e)}
+            variant='outlined'
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} lg={12}>
+          <TextField
+            label='Observation'
+            placeholder='Observation'
+            helperText=''
+            fullWidth
+            margin='normal'
+            variant='outlined'
+            name='observation'
+            value={observation}
+            onChange={(e) => onChange(e)}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} lg={10}>
           <Button
             variant='contained'
             color='primary'

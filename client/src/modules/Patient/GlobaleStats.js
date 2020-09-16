@@ -53,7 +53,7 @@ const Add_New = () => {
   useEffect(() => {
     async function fetchData() {
       await axios
-        .get(url + '/api/rendezVous/getCount')
+        .get(url + '/api/patient/getCount')
         .then((response) => {
           setCountData({
             NumberArticle: response.data[0],
@@ -74,7 +74,7 @@ const Add_New = () => {
             <CardIcon color='info'>
               <Icon icon={iRegistration} height={40} />
             </CardIcon>
-            <p className={classes.cardCategory}>Nombre des Rendez Vous</p>
+            <p className={classes.cardCategory}>Nombre des patients</p>
             <h1 className={classes.cardTitle}>{countData.NumberArticle}</h1>
           </CardHeader>
           <CardFooter stats>
@@ -93,7 +93,7 @@ const Add_New = () => {
             <CardIcon color='success'>
               <DescriptionIcon />
             </CardIcon>
-            <p className={classes.cardCategory}>Nombre des patient</p>
+            <p className={classes.cardCategory}>Nombre des patients Femme</p>
             <h1 className={classes.cardTitle}>{countData.NumberDocument}</h1>
           </CardHeader>
           <CardFooter stats>
@@ -101,7 +101,7 @@ const Add_New = () => {
               <DateRange />
               Last 24 Hours
             </div>
-          </CardFooter>
+          </CardFooter>s
         </Card>
       </GridItem>
       <GridItem xs={12} sm={12} md={12} lg={4}>
@@ -110,7 +110,7 @@ const Add_New = () => {
             <CardIcon color='warning'>
               <BuildIcon />
             </CardIcon>
-            <p className={classes.cardCategory}>Nombre des Visites</p>
+            <p className={classes.cardCategory}>Nombre des patients Homme</p>
             <h1 className={classes.cardTitle}>
               {countData.NumberDocument_Entre}
             </h1>
