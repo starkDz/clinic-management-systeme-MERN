@@ -18,14 +18,34 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import MaterialTable from 'material-table';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import { forwardRef } from 'react';
 import axios from 'axios';
+import {
+  Dialog,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Slide,
+  Container,
+  Fab,
+} from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import AddIcon from '@material-ui/icons/Add';
+import DescriptionIcon from '@material-ui/icons/Description';
 import Cookies from 'universal-cookie';
+import Button from '@material-ui/core/Button';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import { url } from '../../defaults/default';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import clsx from 'clsx';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
-import { makeStyles } from '@material-ui/core/styles';
+import CenteredTabs from './Tabs';
 const tableIcons = {
   Add: forwardRef((props, ref: React.Ref<SVGSVGElement>) => (
     <AddBox {...props} ref={ref} />
@@ -82,15 +102,24 @@ const tableIcons = {
 function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
 }
-
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction='up' ref={ref} {...props} />;
+});
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    '& > * + *': {
-      marginTop: theme.spacing(2),
-    },
+  appBar: {
+    position: 'relative',
+  },
+  fateh: {
+    position: 'fixed',
+    bottom: theme.spacing(6),
+    right: theme.spacing(11),
+  },
+  title: {
+    marginLeft: theme.spacing(2),
+    flex: 1,
   },
 }));
+
 class Call_Api extends Component {
   constructor(props) {
     super();
@@ -103,6 +132,7 @@ class Call_Api extends Component {
       type: 'success',
       selectedRow: null,
       opensnack: false,
+      open: false,
       msg: 'Suppression a ete fait avec success',
       Title: 'Liste des Rendez-Vous',
       a: null,
@@ -111,17 +141,21 @@ class Call_Api extends Component {
     this.DeleteThis = this.DeleteThis.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleClickOpen = this.handleClickOpen.bind(this);
   }
 
-  handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
+  handleClickOpen() {
     this.setState({
-      opensnack: false,
+      open: true,
     });
-  };
+  }
+
+  handleClose() {
+    this.setState({
+      open: false,
+    });
+  }
+
   async DeleteThis(id, index) {
     try {
       const cookie = new Cookies();
@@ -167,6 +201,7 @@ class Call_Api extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     const {
       error,
       isLoaded,
@@ -174,6 +209,8 @@ class Call_Api extends Component {
       Title,
       selectedRow,
       opensnack,
+      open,
+      id,
       msg,
       type,
     } = this.state;
@@ -222,8 +259,10 @@ class Call_Api extends Component {
                   <FolderSharedIcon color='secondary' fontSize='large' />
                 ),
                 tooltip: 'Afficher le dossier medicale',
-                onClick: (event, rowData) =>
-                  alert('Afficher le dossier medicale N*' + rowData._id),
+                onClick: (event, rowData) => {
+                  this.handleClickOpen();
+                  this.setState({ id: rowData._id });
+                },
               },
             ]}
             onRowClick={(evt, selectedRow) => this.setState({ selectedRow })}
@@ -248,6 +287,41 @@ class Call_Api extends Component {
               },
             }}
           />
+          <Dialog
+            fullScreen
+            open={open}
+            onClose={this.handleClose}
+            TransitionComponent={Transition}
+          >
+            <AppBar
+              style={{
+                position: 'relative',
+              }}
+            >
+              <Toolbar>
+                <IconButton
+                  edge='start'
+                  color='inherit'
+                  onClick={this.handleClose}
+                  aria-label='close'
+                >
+                  <CloseIcon />
+                </IconButton>
+                <Typography
+                  variant='h6'
+                  style={{
+                    flex: 1,
+                  }}
+                >
+                  Dossier Medicale
+                </Typography>
+                <IconButton color='inherit' aria-label='close'>
+                  <FolderSharedIcon style={{ fontSize: 50 }} />
+                </IconButton>
+              </Toolbar>
+            </AppBar>
+            <CenteredTabs identifier={id} />
+          </Dialog>
         </div>
       );
     }
