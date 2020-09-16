@@ -22,5 +22,5 @@ export default {
     component: Enregistrement,
   },
   name: 'Enregistrement',
-  icon: <Icon icon={iRegistration} height={40} />,
+  icon: <Icon icon={iRegistration} height={40} color='#3f51b5' />,
 };

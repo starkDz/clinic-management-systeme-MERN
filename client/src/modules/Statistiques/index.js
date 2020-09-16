@@ -17,5 +17,5 @@ export default {
   },
 
   name: 'Statistique',
-  icon: <TimelineIcon fontSize='large' />,
+  icon: <TimelineIcon fontSize='large' color='primary' />,
 };

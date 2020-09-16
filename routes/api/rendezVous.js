@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 const RendezVous = require('../../models/RendezVous');
+const Patient = require('../../models/Patient');
 const User = require('../../models/User');
 
 //@route GET api/profile
@@ -82,7 +83,7 @@ router.delete('/', auth, async (req, res) => {
 router.get('/getCount', async (req, res) => {
   try {
     const NumberArticle = await RendezVous.countDocuments();
-    const NumberDocument = await RendezVous.countDocuments();
+    const NumberDocument = await Patient.countDocuments();
     const NumberDocument_Entre = await RendezVous.countDocuments();
 
     res.json([NumberArticle, NumberDocument, NumberDocument_Entre]);

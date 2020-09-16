@@ -101,7 +101,7 @@ const Add_New = () => {
               <DateRange />
               Last 24 Hours
             </div>
-          </CardFooter>s
+          </CardFooter>
         </Card>
       </GridItem>
       <GridItem xs={12} sm={12} md={12} lg={4}>

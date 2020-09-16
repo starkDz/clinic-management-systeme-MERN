@@ -15,5 +15,5 @@ export default {
     component: Dashboard,
   },
   name: 'Dashboard',
-  icon: <HomeIcon fontSize='large' />,
+  icon: <HomeIcon fontSize='large' color='primary' />,
 };

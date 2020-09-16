@@ -20,5 +20,7 @@ export default {
     component: Patient,
   },
   name: 'Patient',
-  icon: <FontAwesomeIcon icon={faUser} size='2x' pull='right' />,
+  icon: (
+    <FontAwesomeIcon icon={faUser} size='2x' pull='right' color='#3f51b5' />
+  ),
 };
