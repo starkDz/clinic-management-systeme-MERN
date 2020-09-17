@@ -1,18 +1,20 @@
 const mongoose = require('mongoose');
 const RendezVousSchema = new mongoose.Schema({
-  owner: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
   },
-  idPatient: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'patient',
+  nom: {
+    type: String,
+  },
+  prenom: {
+    type: String,
+  },
+  telephone: {
+    type: String,
   },
   observation: {
     type: String,
-  },
-  estValide: {
-    type: Boolean,
   },
   dateReservation: {
     type: Date,

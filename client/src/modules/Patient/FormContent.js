@@ -53,6 +53,7 @@ export default function VerticalLinearStepper() {
     telephone,
     observation,
     dateNaissance,
+    groupage,
   } = formData;
   const onChange = (e) =>
     setFormData({
@@ -69,6 +70,7 @@ export default function VerticalLinearStepper() {
       telephone,
       observation,
       dateNaissance,
+      groupage,
     };
 
     try {
@@ -141,7 +143,7 @@ export default function VerticalLinearStepper() {
             <InputLabel id='demo-simple-select-outlined-label'>Sexe</InputLabel>
             <Select
               label='Sexe'
-              name='Sexe'
+              name='sexe'
               value={sexe}
               onChange={(e) => onChange(e)}
             >
@@ -150,9 +152,36 @@ export default function VerticalLinearStepper() {
             </Select>
           </FormControl>
         </Grid>
+        <Grid item xs={12} sm={12} lg={6}>
+          <FormControl
+            variant='outlined'
+            margin='normal'
+            className={classes.formControl}
+            style={{ minWidth: '100%' }}
+          >
+            <InputLabel id='demo-simple-select-outlined-label'>
+              Group Sanguin
+            </InputLabel>
+            <Select
+              label='Group Sanguin'
+              name='groupage'
+              value={groupage}
+              onChange={(e) => onChange(e)}
+            >
+              <MenuItem value='O+'>O+</MenuItem>
+              <MenuItem value='O-'>O-</MenuItem>
+              <MenuItem value='A+'>A+</MenuItem>
+              <MenuItem value='A-'>A-</MenuItem>
+              <MenuItem value='B+'>B+</MenuItem>
+              <MenuItem value='B-'>B-</MenuItem>
+              <MenuItem value='AB+'>AB+</MenuItem>
+              <MenuItem value='AB-'>AB-</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
         <Grid item xs={12} sm={6} md={6} lg={12}>
           <TextField
-            placeholder='YYYY-MM-DD'
+            placeholder='Date Naissance'
             style={{ margin: 0 }}
             helperText=''
             fullWidth

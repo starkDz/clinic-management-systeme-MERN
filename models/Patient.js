@@ -25,6 +25,12 @@ const PatientSchema = new mongoose.Schema({
   address: {
     type: String,
   },
+  code: {
+    type: String,
+  },
+  groupage: {
+    type: String,
+  },
   date: {
     type: Date,
     default: Date.now,

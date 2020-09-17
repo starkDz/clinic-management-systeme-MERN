@@ -44,6 +44,7 @@ export default function VerticalLinearStepper() {
     telephone: '',
   });
   const {
+    idPatient,
     nom,
     prenom,
     telephone,
@@ -56,19 +57,39 @@ export default function VerticalLinearStepper() {
       ...formData,
       [e.target.name]: e.target.value,
     });
+  const onChangeId = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+    fetch(url + '/api/patient/' + identifiant)
+      .then((response) => response.json())
+      .then(
+        (res) => {
+          if (res != null) {
+            setFormData({
+              ...formData,
+              idPatient: res._id,
+              nom: res.nom,
+              prenom: res.prenom,
+              telephone: res.telephone,
+            });
+          }
+        },
+        (error) => {}
+      );
+  };
   const send = async (e) => {
     e.preventDefault();
     const element = {
-      nom,
-      prenom,
-      telephone,
       dateReservation,
       observation,
-      identifiant,
+      idPatient,
     };
 
     try {
       const body = JSON.stringify(element);
+      console.log(element);
       const res = await axios.post(url + '/api/rendezVous', body, {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
@@ -96,7 +117,7 @@ export default function VerticalLinearStepper() {
             variant='outlined'
             name='identifiant'
             value={identifiant}
-            onChange={(e) => onChange(e)}
+            onChange={(e) => onChangeId(e)}
           />
         </Grid>
         <Grid item xs={12} sm={12} lg={6}>
@@ -109,7 +130,6 @@ export default function VerticalLinearStepper() {
             variant='outlined'
             name='nom'
             value={nom}
-            onChange={(e) => onChange(e)}
           />
         </Grid>
 
@@ -123,7 +143,6 @@ export default function VerticalLinearStepper() {
             variant='outlined'
             name='prenom'
             value={prenom}
-            onChange={(e) => onChange(e)}
           />
         </Grid>
         <Grid item xs={12} sm={12} lg={12}>
@@ -136,7 +155,6 @@ export default function VerticalLinearStepper() {
             variant='outlined'
             name='telephone'
             value={telephone}
-            onChange={(e) => onChange(e)}
           />
         </Grid>
         <Grid item xs={12} sm={6} md={6} lg={12}>

@@ -240,16 +240,20 @@ class Call_Api extends Component {
             columns={[
               {
                 title: 'Nom',
-                field: 'nom',
+                field: 'idPatient.nom',
                 width: '20%',
               },
-              { title: 'Prenom', field: 'prenom', width: '20%' },
+              { title: 'Prenom', field: 'idPatient.prenom', width: '20%' },
               {
                 title: 'Numero Telephone',
-                field: 'telephone',
+                field: 'idPatient.telephone',
                 width: '20%',
               },
-              { title: 'Date Rendez-Vous', field: 'telephone', width: '20%' },
+              {
+                title: 'Date Rendez-Vous',
+                field: 'dateReservation',
+                width: '20%',
+              },
               { title: 'Recu par', field: 'owner.name', width: '10%' },
             ]}
             data={items}

@@ -15,6 +15,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Cookies from 'universal-cookie';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCapsules } from '@fortawesome/free-solid-svg-icons';
 axios.defaults.baseURL = url;
 
 const useStyles = makeStyles((theme) => ({
@@ -36,32 +38,12 @@ const useStyles = makeStyles((theme) => ({
 export default function VerticalLinearStepper() {
   const classes = useStyles();
   const cookies = new Cookies();
-  const TypeDoc = JSON.parse(localStorage.getItem('typedoc'));
-  const TypeMouv = JSON.parse(localStorage.getItem('typemouv'));
-  const Service = JSON.parse(localStorage.getItem('service'));
 
   const [formData, setFormData] = React.useState({
-    num_document: '',
-    code_type_doc: '',
-    code_type_mouv: '',
-    code_service_dist: '',
-    code_service_anc: '',
-    code_service_dest: '',
-    matricule_per_sign: '/',
-    matricule_per_use: '/',
-    observation: '/',
+    description_Fr: '',
+    dosage: '',
   });
-  const {
-    observation,
-    matricule_per_use,
-    matricule_per_sign,
-    code_service_dest,
-    code_service_anc,
-    code_service_dist,
-    code_type_mouv,
-    code_type_doc,
-    num_document,
-  } = formData;
+  const { description_Fr, dosage } = formData;
   const onChange = (e) =>
     setFormData({
       ...formData,
@@ -70,20 +52,13 @@ export default function VerticalLinearStepper() {
   const send = async (e) => {
     e.preventDefault();
     const element = {
-      num_document,
-      code_type_doc,
-      code_type_mouv,
-      code_service_dist,
-      code_service_anc,
-      code_service_dest,
-      matricule_per_sign,
-      matricule_per_use,
-      observation,
+      description_Fr,
+      dosage,
     };
 
     try {
       const body = JSON.stringify(element);
-      const res = await axios.post('/api/document', body, {
+      const res = await axios.post('/api/medicament', body, {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
           'Access-Control-Allow-Origin': '*',
@@ -97,126 +72,44 @@ export default function VerticalLinearStepper() {
     <div className={classes.root} lg={5}>
       <div className={classes.toolbar} />
       <Grid container justify='left' spacing={2}>
-        <Grid item xs={12} sm={12} lg={6}>
+        <Grid container justify='center' xs={12} sm={12} lg={12}>
+          <FontAwesomeIcon icon={faCapsules} size='6x' color='#3f51b5' />
+        </Grid>
+        <Grid item xs={12} sm={12} lg={12}>
           <TextField
-            label='Numero de document'
-            placeholder='Numero de document'
+            label='Nom de Medicament'
+            placeholder='Nom de Medicament'
             helperText=''
             fullWidth
             margin='normal'
             variant='outlined'
-            name='num_document'
-            value={num_document}
+            name='description_Fr'
+            value={description_Fr}
             onChange={(e) => onChange(e)}
           />
-        </Grid>
-        <Grid item xs={12} sm={12} lg={6}></Grid>
-        <Grid item xs={12} sm={12} lg={6}>
-          <FormControl
-            variant='outlined'
-            className={classes.formControl}
-            style={{ minWidth: '100%' }}
-          >
-            <InputLabel id='demo-simple-select-outlined-label'>
-              Type de document
-            </InputLabel>
-            <Select
-              label='Type de document'
-              name='code_type_doc'
-              value={code_type_doc}
-              onChange={(e) => onChange(e)}
-            ></Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={12} lg={6}>
-          <FormControl
-            variant='outlined'
-            className={classes.formControl}
-            style={{ minWidth: '100%' }}
-          >
-            <InputLabel id='demo-simple-select-outlined-label'>
-              Type de mouvement
-            </InputLabel>
-            <Select
-              label='Type de mouvement'
-              name='code_type_mouv'
-              value={code_type_mouv}
-              onChange={(e) => onChange(e)}
-            ></Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={12} lg={7}>
-          <FormControl
-            variant='outlined'
-            className={classes.formControl}
-            style={{ minWidth: '100%' }}
-          >
-            <InputLabel id='demo-simple-select-outlined-label'>
-              Service de distribution
-            </InputLabel>
-            <Select
-              label='Service de distribution'
-              name='code_service_dist'
-              value={code_service_dist}
-              onChange={(e) => onChange(e)}
-            ></Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={12} lg={7}>
-          <FormControl
-            variant='outlined'
-            className={classes.formControl}
-            style={{ minWidth: '100%' }}
-          >
-            <InputLabel id='demo-simple-select-outlined-label'>
-              Service de destination
-            </InputLabel>
-            <Select
-              label='Service de destination'
-              name='code_service_dest'
-              value={code_service_dest}
-              onChange={(e) => onChange(e)}
-            ></Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={12} lg={7}>
-          <FormControl
-            variant='outlined'
-            className={classes.formControl}
-            style={{ minWidth: '100%' }}
-          >
-            <InputLabel id='demo-simple-select-outlined-label'>
-              Ancienne Service
-            </InputLabel>
-            <Select
-              label='Ancienne Service'
-              name='code_service_anc'
-              value={code_service_anc}
-              onChange={(e) => onChange(e)}
-            ></Select>
-          </FormControl>
         </Grid>
 
         <Grid item xs={12} sm={12} lg={12}>
           <TextField
-            label='Observation'
-            placeholder='Observation'
+            label='Dosage'
+            placeholder='Dosage'
             helperText=''
             fullWidth
+            type='number'
             variant='outlined'
-            name='observation'
-            value={observation}
+            name='dosage'
+            value={dosage}
             onChange={(e) => onChange(e)}
           />
         </Grid>
-        <Grid item xs={12} sm={12} lg={3}>
+        <Grid item xs={12} sm={12} lg={6}>
           <Button
             variant='contained'
             color='primary'
             size='large'
             onClick={send}
           >
-            Ajouter un document
+            Ajouter un medicament
           </Button>
         </Grid>
       </Grid>

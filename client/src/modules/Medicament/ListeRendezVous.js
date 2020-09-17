@@ -103,7 +103,7 @@ class Call_Api extends Component {
       selectedRow: null,
       opensnack: false,
       msg: 'Suppression a ete fait avec success',
-      Title: 'Liste des Rendez-Vous',
+      Title: 'Liste des Medicaments',
       a: null,
     };
 
@@ -124,7 +124,7 @@ class Call_Api extends Component {
   async DeleteThis(id, index) {
     try {
       const cookie = new Cookies();
-      const res = await axios.delete(url + '/api/rendezVous/' + id, {
+      const res = await axios.delete(url + '/api/medicament/' + id, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'x-auth-token': cookie.get('token'),
@@ -147,7 +147,7 @@ class Call_Api extends Component {
     }
   }
   async componentDidMount() {
-    fetch(url + '/api/rendezVous')
+    fetch(url + '/api/medicament')
       .then((response) => response.json())
       .then(
         (res) => {
@@ -201,17 +201,11 @@ class Call_Api extends Component {
             title={Title}
             columns={[
               {
-                title: 'Nom',
-                field: 'nom',
+                title: 'Description',
+                field: 'description_Fr',
                 width: '20%',
               },
-              { title: 'Prenom', field: 'prenom', width: '20%' },
-              {
-                title: 'Numero Telephone',
-                field: 'telephone',
-                width: '20%',
-              },
-              { title: 'Date Rendez-Vous', field: 'telephone', width: '20%' },
+              { title: 'Dosage', field: 'dosage', width: '20%' },
               { title: 'Recu par', field: 'owner.name', width: '10%' },
             ]}
             data={items}

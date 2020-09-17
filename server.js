@@ -12,6 +12,10 @@ app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/profile', require('./routes/api/profile'));
 app.use('/api/rendezVous', require('./routes/api/rendezVous'));
 app.use('/api/patient', require('./routes/api/patient'));
+app.use('/api/medicament', require('./routes/api/medicament'));
+app.use('/api/radio', require('./routes/api/radio'));
+app.use('/api/analyse', require('./routes/api/analyse'));
+app.use('/api/ordonnance', require('./routes/api/ordonnance'));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

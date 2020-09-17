@@ -108,6 +108,7 @@ class Call_Api extends Component {
       msg: 'Suppression a ete fait avec success',
       Title: 'Liste des Rendez-Vous',
       a: null,
+      status: 'secondary',
     };
 
     this.DeleteThis = this.DeleteThis.bind(this);
@@ -205,13 +206,13 @@ class Call_Api extends Component {
             columns={[
               {
                 title: 'Nom',
-                field: 'nom',
+                field: 'idPatient.nom',
                 width: '15%',
               },
-              { title: 'Prenom', field: 'prenom', width: '15%' },
+              { title: 'Prenom', field: 'idPatient.prenom', width: '15%' },
               {
                 title: 'Numero Telephone',
-                field: 'telephone',
+                field: 'idPatient.telephone',
                 width: '10%',
               },
               {

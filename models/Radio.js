@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const MedicamentSchema = new mongoose.Schema({
+const RadioSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
@@ -8,8 +8,8 @@ const MedicamentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  dosage: {
-    type: Number,
+  observation: {
+    type: String,
   },
   date_Cre: {
     type: Date,
@@ -17,4 +17,4 @@ const MedicamentSchema = new mongoose.Schema({
   },
 });
 
-module.exports = Medicament = mongoose.model('medicament', MedicamentSchema);
+module.exports = Radio = mongoose.model('radio', RadioSchema);
