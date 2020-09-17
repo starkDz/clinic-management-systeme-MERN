@@ -10,7 +10,6 @@ const Consultation = () => (
   <div>
     <Add_New />
     <MediaCard />
-    <FullScreenDialog />
     <SpeedDial />
   </div>
 );
@@ -22,7 +21,5 @@ export default {
   },
 
   name: 'Consultation',
-  icon: (
-    <FontAwesomeIcon icon={faUserMd} size='2x' pull='right' color='#3f51b5' />
-  ),
+  icon: <FontAwesomeIcon icon={faUserMd} size='2x' />,
 };

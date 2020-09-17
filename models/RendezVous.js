@@ -13,6 +13,7 @@ const RendezVousSchema = new mongoose.Schema({
   },
   estValide: {
     type: Boolean,
+    default: false,
   },
   dateReservation: {
     type: Date,

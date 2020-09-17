@@ -13,7 +13,8 @@ import ThumbDown from '@material-ui/icons/ThumbDown';
 import ThumbUp from '@material-ui/icons/ThumbUp';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-
+import Ordonnance from './Ordonnance';
+import DossierMedicale from './DossierMedicale';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -92,8 +93,12 @@ export default function ScrollableTabsButtonForce(props) {
           />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0} className={classes.content}></TabPanel>
-      <TabPanel value={value} index={1} className={classes.content}></TabPanel>
+      <TabPanel value={value} index={0} className={classes.content}>
+        <DossierMedicale identifier={props.identifier} />
+      </TabPanel>
+      <TabPanel value={value} index={1} className={classes.content}>
+        <Ordonnance identifier={props.identifier} />
+      </TabPanel>
     </div>
   );
 }

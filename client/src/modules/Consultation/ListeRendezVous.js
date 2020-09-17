@@ -45,7 +45,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import clsx from 'clsx';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
-import CenteredTabs from './Tabs';
+import ScrollableTabsButtonForce from './Tabs';
 const tableIcons = {
   Add: forwardRef((props, ref: React.Ref<SVGSVGElement>) => (
     <AddBox {...props} ref={ref} />
@@ -324,7 +324,7 @@ class Call_Api extends Component {
                 </IconButton>
               </Toolbar>
             </AppBar>
-            <CenteredTabs identifier={id} />
+            <ScrollableTabsButtonForce identifier={id} />
           </Dialog>
         </div>
       );

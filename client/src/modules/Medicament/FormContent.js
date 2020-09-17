@@ -65,6 +65,10 @@ export default function VerticalLinearStepper() {
           'x-auth-token': cookies.get('token'),
         },
       });
+      setFormData({
+        description_Fr: '',
+        dosage: '',
+      });
     } catch (err) {}
   };
 

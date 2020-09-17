@@ -83,6 +83,15 @@ export default function VerticalLinearStepper() {
           'x-auth-token': cookies.get('token'),
         },
       });
+      setFormData({
+        nom: '',
+        prenom: '',
+        address: '',
+        telephone: '',
+        observation: '/',
+        dateNaissance: '',
+        groupage: '',
+      });
     } catch (err) {}
   };
 

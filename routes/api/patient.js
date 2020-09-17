@@ -3,7 +3,6 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 const Patient = require('../../models/Patient');
-const User = require('../../models/User');
 
 //@route GET api/profile
 //@desc create or update user profile
@@ -93,6 +92,7 @@ router.get('/:id', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
 router.delete('/', auth, async (req, res) => {
   try {
     //remove type
@@ -105,12 +105,12 @@ router.delete('/', auth, async (req, res) => {
   }
 });
 router.get('/getCount', async (req, res) => {
+  const Fields = {};
   try {
-    const NumberPatient = await Patient.countDocuments();
-    const NumberMen = await Patient.find({ sexe: 'Homme' }).countDocuments();
-    const NumberWomen = await Patient.find({ sexe: 'Femme' }).countDocuments();
-
-    res.json([NumberPatient, NumberMen, NumberWomen]);
+    Fields.NumberPatient = await Patient.countDocuments();
+    Fields.NumberMen = await Patient.find({ sexe: 'Homme' }).countDocuments();
+    Fields.NumberWomen = await Patient.find({ sexe: 'Femme' }).countDocuments();
+    res.json(Fields);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

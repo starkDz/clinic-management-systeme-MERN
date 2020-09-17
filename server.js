@@ -16,6 +16,7 @@ app.use('/api/medicament', require('./routes/api/medicament'));
 app.use('/api/radio', require('./routes/api/radio'));
 app.use('/api/analyse', require('./routes/api/analyse'));
 app.use('/api/ordonnance', require('./routes/api/ordonnance'));
+app.use('/api/stats', require('./routes/api/stats'));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

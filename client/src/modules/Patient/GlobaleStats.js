@@ -45,20 +45,20 @@ const useStyles = makeStyles(styles);
 const Add_New = () => {
   const classes = useStyles();
   const [countData, setCountData] = React.useState({
-    NumberArticle: 0,
-    NumberDocument: 0,
-    NumberDocument_Entre: 0,
+    NumberPatient: 0,
+    NumberMen: 0,
+    NumberWomen: 0,
   });
 
   useEffect(() => {
     async function fetchData() {
       await axios
-        .get(url + '/api/patient/getCount')
+        .get(url + '/api/stats/getCount')
         .then((response) => {
           setCountData({
-            NumberArticle: response.data[0],
-            NumberDocument: response.data[1],
-            NumberDocument_Entre: response.data[2],
+            NumberPatient: response.data.NumberPatient,
+            NumberMen: response.data.NumberMen,
+            NumberWomen: response.data.NumberWomen,
           });
         })
         .catch((error) => console.log(error.response));
@@ -74,8 +74,8 @@ const Add_New = () => {
             <CardIcon color='info'>
               <Icon icon={iRegistration} height={40} />
             </CardIcon>
-            <p className={classes.cardCategory}>Nombre des patients</p>
-            <h1 className={classes.cardTitle}>{countData.NumberArticle}</h1>
+            <p className={classes.cardCategory}>Nombre Totale des Patients</p>
+            <h1 className={classes.cardTitle}>{countData.NumberPatient}</h1>
           </CardHeader>
           <CardFooter stats>
             <div className={classes.stats}>
@@ -93,8 +93,8 @@ const Add_New = () => {
             <CardIcon color='success'>
               <DescriptionIcon />
             </CardIcon>
-            <p className={classes.cardCategory}>Nombre des patients Femme</p>
-            <h1 className={classes.cardTitle}>{countData.NumberDocument}</h1>
+            <p className={classes.cardCategory}>Nombre des Patients Femme</p>
+            <h1 className={classes.cardTitle}>{countData.NumberWomen}</h1>
           </CardHeader>
           <CardFooter stats>
             <div className={classes.stats}>
@@ -110,10 +110,8 @@ const Add_New = () => {
             <CardIcon color='warning'>
               <BuildIcon />
             </CardIcon>
-            <p className={classes.cardCategory}>Nombre des patients Homme</p>
-            <h1 className={classes.cardTitle}>
-              {countData.NumberDocument_Entre}
-            </h1>
+            <p className={classes.cardCategory}>Nombre des Patients Homme</p>
+            <h1 className={classes.cardTitle}>{countData.NumberMen}</h1>
           </CardHeader>
           <CardFooter stats>
             <div className={classes.stats}>

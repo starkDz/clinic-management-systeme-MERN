@@ -38,11 +38,7 @@ export default function VerticalLinearStepper() {
   const classes = useStyles();
   const cookies = new Cookies();
 
-  const [formData, setFormData] = React.useState({
-    nom: '',
-    prenom: '',
-    telephone: '',
-  });
+  const [formData, setFormData] = React.useState({});
   const {
     idPatient,
     nom,
@@ -61,14 +57,16 @@ export default function VerticalLinearStepper() {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
+      nom: '',
+      prenom: '',
+      telephone: '',
     });
     fetch(url + '/api/patient/' + identifiant)
       .then((response) => response.json())
       .then(
         (res) => {
-          if (res != null) {
+          if (res) {
             setFormData({
-              ...formData,
               idPatient: res._id,
               nom: res.nom,
               prenom: res.prenom,
@@ -97,6 +95,14 @@ export default function VerticalLinearStepper() {
           'x-auth-token': cookies.get('token'),
         },
       });
+      setFormData({
+        nom: '',
+        prenom: '',
+        telephone: '',
+        dateReservation: '',
+        observation: '',
+        identifiant: '',
+      });
     } catch (err) {}
   };
 
@@ -122,37 +128,34 @@ export default function VerticalLinearStepper() {
         </Grid>
         <Grid item xs={12} sm={12} lg={6}>
           <TextField
-            label='Nom'
-            placeholder='Nom'
             helperText=''
             fullWidth
             margin='normal'
             variant='outlined'
             name='nom'
+            disabled
             value={nom}
           />
         </Grid>
 
         <Grid item xs={12} sm={12} lg={6}>
           <TextField
-            label='Prenom'
-            placeholder='Prenom'
             helperText=''
             fullWidth
             margin='normal'
             variant='outlined'
             name='prenom'
+            disabled
             value={prenom}
           />
         </Grid>
         <Grid item xs={12} sm={12} lg={12}>
           <TextField
-            label='Telephone'
-            placeholder='Telephone'
             helperText=''
             fullWidth
             margin='normal'
             variant='outlined'
+            disabled
             name='telephone'
             value={telephone}
           />

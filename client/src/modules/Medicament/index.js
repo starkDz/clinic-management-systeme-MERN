@@ -22,7 +22,5 @@ export default {
   },
 
   name: 'Medicament',
-  icon: (
-    <FontAwesomeIcon icon={faCapsules} size='2x' pull='right' color='#3f51b5' />
-  ),
+  icon: <FontAwesomeIcon icon={faCapsules} size='2x' />,
 };

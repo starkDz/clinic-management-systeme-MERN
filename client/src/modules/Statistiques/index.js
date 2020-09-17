@@ -5,8 +5,6 @@ import Add_New from './GlobaleStats';
 const Statistique = () => (
   <div>
     <Add_New />
-    <Add_New />
-    <Add_New />
   </div>
 );
 
@@ -17,5 +15,5 @@ export default {
   },
 
   name: 'Statistique',
-  icon: <TimelineIcon fontSize='large' color='primary' />,
+  icon: <TimelineIcon fontSize='large' />,
 };

@@ -4,7 +4,6 @@ const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 const RendezVous = require('../../models/RendezVous');
 const Patient = require('../../models/Patient');
-const User = require('../../models/User');
 
 //@route GET api/profile
 //@desc create or update user profile
@@ -70,6 +69,18 @@ router.delete('/:type_id', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+router.get('/:id', async (req, res) => {
+  try {
+    //remove type
+    const element = await RendezVous.findOne({ _id: req.params.id }).populate(
+      'idPatient'
+    );
+    res.json(element);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 router.delete('/', auth, async (req, res) => {
   try {
     //remove type
@@ -82,20 +93,20 @@ router.delete('/', auth, async (req, res) => {
   }
 });
 router.get('/getCount', async (req, res) => {
+  const Fields = {};
   try {
-    const NumberRendezVous = await RendezVous.countDocuments();
-    const NumberRendezVousValide = await RendezVous.find({
+    Fields.NumberRendezVous = await RendezVous.countDocuments();
+    Fields.NumberPatient = await Patient.countDocuments();
+    Fields.NumberMen = await Patient.find({ sexe: 'Homme' }).countDocuments();
+    Fields.NumberWomen = await Patient.find({ sexe: 'Femme' }).countDocuments();
+    Fields.NumberRendezVousValide = await RendezVous.find({
       estValide: true,
     }).countDocuments();
-    const NumberRendezVousNotValide = await RendezVous.find({
+    Fields.NumberRendezVousNotValide = await RendezVous.find({
       estValide: false,
     }).countDocuments();
 
-    res.json([
-      NumberRendezVous,
-      NumberRendezVousValide,
-      NumberRendezVousNotValide,
-    ]);
+    res.json(Fields);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

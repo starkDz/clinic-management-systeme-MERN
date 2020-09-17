@@ -8,5 +8,5 @@ export default {
     component: Configurations,
   },
   name: 'Configurations',
-  icon: <SettingsIcon fontSize='large' color='primary' />,
+  icon: <SettingsIcon fontSize='large' />,
 };
