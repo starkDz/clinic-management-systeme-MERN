@@ -25,6 +25,8 @@ import { url } from '../../defaults/default';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
+
+import FullScreenDialog from './FullScreenForm';
 const tableIcons = {
   Add: forwardRef((props, ref: React.Ref<SVGSVGElement>) => (
     <AddBox {...props} ref={ref} />
@@ -110,8 +112,26 @@ class Call_Api extends Component {
     this.DeleteThis = this.DeleteThis.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.getData = this.getData.bind(this);
   }
-
+  getData = (nom, prenom, dateReservation, telephone, id) => {
+    // do not forget to bind getData in constructor
+    this.setState({
+      ...this.state,
+      items: this.state.items.concat([
+        {
+          idPatient: {
+            nom: nom,
+            prenom: prenom,
+            telephone: telephone,
+          },
+          _id: id,
+          dateReservation: dateReservation,
+        },
+      ]),
+    });
+  };
+  s;
   handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -254,6 +274,7 @@ class Call_Api extends Component {
               },
             }}
           />
+          <FullScreenDialog sendData={this.getData} />
         </div>
       );
     }

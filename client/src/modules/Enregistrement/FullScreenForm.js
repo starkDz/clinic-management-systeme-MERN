@@ -1,5 +1,3 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import {
   Dialog,
   AppBar,
@@ -14,9 +12,27 @@ import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 import DescriptionIcon from '@material-ui/icons/Description';
 import clsx from 'clsx';
-import VerticalLinearStepper from './FormContent';
 import SaveIcon from '@material-ui/icons/Save';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import { url } from '../../defaults/default';
+import axios from 'axios';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Cookies from 'universal-cookie';
+import React, { Component } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import { Icon, InlineIcon } from '@iconify/react';
+import iRegistration from '@iconify/icons-medical-icon/i-registration';
 
+import PropTypes from 'prop-types';
+axios.defaults.baseURL = url;
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
@@ -30,13 +46,24 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     flex: 1,
   },
+  button: {
+    marginTop: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+  actionsContainer: {
+    marginBottom: theme.spacing(2),
+  },
+  toolbar: theme.mixins.toolbar,
+  resetContainer: {
+    padding: theme.spacing(3),
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog() {
+export default function FullScreenDialog(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
@@ -46,7 +73,77 @@ export default function FullScreenDialog() {
   const handleClose = () => {
     setOpen(false);
   };
+  const cookies = new Cookies();
 
+  const [formData, setFormData] = React.useState({});
+  const {
+    idPatient,
+    nom,
+    prenom,
+    telephone,
+    dateReservation,
+    observation,
+    identifiant,
+  } = formData;
+  const onChange = (e) =>
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  const onChangeId = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+      nom: '',
+      prenom: '',
+      telephone: '',
+    });
+    fetch(url + '/api/patient/' + identifiant)
+      .then((response) => response.json())
+      .then(
+        (res) => {
+          if (res) {
+            setFormData({
+              idPatient: res._id,
+              nom: res.nom,
+              prenom: res.prenom,
+              telephone: res.telephone,
+            });
+          }
+        },
+        (error) => {}
+      );
+  };
+  const send = async (e) => {
+    e.preventDefault();
+    const element = {
+      dateReservation,
+      observation,
+      idPatient,
+    };
+
+    try {
+      const body = JSON.stringify(element);
+      console.log(element);
+      const res = await axios.post(url + '/api/rendezVous', body, {
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Access-Control-Allow-Origin': '*',
+          'x-auth-token': cookies.get('token'),
+        },
+      });
+      props.sendData(nom, prenom, dateReservation, telephone, res.data._id);
+      // setFormData({
+      //   nom: '',
+      //   prenom: '',
+      //   telephone: '',
+      //   dateReservation: '',
+      //   observation: '',
+      //   identifiant: '',
+      // });
+      setOpen(false);
+    } catch (err) {}
+  };
   return (
     <div>
       <Fab
@@ -81,7 +178,97 @@ export default function FullScreenDialog() {
           </Toolbar>
         </AppBar>
         <Container maxWidth='md'>
-          <VerticalLinearStepper />
+          <div className={classes.root} lg={5}>
+            <div className={classes.toolbar} />
+            <Grid container spacing={2}>
+              <Grid container justify='center' xs={12} sm={12} lg={12}>
+                <Icon icon={iRegistration} height={100} />
+              </Grid>
+              <Grid item xs={12} sm={12} lg={12}>
+                <TextField
+                  label='Identifiant'
+                  placeholder='Identifiant'
+                  helperText=''
+                  fullWidth
+                  margin='normal'
+                  variant='outlined'
+                  name='identifiant'
+                  value={identifiant}
+                  onChange={(e) => onChangeId(e)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} lg={6}>
+                <TextField
+                  helperText=''
+                  fullWidth
+                  margin='normal'
+                  variant='outlined'
+                  name='nom'
+                  disabled
+                  value={nom}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={12} lg={6}>
+                <TextField
+                  helperText=''
+                  fullWidth
+                  margin='normal'
+                  variant='outlined'
+                  name='prenom'
+                  disabled
+                  value={prenom}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} lg={12}>
+                <TextField
+                  helperText=''
+                  fullWidth
+                  margin='normal'
+                  variant='outlined'
+                  disabled
+                  name='telephone'
+                  value={telephone}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={6} lg={12}>
+                <TextField
+                  placeholder='YYYY-MM-DD'
+                  style={{ margin: 0 }}
+                  helperText=''
+                  fullWidth
+                  type='date'
+                  name='dateReservation'
+                  value={dateReservation}
+                  onChange={(e) => onChange(e)}
+                  variant='outlined'
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} lg={12}>
+                <TextField
+                  label='Observation'
+                  placeholder='Observation'
+                  helperText=''
+                  fullWidth
+                  margin='normal'
+                  variant='outlined'
+                  name='observation'
+                  value={observation}
+                  onChange={(e) => onChange(e)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} lg={10}>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  size='large'
+                  onClick={send}
+                >
+                  Ajouter le Rendez Vous
+                </Button>
+              </Grid>
+            </Grid>
+          </div>
         </Container>
       </Dialog>
     </div>

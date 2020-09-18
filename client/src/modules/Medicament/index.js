@@ -1,6 +1,5 @@
 import React from 'react';
 import LocalGasStationIcon from '@material-ui/icons/LocalGasStation';
-import FullScreenDialog from './FullScreenForm';
 import SpeedDial from './SpeedDial';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCapsules } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +9,6 @@ const Medicament = () => (
   <div>
     <Add_New />
     <Call_Api />
-    <FullScreenDialog />
     <SpeedDial height='50%' />
   </div>
 );

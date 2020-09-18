@@ -50,9 +50,6 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
-  content: {
-    height: `calc(100vh - 136px)`,
-  },
   tab: {
     textTransform: 'none',
   },

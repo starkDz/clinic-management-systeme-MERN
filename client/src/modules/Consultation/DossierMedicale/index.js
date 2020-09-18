@@ -61,6 +61,7 @@ const DossierMedicale = (props) => {
             <CardIcon color='info'>
               <Icon icon={iRegistration} height={40} />
             </CardIcon>
+            <p className={classes.cardCategory}>Nom & Prenom</p>
             <h1 className={classes.cardTitle}>
               {data.nom} {data.prenom}
             </h1>

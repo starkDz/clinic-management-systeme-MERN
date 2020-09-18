@@ -46,8 +46,8 @@ const Add_New = () => {
   const classes = useStyles();
   const [countData, setCountData] = React.useState({
     NumberRendezVous: 0,
+    NumberPatient: 0,
     NumberRendezVousValide: 0,
-    NumberRendezVousNotValide: 0,
   });
 
   useEffect(() => {
@@ -57,8 +57,8 @@ const Add_New = () => {
         .then((response) => {
           setCountData({
             NumberRendezVous: response.data.NumberRendezVous,
+            NumberPatient: response.data.NumberPatient,
             NumberRendezVousValide: response.data.NumberRendezVousValide,
-            NumberRendezVousNotValide: response.data.NumberRendezVousNotValide,
           });
         })
         .catch((error) => console.log(error.response));
@@ -94,9 +94,7 @@ const Add_New = () => {
               <DescriptionIcon />
             </CardIcon>
             <p className={classes.cardCategory}>Nombre Totale des patients</p>
-            <h1 className={classes.cardTitle}>
-              {countData.NumberRendezVousNotValide}
-            </h1>
+            <h1 className={classes.cardTitle}>{countData.NumberPatient}</h1>
           </CardHeader>
           <CardFooter stats>
             <div className={classes.stats}>

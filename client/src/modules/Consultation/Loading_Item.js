@@ -45,51 +45,6 @@ export default function Loading_Item() {
           <Skeleton variant='text' height={50} />
         </Grid>
       </Grid>
-      <Grid container justify='center' spacing={2}>
-        <Grid key='2' item xs={12}>
-          <Skeleton variant='text' height={50} />
-        </Grid>
-      </Grid>
-      <Grid container justify='center' spacing={2}>
-        <Grid key='2' item xs={12}>
-          <Skeleton variant='text' height={50} />
-        </Grid>
-      </Grid>
-      <Grid container justify='center' spacing={2}>
-        <Grid key='2' item xs={12}>
-          <Skeleton variant='text' height={50} />
-        </Grid>
-      </Grid>
-      <Grid container justify='center' spacing={2}>
-        <Grid key='2' item xs={12}>
-          <Skeleton variant='text' height={50} />
-        </Grid>
-      </Grid>
-      <Grid container justify='center' spacing={2}>
-        <Grid key='2' item xs={12}>
-          <Skeleton variant='text' height={50} />
-        </Grid>
-      </Grid>
-      <Grid container justify='center' spacing={2}>
-        <Grid key='2' item xs={12}>
-          <Skeleton variant='text' height={50} />
-        </Grid>
-      </Grid>
-      <Grid container justify='center' spacing={2}>
-        <Grid key='2' item xs={12}>
-          <Skeleton variant='text' height={50} />
-        </Grid>
-      </Grid>
-      <Grid container justify='center' spacing={2}>
-        <Grid key='2' item xs={12}>
-          <Skeleton variant='text' height={50} />
-        </Grid>
-      </Grid>
-      <Grid container justify='center' spacing={2}>
-        <Grid key='2' item xs={12}>
-          <Skeleton variant='text' height={50} />
-        </Grid>
-      </Grid>
     </Paper>
   );
 }
