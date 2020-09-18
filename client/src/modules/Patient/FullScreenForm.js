@@ -119,15 +119,16 @@ export default function FullScreenDialog(props) {
       });
       props.sendData(nom, prenom, address, telephone, sexe, res.data._id);
 
-      setFormData({
-        nom: '',
-        prenom: '',
-        address: '',
-        telephone: '',
-        observation: '/',
-        dateNaissance: '',
-        groupage: '',
-      });
+      setOpen(false);
+      // setFormData({
+      //   nom: '',
+      //   prenom: '',
+      //   address: '',
+      //   telephone: '',
+      //   observation: '/',
+      //   dateNaissance: '',
+      //   groupage: '',
+      // });
     } catch (err) {}
   };
   return (

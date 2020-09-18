@@ -25,8 +25,23 @@ import { url } from '../../defaults/default';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
-
+import {
+  Dialog,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Slide,
+  Container,
+  Fab,
+} from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import { Icon, InlineIcon } from '@iconify/react';
+import iRegistration from '@iconify/icons-medical-icon/i-registration';
 import FullScreenDialog from './FullScreenForm';
+import FullScreenDialogEnregistrement from './Enregistrement/FullScreenForm';
+
+import FolderSharedIcon from '@material-ui/icons/FolderShared';
 const tableIcons = {
   Add: forwardRef((props, ref: React.Ref<SVGSVGElement>) => (
     <AddBox {...props} ref={ref} />
@@ -83,7 +98,9 @@ const tableIcons = {
 function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
 }
-
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction='up' ref={ref} {...props} />;
+});
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -103,6 +120,7 @@ class Call_Api extends Component {
       dense: false,
       type: 'success',
       selectedRow: null,
+      open: false,
       opensnack: false,
       msg: 'Suppression a ete fait avec success',
       Title: 'Liste des Patients',
@@ -113,6 +131,9 @@ class Call_Api extends Component {
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.getData = this.getData.bind(this);
+
+    this.handleCloseRendezVous = this.handleCloseRendezVous.bind(this);
+    this.handleClickOpen = this.handleClickOpen.bind(this);
   }
   getData = (nom, prenom, address, telephone, sexe, id) => {
     // do not forget to bind getData in constructor
@@ -140,6 +161,17 @@ class Call_Api extends Component {
       opensnack: false,
     });
   };
+  handleClickOpen() {
+    this.setState({
+      open: true,
+    });
+  }
+
+  handleCloseRendezVous() {
+    this.setState({
+      open: false,
+    });
+  }
   async DeleteThis(id, index) {
     try {
       const cookie = new Cookies();
@@ -192,6 +224,8 @@ class Call_Api extends Component {
       Title,
       selectedRow,
       opensnack,
+      open,
+      id,
       msg,
       type,
     } = this.state;
@@ -237,6 +271,16 @@ class Call_Api extends Component {
             data={items}
             actions={[
               {
+                icon: () => (
+                  <Icon icon={iRegistration} style={{ color: 'green' }} />
+                ),
+                tooltip: 'Faire une reservation',
+                onClick: (event, rowData) => {
+                  this.handleClickOpen();
+                  this.setState({ id: rowData._id });
+                },
+              },
+              {
                 icon: () => <EditIcon color='primary' />,
                 tooltip: 'Edit User',
                 onClick: (event, rowData) => alert('You saved ' + rowData._id),
@@ -271,6 +315,44 @@ class Call_Api extends Component {
             }}
           />
           <FullScreenDialog sendData={this.getData} />
+          <Dialog
+            fullScreen
+            open={open}
+            onClose={this.handleClose}
+            TransitionComponent={Transition}
+          >
+            <AppBar
+              style={{
+                position: 'relative',
+              }}
+            >
+              <Toolbar>
+                <IconButton
+                  edge='start'
+                  color='inherit'
+                  onClick={this.handleCloseRendezVous}
+                  aria-label='close'
+                >
+                  <CloseIcon />
+                </IconButton>
+                <Typography
+                  variant='h6'
+                  style={{
+                    flex: 1,
+                  }}
+                >
+                  Dossier Medicale
+                </Typography>
+                <IconButton color='inherit' aria-label='close'>
+                  <FolderSharedIcon style={{ fontSize: 50 }} />
+                </IconButton>
+              </Toolbar>
+            </AppBar>
+            <FullScreenDialogEnregistrement
+              sendData={this.handleCloseRendezVous}
+              identifier={id}
+            />
+          </Dialog>
         </div>
       );
     }

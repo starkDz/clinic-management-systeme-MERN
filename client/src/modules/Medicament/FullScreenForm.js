@@ -103,10 +103,12 @@ export default function FullScreenDialog(props) {
       });
 
       props.sendData(description_Fr, dosage, res.data._id);
-      setFormData({
-        description_Fr: '',
-        dosage: '',
-      });
+
+      setOpen(false);
+      // setFormData({
+      //   description_Fr: '',
+      //   dosage: '',
+      // });
     } catch (err) {}
   };
   return (
