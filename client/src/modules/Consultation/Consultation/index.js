@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
 
-    padding: theme.spacing(5, 50),
+    padding: theme.spacing(5, 40),
   },
   demo: {
     backgroundColor: theme.palette.background.paper,
@@ -70,6 +70,7 @@ const Consultation = (props) => {
     temperature: '',
     freCardiaque: '',
     prix: '',
+    diagnostic: '',
   });
   const {
     idPatient,
@@ -78,6 +79,7 @@ const Consultation = (props) => {
     poids,
     glycemie,
     antecedentMedical,
+    diagnostic,
     antecedentChirurgical,
     temperature,
     freCardiaque,
@@ -115,6 +117,7 @@ const Consultation = (props) => {
       antecedentChirurgical,
       temperature,
       freCardiaque,
+      diagnostic,
       prix,
     };
 
@@ -137,6 +140,7 @@ const Consultation = (props) => {
         temperature: '',
         freCardiaque: '',
         prix: '',
+        diagnostic: '',
       });
     } catch (err) {}
   };
@@ -144,130 +148,145 @@ const Consultation = (props) => {
   return (
     <div className={classes.root}>
       <Grid container justify='right' spacing={2}>
-        <Grid item xs={12} sm={12} lg={12}>
-          <Grid item xs={12} sm={12} lg={12}>
-            <TextField
-              label='Taille'
-              placeholder='Taille'
-              helperText=''
-              fullWidth
-              margin='normal'
-              type='number'
-              variant='outlined'
-              name='taille'
-              value={taille}
-              onChange={(e) => onChange(e)}
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} lg={12}>
-            <TextField
-              label='Poids'
-              placeholder='Poids'
-              helperText=''
-              fullWidth
-              margin='normal'
-              type='number'
-              variant='outlined'
-              name='poids'
-              value={poids}
-              onChange={(e) => onChange(e)}
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} lg={12}>
-            <TextField
-              label='Antecedents Medicaux'
-              placeholder='Antecedents Medicaux Exp: aa, bb , cc'
-              helperText=''
-              fullWidth
-              margin='normal'
-              variant='outlined'
-              name='antecedentMedical'
-              value={antecedentMedical}
-              onChange={(e) => onChange(e)}
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} lg={12}>
-            <TextField
-              label='Antecedents Chirurgicaux'
-              placeholder='Antecedents Chirurgicaux Exp: aa, bb , cc'
-              helperText=''
-              fullWidth
-              margin='normal'
-              variant='outlined'
-              name='antecedentChirurgical'
-              value={antecedentChirurgical}
-              onChange={(e) => onChange(e)}
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} lg={12}>
-            <TextField
-              label='Frequence Cardiaque'
-              placeholder='Frequence Cardiaque '
-              helperText=''
-              fullWidth
-              type='number'
-              margin='normal'
-              variant='outlined'
-              name='freCardiaque'
-              value={freCardiaque}
-              onChange={(e) => onChange(e)}
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} lg={12}>
-            <TextField
-              label='Temperature'
-              placeholder='Temperature'
-              helperText=''
-              fullWidth
-              margin='normal'
-              type='number'
-              variant='outlined'
-              name='temperature'
-              value={temperature}
-              onChange={(e) => onChange(e)}
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} lg={12}>
-            <TextField
-              label='Glycemie'
-              placeholder='Glycemie'
-              helperText=''
-              fullWidth
-              margin='normal'
-              type='number'
-              variant='outlined'
-              name='glycemie'
-              value={glycemie}
-              onChange={(e) => onChange(e)}
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} lg={12}>
-            <TextField
-              label='Prix'
-              placeholder='Prix'
-              helperText=''
-              fullWidth
-              margin='normal'
-              type='number'
-              variant='outlined'
-              name='prix'
-              value={prix}
-              onChange={(e) => onChange(e)}
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} lg={12}>
-            <Button
-              variant='contained'
-              color='primary'
-              size='large'
-              margin='normal'
-              fullWidth
-              onClick={send}
-            >
-              Valider
-            </Button>
-          </Grid>
+        <Grid item xs={12} sm={12} lg={3}>
+          <TextField
+            label='Taille'
+            placeholder='Taille'
+            helperText=''
+            fullWidth
+            margin='normal'
+            type='number'
+            variant='outlined'
+            name='taille'
+            value={taille}
+            onChange={(e) => onChange(e)}
+          />
         </Grid>
+        <Grid item xs={12} sm={12} lg={3}>
+          <TextField
+            label='Poids'
+            placeholder='Poids'
+            helperText=''
+            fullWidth
+            margin='normal'
+            type='number'
+            variant='outlined'
+            name='poids'
+            value={poids}
+            onChange={(e) => onChange(e)}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={12} lg={3}>
+          <TextField
+            label='Frequence Cardiaque'
+            placeholder='Frequence Cardiaque '
+            helperText=''
+            fullWidth
+            type='number'
+            margin='normal'
+            variant='outlined'
+            name='freCardiaque'
+            value={freCardiaque}
+            onChange={(e) => onChange(e)}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} lg={3}>
+          <TextField
+            label='Temperature'
+            placeholder='Temperature'
+            helperText=''
+            fullWidth
+            margin='normal'
+            type='number'
+            variant='outlined'
+            name='temperature'
+            value={temperature}
+            onChange={(e) => onChange(e)}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} lg={12}>
+          <TextField
+            label='Glycemie'
+            placeholder='Glycemie'
+            helperText=''
+            fullWidth
+            margin='normal'
+            type='number'
+            variant='outlined'
+            name='glycemie'
+            value={glycemie}
+            onChange={(e) => onChange(e)}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} lg={12}>
+          <TextField
+            label='Prix'
+            placeholder='Prix'
+            helperText=''
+            fullWidth
+            margin='normal'
+            type='number'
+            variant='outlined'
+            name='prix'
+            value={prix}
+            onChange={(e) => onChange(e)}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} lg={12}>
+          <TextField
+            label='Antecedents Medicaux'
+            placeholder='Antecedents Medicaux Exp: aa, bb , cc'
+            helperText=''
+            fullWidth
+            margin='normal'
+            multiline
+            variant='outlined'
+            name='antecedentMedical'
+            value={antecedentMedical}
+            onChange={(e) => onChange(e)}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} lg={12}>
+          <TextField
+            label='Antecedents Chirurgicaux'
+            placeholder='Antecedents Chirurgicaux Exp: aa, bb , cc'
+            helperText=''
+            fullWidth
+            margin='normal'
+            multiline
+            variant='outlined'
+            name='antecedentChirurgical'
+            value={antecedentChirurgical}
+            onChange={(e) => onChange(e)}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} lg={12}>
+          <TextField
+            id='outlined-textarea'
+            label='Diagnostic'
+            placeholder='Diagnostic'
+            multiline
+            margin='normal'
+            fullWidth
+            variant='outlined'
+            name='diagnostic'
+            value={diagnostic}
+            onChange={(e) => onChange(e)}
+          />
+        </Grid>
+      </Grid>
+      <Grid item xs={12} sm={12} lg={12}>
+        <Button
+          variant='contained'
+          color='primary'
+          size='large'
+          margin='normal'
+          fullWidth
+          onClick={send}
+        >
+          Valider
+        </Button>
       </Grid>
     </div>
   );

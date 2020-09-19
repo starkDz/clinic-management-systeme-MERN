@@ -29,6 +29,7 @@ router.post(
       prix,
       taille,
       age,
+      diagnostic,
       antecedentMedical,
       antecedentChirurgical,
       freqCardiaque,
@@ -47,6 +48,7 @@ router.post(
     if (idOrdonnance) Fields.idOrdonnance = idOrdonnance;
     if (taille) Fields.taille = taille;
     if (prix) Fields.prix = prix;
+    if (diagnostic) Fields.diagnostic = diagnostic;
     if (age) Fields.age = age;
     if (antecedentMedical)
       Fields.antecedentMedical = antecedentMedical

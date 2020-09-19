@@ -62,6 +62,9 @@ const ConsultationSchema = new mongoose.Schema({
   observation: {
     type: String,
   },
+  diagnostic: {
+    type: String,
+  },
   dateConsultation: {
     type: Date,
     default: Date.now,
