@@ -14,6 +14,7 @@ app.use('/api/rendezVous', require('./routes/api/rendezVous'));
 app.use('/api/patient', require('./routes/api/patient'));
 app.use('/api/medicament', require('./routes/api/medicament'));
 app.use('/api/radio', require('./routes/api/radio'));
+app.use('/api/consultation', require('./routes/api/consultation'));
 app.use('/api/analyse', require('./routes/api/analyse'));
 app.use('/api/ordonnance', require('./routes/api/ordonnance'));
 app.use('/api/stats', require('./routes/api/stats'));

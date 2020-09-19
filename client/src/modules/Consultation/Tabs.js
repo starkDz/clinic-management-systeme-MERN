@@ -15,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Ordonnance from './Ordonnance';
 import DossierMedicale from './DossierMedicale';
+import Consultation from './Consultation';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -84,9 +85,15 @@ export default function ScrollableTabsButtonForce(props) {
           />
           <Tab
             className={classes.tab}
-            label='Generation des Ordonnances'
+            label='Consultation'
             icon={<PostAddIcon fontSize='large' />}
             {...a11yProps(1)}
+          />
+          <Tab
+            className={classes.tab}
+            label='Generation des Ordonnances'
+            icon={<PostAddIcon fontSize='large' />}
+            {...a11yProps(2)}
           />
         </Tabs>
       </AppBar>
@@ -94,6 +101,9 @@ export default function ScrollableTabsButtonForce(props) {
         <DossierMedicale identifier={props.identifier} />
       </TabPanel>
       <TabPanel value={value} index={1} className={classes.content}>
+        <Consultation identifier={props.identifier} />
+      </TabPanel>
+      <TabPanel value={value} index={2} className={classes.content}>
         <Ordonnance identifier={props.identifier} />
       </TabPanel>
     </div>

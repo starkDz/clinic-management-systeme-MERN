@@ -35,18 +35,43 @@ const ConsultationSchema = new mongoose.Schema({
   prix: {
     type: Number,
   },
+  taille: {
+    type: Number,
+  },
+  age: {
+    type: Number,
+  },
+  antecedentMedical: {
+    type: [String],
+  },
+  antecedentChirurgical: {
+    type: [String],
+  },
+  freqCardiaque: {
+    type: Number,
+  },
+  temperature: {
+    type: Number,
+  },
+  glycemie: {
+    type: Number,
+  },
+  poids: {
+    type: Number,
+  },
   observation: {
     type: String,
   },
   dateConsultation: {
     type: Date,
+    default: Date.now,
   },
   date: {
     type: Date,
     default: Date.now,
   },
 });
-module.exports = ConsultationSchema = mongoose.model(
+module.exports = Consultation = mongoose.model(
   'consultation',
   ConsultationSchema
 );

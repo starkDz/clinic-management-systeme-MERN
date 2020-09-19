@@ -50,6 +50,13 @@ const DossierMedicale = (props) => {
           });
         })
         .catch((error) => console.log(error.response));
+      await axios
+        .get(url + '/api/medicament')
+        .then((response) => {
+          const medicament = JSON.stringify(response.data);
+          localStorage.setItem('medicament', medicament);
+        })
+        .catch((error) => console.log(error.response));
     }
     fetchData();
   }, []);
