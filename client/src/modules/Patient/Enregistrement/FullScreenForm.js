@@ -203,6 +203,7 @@ export default function FullScreenDialogEnregistrement(props) {
               variant='contained'
               color='primary'
               size='large'
+              fullwidth
               onClick={send}
             >
               Ajouter le Rendez Vous

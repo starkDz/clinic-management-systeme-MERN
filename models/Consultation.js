@@ -69,6 +69,9 @@ const ConsultationSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  heur: {
+    type: String,
+  },
   date: {
     type: Date,
     default: Date.now,

@@ -42,7 +42,7 @@ const DossierMedicale = (props) => {
   useEffect(() => {
     async function fetchData() {
       await axios
-        .get(url + '/api/rendezVous/' + props.identifier)
+        .get(url + '/api/rendezVous/' + props.idRendezVous)
         .then((response) => {
           setData({
             nom: response.data.idPatient.nom,
@@ -109,7 +109,7 @@ const DossierMedicale = (props) => {
         </Card>
       </GridItem>
       <GridItem xs={12} sm={12} md={12} lg={12} height={100}>
-        <Call_Api />
+        {/* <Call_Api idPatient={props.idPatient} /> */}
       </GridItem>
     </Grid>
   );

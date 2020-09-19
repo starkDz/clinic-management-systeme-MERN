@@ -34,8 +34,7 @@ axios.defaults.baseURL = url;
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-
-    padding: theme.spacing(5, 20),
+    padding: theme.spacing(5, 30),
   },
   demo: {
     backgroundColor: theme.palette.background.paper,
@@ -75,8 +74,16 @@ const Ordonnance = (props) => {
     nom: '',
     prenom: '',
   });
+  const [items, setItems] = React.useState([]);
   const [idOrdonnance, setIdOrdonnance] = React.useState();
-  const { description_Fr, quantite, idpatient, nom, prenom } = formData;
+  const {
+    description_Fr,
+    quantite,
+    idPatient,
+    idRendezVous,
+    nom,
+    prenom,
+  } = formData;
 
   const onChange = (e) =>
     setFormData({
@@ -85,15 +92,21 @@ const Ordonnance = (props) => {
     });
   useEffect(() => {
     async function fetchData() {
+      setFormData({
+        ...formData,
+        idPatient: props.idPatient,
+        idRendezVous: props.idRendezVous,
+      });
       await axios
-        .get(url + '/api/rendezVous/' + props.identifier)
+        .get(
+          url +
+            '/api/consultation/getOrdonnance/' +
+            props.idRendezVous +
+            '&' +
+            props.idPatient
+        )
         .then((response) => {
-          setFormData({
-            ...formData,
-            idpatient: response.data.idPatient._id,
-            nom: response.data.idPatient.nom,
-            prenom: response.data.idPatient.prenom,
-          });
+          setIdOrdonnance(response.data.idOrdonnance);
         })
         .catch((error) => console.log(error.response));
 
@@ -104,30 +117,22 @@ const Ordonnance = (props) => {
           localStorage.setItem('medicament', medicament);
         })
         .catch((error) => console.log(error.response));
-
-      // try {
-      //   const body = JSON.stringify({});
-      //   const res = await axios
-      //     .post('/api/ordonnance', body, {
-      //       headers: {
-      //         'Content-Type': 'application/json;charset=UTF-8',
-      //         'Access-Control-Allow-Origin': '*',
-      //         'x-auth-token': cookies.get('token'),
-      //       },
-      //     })
-      //     .then((res) => {
-      //       setIdOrdonnance(res.data._id);
-      //     })
-      //     .catch((error) => console.log(error.res));
-      // } catch (err) {}
     }
     fetchData();
   }, []);
 
   const send = async (e) => {
     e.preventDefault();
+    const data = description_Fr.split('&').map((skill) => skill.trim());
+    console.log(data);
+    const id_medicament = data[0];
+    const nameMedicament = data[1];
     const element = {
-      description_Fr,
+      id_medicament,
+      quantite,
+    };
+    const elementAffich = {
+      nameMedicament,
       quantite,
     };
 
@@ -148,6 +153,8 @@ const Ordonnance = (props) => {
         description_Fr: '',
         quantite: '',
       });
+      setItems(items.concat(elementAffich));
+      console.log(items);
     } catch (err) {}
   };
 
@@ -176,7 +183,10 @@ const Ordonnance = (props) => {
                 onChange={(e) => onChange(e)}
               >
                 {Medicament.map((option) => (
-                  <MenuItem key={option._id} value={option._id}>
+                  <MenuItem
+                    key={option._id}
+                    value={option._id + '&' + option.description_Fr}
+                  >
                     {option.description_Fr}
                   </MenuItem>
                 ))}
@@ -215,19 +225,27 @@ const Ordonnance = (props) => {
           <Grid item xs={12} md={12} lg={12}>
             <div className={classes.demo}>
               <List dense={dense}>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <FolderIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary='Aspirine' />
-                  <ListItemSecondaryAction>
-                    <IconButton edge='end' aria-label='delete'>
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
+                {items.map((option) => (
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <FolderIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={
+                        option.nameMedicament +
+                        '--------------------------------------------------------------------> ' +
+                        option.quantite
+                      }
+                    />
+                    <ListItemSecondaryAction>
+                      <IconButton edge='end' aria-label='delete'>
+                        <DeleteIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                ))}
               </List>
             </div>
           </Grid>
