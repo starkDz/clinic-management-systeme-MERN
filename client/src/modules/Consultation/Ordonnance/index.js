@@ -54,13 +54,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
 }));
-function generate(element) {
-  return [0, 1, 2].map((value) =>
-    React.cloneElement(element, {
-      key: value,
-    })
-  );
-}
 const Ordonnance = (props) => {
   const classes = useStyles();
   const [dense, setDense] = React.useState(false);
@@ -100,10 +93,10 @@ const Ordonnance = (props) => {
       await axios
         .get(
           url +
-            '/api/consultation/getOrdonnance/' +
-            props.idRendezVous +
-            '&' +
-            props.idPatient
+          '/api/consultation/getOrdonnance/' +
+          props.idRendezVous +
+          '&' +
+          props.idPatient
         )
         .then((response) => {
           setIdOrdonnance(response.data.idOrdonnance);
@@ -117,6 +110,13 @@ const Ordonnance = (props) => {
           localStorage.setItem('medicament', medicament);
         })
         .catch((error) => console.log(error.response));
+
+      // const res = await axios.get(
+      //   '/api/ordonnance/' + idOrdonnance)
+      //   .then((response) => {
+      //     setItems(response.data);
+      //   })
+      //   .catch((error) => console.log(error.response));
     }
     fetchData();
   }, []);
@@ -124,7 +124,6 @@ const Ordonnance = (props) => {
   const send = async (e) => {
     e.preventDefault();
     const data = description_Fr.split('&').map((skill) => skill.trim());
-    console.log(data);
     const id_medicament = data[0];
     const nameMedicament = data[1];
     const element = {
@@ -135,7 +134,6 @@ const Ordonnance = (props) => {
       nameMedicament,
       quantite,
     };
-
     try {
       const body = JSON.stringify(element);
       const res = await axios.put(
@@ -154,8 +152,8 @@ const Ordonnance = (props) => {
         quantite: '',
       });
       setItems(items.concat(elementAffich));
-      console.log(items);
-    } catch (err) {}
+      console.log(JSON.stringify(items));
+    } catch (err) { }
   };
 
   return (
@@ -222,36 +220,45 @@ const Ordonnance = (props) => {
           </Grid>
         </Grid>
         <Grid item xs={12} sm={12} lg={8}>
-          <Grid item xs={12} md={12} lg={12}>
-            <div className={classes.demo}>
-              <List dense={dense}>
-                {items.map((option) => (
-                  <ListItem>
-                    <ListItemAvatar>
-                      <Avatar>
-                        <FolderIcon />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={
-                        option.nameMedicament +
-                        '--------------------------------------------------------------------> ' +
-                        option.quantite
-                      }
-                    />
-                    <ListItemSecondaryAction>
-                      <IconButton edge='end' aria-label='delete'>
-                        <DeleteIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                ))}
-              </List>
-            </div>
+          <Grid container spacing={2} xs={12} md={12} lg={12}>
+            {items.map((option) => (
+
+              <Grid item lg={12}>
+                <List dense={dense} >
+                  <Paper className={classes.paper} elevation={3}>
+                    <Grid container wrap="nowrap" spacing={2}>
+                      <Grid item xs zeroMinWidth>
+                        <ListItem>
+                          <ListItemAvatar>
+                            <Avatar>
+                              <FolderIcon />
+                            </Avatar>
+                          </ListItemAvatar>
+                          <ListItemText
+                            primary={
+                              option.nameMedicament
+                            }
+                          /><ListItemAvatar>
+                            <Avatar>
+                              {option.quantite}
+                            </Avatar>
+                          </ListItemAvatar>
+                          <ListItemSecondaryAction>
+                            <IconButton edge='end' aria-label='delete'>
+                              <DeleteIcon />
+                            </IconButton>
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                </List>
+              </Grid>
+            ))}
           </Grid>
         </Grid>
       </Grid>
-    </div>
+    </div >
   );
 };
 

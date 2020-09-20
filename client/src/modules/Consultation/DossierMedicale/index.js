@@ -109,7 +109,8 @@ const DossierMedicale = (props) => {
         </Card>
       </GridItem>
       <GridItem xs={12} sm={12} md={12} lg={12} height={100}>
-        {/* <Call_Api idPatient={props.idPatient} /> */}
+        <Call_Api idPatient={props.idPatient} />
+
       </GridItem>
     </Grid>
   );

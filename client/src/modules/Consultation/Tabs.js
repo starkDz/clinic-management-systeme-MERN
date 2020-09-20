@@ -77,6 +77,7 @@ export default function ScrollableTabsButtonForce(props) {
         .get(url + '/api/rendezVous/' + idRendezVous)
         .then((response) => {
           setIdPatient(response.data.idPatient._id);
+          localStorage.setItem('idPatient', response.data.idPatient._id);
         })
         .catch((error) => console.log(error.response));
     }

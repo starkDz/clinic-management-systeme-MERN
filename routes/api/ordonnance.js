@@ -35,11 +35,11 @@ router.put('/newMedicament/:id', auth, async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { medicament, quantite } = req.body;
+  const { id_medicament, quantite } = req.body;
 
   //Build type objects
   const Fields = {};
-  if (medicament) Fields.medicament = medicament;
+  if (id_medicament) Fields.medicament = id_medicament;
   if (quantite) Fields.quantite = quantite;
 
   try {
@@ -58,14 +58,24 @@ router.get('/', async (req, res) => {
   try {
     const elements = await Ordonnance.find()
       .populate('owner', ['name'])
-      .populate('idMedicament.medicament', ['description', 'dosage']);
+      .populate('idMedicament.medicament');
     res.json(elements);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
-
+router.get('/:id', async (req, res) => {
+  try {
+    const elements = await Ordonnance.find({ _id: req.params.id })
+      .populate('owner', ['name'])
+      .populate('idMedicament.medicament');
+    res.json(elements);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 //Delete Type
 router.delete('/:type_id', auth, async (req, res) => {
   try {

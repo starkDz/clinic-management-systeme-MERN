@@ -42,6 +42,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { url } from '../../../defaults/default';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
+import FaceIcon from '@material-ui/icons/Face';
+import DoneIcon from '@material-ui/icons/Done';
 import clsx from 'clsx';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
@@ -181,11 +185,27 @@ class Call_Api extends Component {
     }
   }
   async componentDidMount() {
-    console.log(url + '/api/consultation/pour/' + this.props.idPatient);
+    const idPatient = localStorage.getItem('idPatient');
+    fetch(url + '/api/consultation/pour/' + idPatient)
+      .then((response) => response.json())
+      .then(
+        (res) => {
+          console.log(res)
+          this.setState({
+            isLoaded: true,
+            items: res,
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error,
+          });
+        }
+      );
   }
 
   render() {
-    const { classes } = this.props;
     const {
       error,
       isLoaded,
@@ -221,35 +241,66 @@ class Call_Api extends Component {
           <MaterialTable
             icons={tableIcons}
             title={Title}
-            detailPanel={(rowData) => {
-              return (
-                <iframe
-                  width='100%'
-                  height='315'
-                  frameborder='0'
-                  allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-                  allowfullscreen
-                />
-              );
-            }}
+            detailPanel={[
+              {
+                tooltip: 'Show Name',
+                render: rowData => {
+                  return (
+                    <div
+                      style={{
+                        fontSize: 50,
+                        textAlign: 'center',
+                      }}
+                    >
+                      <Chip
+                        avatar={<Avatar>M</Avatar>}
+                        label={"Antecedents Medicaux:   " + rowData.antecedentMedical}
+                        clickable
+                        color="primary"
+                        deleteIcon={<DoneIcon />}
+                        variant="outlined"
+                      /><Chip
+                        avatar={<Avatar>M</Avatar>}
+                        label={"Antecedents Chirurgical:   " + rowData.antecedentChirurgical}
+                        clickable
+                        color="primary"
+                        deleteIcon={<DoneIcon />}
+                        variant="outlined"
+                      />
+                    </div>
+                  )
+                },
+              },
+            ]}
             columns={[
               {
-                title: 'Nom',
-                field: 'idPatient.nom',
-                width: '20%',
-              },
-              { title: 'Prenom', field: 'idPatient.prenom', width: '20%' },
-              {
-                title: 'Numero Telephone',
-                field: 'idPatient.telephone',
+                title: 'Date',
+                field: 'dateConsultation',
                 width: '20%',
               },
               {
-                title: 'Date Rendez-Vous',
-                field: 'dateReservation',
+                title: 'Heur',
+                field: 'heur',
+                width: '10%',
+              },
+
+              { title: 'Diagnostique', field: 'diagnostic', width: '20%' },
+              {
+                title: 'Taille (cm)',
+                field: 'taille',
+                width: '10%',
+              },
+              {
+                title: 'Poids (Kg)',
+                field: 'poids',
+                width: '10%',
+              },
+              {
+                title: 'Glycemie',
+                field: 'glycemie',
                 width: '20%',
               },
-              { title: 'Recu par', field: 'owner.name', width: '10%' },
+              { title: 'Temperature', field: 'temperature', width: '10%' },
             ]}
             data={items}
             onRowClick={(evt, selectedRow) => this.setState({ selectedRow })}
