@@ -35,19 +35,28 @@ const DossierMedicale = (props) => {
   const [data, setData] = React.useState({
     nom: '',
     prenom: '',
-    nombreVisite: 0,
     derniereVisite: '/',
   });
+  const [nombreVisite, setNombreVisite] = React.useState(0);
 
   useEffect(() => {
     async function fetchData() {
+
       await axios
         .get(url + '/api/rendezVous/' + props.idRendezVous)
         .then((response) => {
           setData({
+            ...data,
             nom: response.data.idPatient.nom,
             prenom: response.data.idPatient.prenom,
           });
+          axios
+            .get(url + '/api/consultation/getCount/' + response.data.idPatient._id)
+            .then((response) => {
+              console.log(response.data);
+              setNombreVisite(response.data);
+            })
+            .catch((error) => console.log(error.response));
         })
         .catch((error) => console.log(error.response));
       await axios
@@ -87,7 +96,7 @@ const DossierMedicale = (props) => {
             <p className={classes.cardCategory}>
               Nombre des Visites de ce Malade
             </p>
-            <h1 className={classes.cardTitle}>0</h1>
+            <h1 className={classes.cardTitle}>{nombreVisite}</h1>
           </CardHeader>
           <CardFooter stats>
             <div className={classes.stats}></div>

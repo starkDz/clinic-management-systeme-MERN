@@ -151,6 +151,15 @@ router.get('/pour/:id', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+router.get('/getCount/:id', async (req, res) => {
+  try {
+    const NumberConsultation = await Consultation.find({ idPatient: req.params.id }).countDocuments();
+    res.json(NumberConsultation);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 router.get('/getOrdonnance/:id_s', async (req, res) => {
   const Fields = {};
   try {
