@@ -246,7 +246,7 @@ export default function Home() {
                   open={openMenuLogin}
                   onClose={handleCloseLogin}
                 >
-                  <MenuItem onClick={handleCloseLogin}>Profile</MenuItem>
+                  {/* <MenuItem onClick={handleCloseLogin}>Profile</MenuItem> */}
                   <MenuItem onClick={handleCloseLogin}>Mon Compte</MenuItem>
                   <MenuItem onClick={handleCloseLogin}>Se Deconnecter</MenuItem>
                   <MenuItem onClick={handleCloseLogin}>Verrouiller</MenuItem>
@@ -263,7 +263,7 @@ export default function Home() {
                 <StorageIcon />
               </IconButton>
             </div>
-            <div>
+            {/* <div>
               <IconButton
                 aria-label='account of current user'
                 aria-controls='menu-language'
@@ -292,7 +292,7 @@ export default function Home() {
                 <MenuItem onClick={handleCloseLanguage}>Anglais</MenuItem>
                 <MenuItem onClick={handleCloseLanguage}>العربيــة</MenuItem>
               </Menu>
-            </div>
+            </div> */}
           </Toolbar>
         </AppBar>
         <Drawer
@@ -356,6 +356,7 @@ export default function Home() {
                   key={module.name}
                   component={Link}
                   to={module.routeProps.path}
+                  alignItems='flex'
                   onClick={() => setCurrentTab(module.name)}
                 >
                   <ListItemIcon>{module.icon}</ListItemIcon>

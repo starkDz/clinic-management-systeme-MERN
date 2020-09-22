@@ -38,6 +38,17 @@ import Language from '@material-ui/icons/Language';
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import PersonIcon from '@material-ui/icons/Person';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faFemale,
+  faMale,
+  faUser,
+  faTimesCircle,
+  faCalendarCheck,
+  faCalendarTimes,
+  faPills,
+  faClipboardCheck,
+} from '@fortawesome/free-solid-svg-icons';
 import { Icon, InlineIcon } from '@iconify/react';
 import iRegistration from '@iconify/icons-medical-icon/i-registration';
 
@@ -76,11 +87,11 @@ const Add_New = () => {
 
   return (
     <Grid container spacing={0}>
-      <GridItem xs={12} sm={12} md={12} lg={6} height={100}>
+      <GridItem xs={12} sm={12} md={12} lg={4} height={100}>
         <Card>
           <CardHeader color='info' stats icon>
             <CardIcon color='info'>
-              <Icon icon={iRegistration} height={40} />
+              <FontAwesomeIcon icon={faUser} size='4x' />
             </CardIcon>
             <p className={classes.cardCategory}>
               Nombre Totale des Patients inscrits
@@ -88,71 +99,39 @@ const Add_New = () => {
             <h1 className={classes.cardTitle}>{countData.NumberPatient}</h1>
           </CardHeader>
           <CardFooter stats>
-            <div className={classes.stats}>
-              <Danger>
-                <Warning />
-              </Danger>
-              Get more space
-            </div>
+            <div className={classes.stats}></div>
           </CardFooter>
         </Card>
       </GridItem>
-      <GridItem xs={12} sm={12} md={12} lg={6}>
+      <GridItem xs={12} sm={12} md={12} lg={4}>
         <Card>
           <CardHeader color='success' stats icon>
             <CardIcon color='success'>
-              <DescriptionIcon />
+              <FontAwesomeIcon icon={faMale} size='4x' />
             </CardIcon>
             <p className={classes.cardCategory}>Nombre des patients Homme</p>
             <h1 className={classes.cardTitle}>{countData.NumberMen}</h1>
           </CardHeader>
           <CardFooter stats>
-            <div className={classes.stats}>
-              <DateRange />
-              Last 24 Hours
-            </div>
+            <div className={classes.stats}></div>
           </CardFooter>
         </Card>
       </GridItem>
-      <GridItem xs={12} sm={12} md={12} lg={6}>
+      <GridItem xs={12} sm={12} md={12} lg={4}>
         <Card>
           <CardHeader color='danger' stats icon>
             <CardIcon color='warning'>
-              <BuildIcon />
+              <FontAwesomeIcon icon={faFemale} size='3x' />
             </CardIcon>
             <p className={classes.cardCategory}>Nombre des Patients Femme</p>
             <h1 className={classes.cardTitle}>{countData.NumberWomen}</h1>
           </CardHeader>
           <CardFooter stats>
-            <div className={classes.stats}>
-              <LocalOffer />
-              Tracked from Github
-            </div>
+            <div className={classes.stats}></div>
           </CardFooter>
         </Card>
       </GridItem>
-      <GridItem xs={12} sm={12} md={12} lg={6}>
-        <Card>
-          <CardHeader color='danger' stats icon>
-            <CardIcon color='warning'>
-              <BuildIcon />
-            </CardIcon>
-            <p className={classes.cardCategory}>
-              Nombre des rendez Vous Non Valides
-            </p>
-            <h1 className={classes.cardTitle}>
-              {countData.NumberRendezVousNotValide}
-            </h1>
-          </CardHeader>
-          <CardFooter stats>
-            <div className={classes.stats}>
-              <LocalOffer />
-              Tracked from Github
-            </div>
-          </CardFooter>
-        </Card>
-      </GridItem>
-      <GridItem xs={12} sm={12} md={12} lg={6} height={100}>
+      <GridItem xs={12} sm={12} md={12} lg={4} height={100}>
         <Card>
           <CardHeader color='info' stats icon>
             <CardIcon color='info'>
@@ -164,20 +143,15 @@ const Add_New = () => {
             <h1 className={classes.cardTitle}>{countData.NumberRendezVous}</h1>
           </CardHeader>
           <CardFooter stats>
-            <div className={classes.stats}>
-              <Danger>
-                <Warning />
-              </Danger>
-              Get more space
-            </div>
+            <div className={classes.stats}></div>
           </CardFooter>
         </Card>
       </GridItem>
-      <GridItem xs={12} sm={12} md={12} lg={6}>
+      <GridItem xs={12} sm={12} md={12} lg={4}>
         <Card>
           <CardHeader color='success' stats icon>
             <CardIcon color='success'>
-              <DescriptionIcon />
+              <FontAwesomeIcon icon={faCalendarCheck} size='4x' />
             </CardIcon>
             <p className={classes.cardCategory}>
               Nombre des Rendez Vous Validee
@@ -187,18 +161,33 @@ const Add_New = () => {
             </h1>
           </CardHeader>
           <CardFooter stats>
-            <div className={classes.stats}>
-              <DateRange />
-              Last 24 Hours
-            </div>
+            <div className={classes.stats}></div>
           </CardFooter>
         </Card>
       </GridItem>
-      <GridItem xs={12} sm={12} md={12} lg={6}>
+      <GridItem xs={12} sm={12} md={12} lg={4}>
         <Card>
           <CardHeader color='danger' stats icon>
             <CardIcon color='warning'>
-              <BuildIcon />
+              <FontAwesomeIcon icon={faCalendarTimes} size='4x' />
+            </CardIcon>
+            <p className={classes.cardCategory}>
+              Nombre des rendez Vous Non Valides
+            </p>
+            <h1 className={classes.cardTitle}>
+              {countData.NumberRendezVousNotValide}
+            </h1>
+          </CardHeader>
+          <CardFooter stats>
+            <div className={classes.stats}></div>
+          </CardFooter>
+        </Card>
+      </GridItem>
+      <GridItem xs={12} sm={12} md={12} lg={12}>
+        <Card>
+          <CardHeader color='danger' stats icon>
+            <CardIcon color='warning'>
+              <FontAwesomeIcon icon={faPills} size='4x' />
             </CardIcon>
             <p className={classes.cardCategory}>
               Nombre Totale des Medicaments
@@ -206,10 +195,7 @@ const Add_New = () => {
             <h1 className={classes.cardTitle}>{countData.NumberMedicament}</h1>
           </CardHeader>
           <CardFooter stats>
-            <div className={classes.stats}>
-              <LocalOffer />
-              Tracked from Github
-            </div>
+            <div className={classes.stats}></div>
           </CardFooter>
         </Card>
       </GridItem>

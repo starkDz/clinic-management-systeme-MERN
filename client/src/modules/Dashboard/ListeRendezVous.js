@@ -151,7 +151,7 @@ class Call_Api extends Component {
     }
   }
   async componentDidMount() {
-    fetch(url + '/api/rendezVous')
+    fetch(url + '/api/rendezVous/')
       .then((response) => response.json())
       .then(
         (res) => {
@@ -226,6 +226,8 @@ class Call_Api extends Component {
             actions={[
               {
                 icon: () => <LensIcon color='secondary' />,
+                tooltip: 'Delete Consultation',
+                onClick: (event, rowData) => {},
               },
             ]}
             onRowClick={(evt, selectedRow) => this.setState({ selectedRow })}

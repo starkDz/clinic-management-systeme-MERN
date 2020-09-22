@@ -102,26 +102,27 @@ export default function VerticalLinearStepper(props) {
     try {
       const cookies = new Cookies();
       const body = JSON.stringify(element);
-      const res = await axios.post(
-        '/api/patient/update/' + props.identifier,
-        body,
-        {
+      const res = await axios
+        .post('/api/patient/update/' + props.identifier, body, {
           headers: {
             'Content-Type': 'application/json;charset=UTF-8',
             'Access-Control-Allow-Origin': '*',
             'x-auth-token': cookies.get('token'),
           },
-        }
-      );
-      setFormData({
-        nom: '',
-        prenom: '',
-        address: '',
-        telephone: '',
-        observation: '/',
-        dateNaissance: '',
-        groupage: '',
-      });
+        })
+        .then((response) => {
+          // setFormData({
+          //   nom: '',
+          //   prenom: '',
+          //   address: '',
+          //   telephone: '',
+          //   observation: '/',
+          //   dateNaissance: '',
+          //   groupage: '',
+          // });
+          props.sendData();
+        })
+        .catch((error) => console.log(error.response));
     } catch (err) {}
   };
 

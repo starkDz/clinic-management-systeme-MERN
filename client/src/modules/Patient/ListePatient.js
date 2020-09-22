@@ -315,7 +315,7 @@ class Call_Api extends Component {
               },
               {
                 icon: () => <EditIcon color='primary' />,
-                tooltip: 'Edit User',
+                tooltip: 'Edit patient',
                 onClick: (event, rowData) => {
                   this.setState({ id: rowData._id });
                   this.handleClickOpenUpdate();
@@ -391,7 +391,7 @@ class Call_Api extends Component {
                     flex: 1,
                   }}
                 >
-                  Dossier Medicale
+                  Creer un Rendez Vous
                 </Typography>
                 <IconButton color='inherit' aria-label='close'>
                   <FolderSharedIcon style={{ fontSize: 50 }} />

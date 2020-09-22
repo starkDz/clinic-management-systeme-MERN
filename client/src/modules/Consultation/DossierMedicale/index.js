@@ -27,7 +27,15 @@ import BuildIcon from '@material-ui/icons/Build';
 import styles from '../../../assets/jss/material-dashboard-pro-react/views/dashboardStyle.js';
 import { Icon, InlineIcon } from '@iconify/react';
 import iRegistration from '@iconify/icons-medical-icon/i-registration';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faFemale,
+  faMale,
+  faUser,
+  faHistory,
+  faCalendarDay,
+  faIdCard,
+} from '@fortawesome/free-solid-svg-icons';
 const useStyles = makeStyles(styles);
 
 const DossierMedicale = (props) => {
@@ -75,7 +83,7 @@ const DossierMedicale = (props) => {
         <Card>
           <CardHeader color='info' stats icon>
             <CardIcon color='info'>
-              <Icon icon={iRegistration} height={40} />
+              <FontAwesomeIcon icon={faIdCard} size='4x' />
             </CardIcon>
             <p className={classes.cardCategory}>Nom & Prenom</p>
             <h1 className={classes.cardTitle}>
@@ -91,7 +99,7 @@ const DossierMedicale = (props) => {
         <Card>
           <CardHeader color='info' stats icon>
             <CardIcon color='info'>
-              <Icon icon={iRegistration} height={40} />
+              <FontAwesomeIcon icon={faHistory} size='4x' />
             </CardIcon>
             <p className={classes.cardCategory}>
               Nombre des Visites de ce Malade
@@ -107,7 +115,7 @@ const DossierMedicale = (props) => {
         <Card>
           <CardHeader color='info' stats icon>
             <CardIcon color='info'>
-              <Icon icon={iRegistration} height={40} />
+              <FontAwesomeIcon icon={faCalendarDay} size='4x' />
             </CardIcon>
             <p className={classes.cardCategory}>Derniere Visite</p>
             <h1 className={classes.cardTitle}>09/05/2020 </h1>

@@ -24,7 +24,7 @@ import Warning from '@material-ui/icons/Warning';
 import DateRange from '@material-ui/icons/DateRange';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCapsules } from '@fortawesome/free-solid-svg-icons';
+import { faCapsules, faUser } from '@fortawesome/free-solid-svg-icons';
 
 const useStyles = makeStyles(styles);
 const Add_New = () => {
@@ -53,21 +53,17 @@ const Add_New = () => {
     <Grid container spacing={0}>
       <GridItem xs={12} sm={12} md={12} lg={6} height={100}>
         <Card>
-          <CardHeader color='info' stats icon>
-            <CardIcon color='info'>
+          <CardHeader color='danger' stats icon>
+            <CardIcon color='danger'>
               <FontAwesomeIcon icon={faCapsules} size='2x' />
             </CardIcon>
             <p className={classes.cardCategory}>
-              Nombre des Medicaments inscrit
+              Nombre des Medicaments inscrits
             </p>
             <h1 className={classes.cardTitle}>{countData.NumberMedicament}</h1>
           </CardHeader>
           <CardFooter stats>
-            <div className={classes.stats}>
-              <Danger>
-                <Warning />
-              </Danger>
-            </div>
+            <div className={classes.stats}></div>
           </CardFooter>
         </Card>
       </GridItem>
@@ -75,16 +71,13 @@ const Add_New = () => {
         <Card>
           <CardHeader color='success' stats icon>
             <CardIcon color='success'>
-              <DescriptionIcon />
+              <FontAwesomeIcon icon={faUser} size='2x' />
             </CardIcon>
-            <p className={classes.cardCategory}>Nombre Totale des patient</p>
+            <p className={classes.cardCategory}>Nombre Totale des patients</p>
             <h1 className={classes.cardTitle}>{countData.NumberPatient}</h1>
           </CardHeader>
           <CardFooter stats>
-            <div className={classes.stats}>
-              <DateRange />
-              Last 24 Hours
-            </div>
+            <div className={classes.stats}></div>
           </CardFooter>
         </Card>
       </GridItem>

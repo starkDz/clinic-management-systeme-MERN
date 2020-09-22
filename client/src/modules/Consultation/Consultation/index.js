@@ -106,6 +106,26 @@ const Consultation = (props) => {
       ...formData,
       [e.target.name]: e.target.value,
     });
+  const validerRendezVous = async (idRendezVous) => {
+    const element = {
+      estValide: true,
+    };
+    try {
+      const body = JSON.stringify(element);
+      console.log(body);
+      const res = await axios
+        .post('/api/rendezVous/update/' + idRendezVous, body, {
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Access-Control-Allow-Origin': '*',
+            'x-auth-token': cookies.get('token'),
+          },
+        })
+        .then((res) => {})
+        .catch((error) => console.log(error.res));
+    } catch (err) {}
+  };
+
   const creatConsultation = async (idOrdonnance) => {
     const element = {
       taille,
@@ -127,24 +147,29 @@ const Consultation = (props) => {
     try {
       const body = JSON.stringify(element);
       console.log(body);
-      const res = await axios.post('/api/consultation', body, {
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-          'Access-Control-Allow-Origin': '*',
-          'x-auth-token': cookies.get('token'),
-        },
-      });
-      setFormData({
-        taille: '',
-        poids: '',
-        glycemie: '',
-        antecedentMedical: '',
-        antecedentChirurgical: '',
-        temperature: '',
-        freCardiaque: '',
-        prix: '',
-        diagnostic: '',
-      });
+      const res = await axios
+        .post('/api/consultation', body, {
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Access-Control-Allow-Origin': '*',
+            'x-auth-token': cookies.get('token'),
+          },
+        })
+        .then((res) => {
+          props.validerRendezVous(idRendezVous);
+          setFormData({
+            taille: '',
+            poids: '',
+            glycemie: '',
+            antecedentMedical: '',
+            antecedentChirurgical: '',
+            temperature: '',
+            freCardiaque: '',
+            prix: '',
+            diagnostic: '',
+          });
+        })
+        .catch((error) => console.log(error.res));
     } catch (err) {}
   };
   const send = async (e) => {

@@ -86,7 +86,7 @@ const ScrollableTabsButtonForce = (props) => {
         >
           <Tab
             className={classes.tab}
-            label='Visualiser le Dossier Medicale de ...'
+            label='Visualiser le Dossier Medicale'
             icon={<ViewListIcon fontSize='large' />}
             {...a11yProps(0)}
           />

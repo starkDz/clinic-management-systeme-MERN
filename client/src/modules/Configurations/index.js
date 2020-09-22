@@ -3,10 +3,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import FloatingActionButtonSize from './test1';
 import MultilineTextFields from './test2';
 const Configurations = () => (
-  <div>
-    <FloatingActionButtonSize />
-    <MultilineTextFields />
-  </div>
+  <div>{/* <FloatingActionButtonSize />
+    <MultilineTextFields /> */}</div>
 );
 
 export default {

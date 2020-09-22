@@ -244,13 +244,13 @@ class Call_Api extends Component {
             title={Title}
             detailPanel={[
               {
-                tooltip: 'Show Name',
+                tooltip: 'Afficher plus de details',
                 render: (rowData) => {
                   return (
                     <div
                       style={{
                         fontSize: 50,
-                        textAlign: 'center',
+                        // textAlign: 'center',
                       }}
                     >
                       <Chip

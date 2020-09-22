@@ -183,7 +183,7 @@ class Call_Api extends Component {
     }
   }
   async componentDidMount() {
-    fetch(url + '/api/rendezVous')
+    fetch(url + '/api/rendezVous/nonValide')
       .then((response) => response.json())
       .then(
         (res) => {

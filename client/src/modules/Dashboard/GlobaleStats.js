@@ -41,6 +41,13 @@ import styles from '../../assets/jss/material-dashboard-pro-react/views/dashboar
 import { Icon, InlineIcon } from '@iconify/react';
 import iRegistration from '@iconify/icons-medical-icon/i-registration';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faFemale,
+  faMale,
+  faUser,
+  faUserCheck,
+} from '@fortawesome/free-solid-svg-icons';
 const useStyles = makeStyles(styles);
 const Add_New = () => {
   const classes = useStyles();
@@ -84,9 +91,9 @@ const Add_New = () => {
       </GridItem>
       <GridItem xs={12} sm={12} md={12} lg={4}>
         <Card>
-          <CardHeader color='success' stats icon>
-            <CardIcon color='success'>
-              <DescriptionIcon />
+          <CardHeader color='danger' stats icon>
+            <CardIcon color='danger'>
+              <FontAwesomeIcon icon={faUser} size='4x' />
             </CardIcon>
             <p className={classes.cardCategory}>Nombre Totale des patients</p>
             <h1 className={classes.cardTitle}>{countData.NumberPatient}</h1>
@@ -98,9 +105,9 @@ const Add_New = () => {
       </GridItem>
       <GridItem xs={12} sm={12} md={12} lg={4}>
         <Card>
-          <CardHeader color='danger' stats icon>
-            <CardIcon color='warning'>
-              <BuildIcon />
+          <CardHeader color='success' stats icon>
+            <CardIcon color='success'>
+              <FontAwesomeIcon icon={faUserCheck} size='4x' />
             </CardIcon>
             <p className={classes.cardCategory}>Nombre des patients traites</p>
             <h1 className={classes.cardTitle}>

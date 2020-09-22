@@ -2,7 +2,7 @@ import React from 'react';
 import LocalGasStationIcon from '@material-ui/icons/LocalGasStation';
 import SpeedDial from './SpeedDial';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCapsules } from '@fortawesome/free-solid-svg-icons';
+import { faCapsules, faPills } from '@fortawesome/free-solid-svg-icons';
 import Add_New from './GlobaleStats';
 import Call_Api from './ListeRendezVous';
 const Medicament = () => (
@@ -20,5 +20,5 @@ export default {
   },
 
   name: 'Medicament',
-  icon: <FontAwesomeIcon icon={faCapsules} size='2x' />,
+  icon: <FontAwesomeIcon icon={faPills} size='2x' />,
 };

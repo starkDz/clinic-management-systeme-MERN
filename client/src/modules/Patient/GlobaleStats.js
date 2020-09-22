@@ -165,9 +165,8 @@ import ArtTrack from '@material-ui/icons/ArtTrack';
 import Language from '@material-ui/icons/Language';
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import PersonIcon from '@material-ui/icons/Person';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFemale, faMale } from '@fortawesome/free-solid-svg-icons';
+import { faFemale, faMale, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Icon, InlineIcon } from '@iconify/react';
 import iRegistration from '@iconify/icons-medical-icon/i-registration';
 
@@ -204,7 +203,7 @@ const Add_New = (props) => {
         <Card>
           <CardHeader color='info' stats icon>
             <CardIcon color='info'>
-              <Icon icon={iRegistration} height={40} />
+              <FontAwesomeIcon icon={faUser} size='4x' />
             </CardIcon>
             <p className={classes.cardCategory}>Nombre Totale des Patients</p>
             <h1 className={classes.cardTitle}>{NumberPatient}</h1>
@@ -216,8 +215,8 @@ const Add_New = (props) => {
       </GridItem>
       <GridItem xs={12} sm={12} md={12} lg={4}>
         <Card>
-          <CardHeader color='success' stats icon>
-            <CardIcon color='success'>
+          <CardHeader color='danger' stats icon>
+            <CardIcon color='danger'>
               <FontAwesomeIcon icon={faFemale} size='3x' />
             </CardIcon>
             <p className={classes.cardCategory}>Nombre des Patients Femme</p>

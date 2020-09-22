@@ -39,7 +39,7 @@ import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import PersonIcon from '@material-ui/icons/Person';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUserCheck } from '@fortawesome/free-solid-svg-icons';
 import { Icon, InlineIcon } from '@iconify/react';
 import iRegistration from '@iconify/icons-medical-icon/i-registration';
 
@@ -78,12 +78,7 @@ const Add_New = () => {
             <h1 className={classes.cardTitle}>{countData.NumberRendezVous}</h1>
           </CardHeader>
           <CardFooter stats>
-            <div className={classes.stats}>
-              <Danger>
-                <Warning />
-              </Danger>
-              Get more space
-            </div>
+            <div className={classes.stats}></div>
           </CardFooter>
         </Card>
       </GridItem>
@@ -91,7 +86,7 @@ const Add_New = () => {
         <Card>
           <CardHeader color='success' stats icon>
             <CardIcon color='success'>
-              <FontAwesomeIcon icon={faUser} size='2x' />
+              <FontAwesomeIcon icon={faUserCheck} size='2x' />
             </CardIcon>
             <p className={classes.cardCategory}>Nombre des Patients traites</p>
             <h1 className={classes.cardTitle}>
@@ -99,10 +94,7 @@ const Add_New = () => {
             </h1>
           </CardHeader>
           <CardFooter stats>
-            <div className={classes.stats}>
-              <DateRange />
-              Last 24 Hours
-            </div>
+            <div className={classes.stats}></div>
           </CardFooter>
         </Card>
       </GridItem>
