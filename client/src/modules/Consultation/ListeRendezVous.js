@@ -20,6 +20,7 @@ import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { forwardRef } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import {
   Dialog,
@@ -122,7 +123,7 @@ const useStyles = makeStyles((theme) => ({
 
 class Call_Api extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       error: null,
       isLoaded: false,
@@ -265,7 +266,12 @@ class Call_Api extends Component {
                 tooltip: 'Afficher le dossier medicale',
                 onClick: (event, rowData) => {
                   this.handleClickOpen();
+                  this.props.changeStatesCurrentRendezVousPatient(
+                    rowData._id,
+                    rowData.idPatient._id
+                  );
                   this.setState({ id: rowData._id });
+                  console.log(items);
                 },
               },
             ]}
@@ -332,4 +338,18 @@ class Call_Api extends Component {
   }
 }
 
-export default Call_Api;
+const mapDispatchProps = (dispatch) => {
+  return {
+    changeStatesCurrentRendezVousPatient: (idR, idP) => {
+      dispatch({
+        type: 'currentRendezVousPatient',
+        idRendezVous: idR,
+        idPatient: idP,
+      });
+    },
+  };
+};
+const mapStateProps = (state) => {
+  return {};
+};
+export default connect(mapStateProps, mapDispatchProps)(Call_Api);

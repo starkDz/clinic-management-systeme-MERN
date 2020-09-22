@@ -8,7 +8,12 @@ import * as serviceWorker from './serviceWorker';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { url } from './defaults/default';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import rootReducer from './Reducers/rootReducer';
 axios.defaults.baseURL = url;
+
+const store = createStore(rootReducer);
 
 const login = async (e) => {
   try {
@@ -25,7 +30,12 @@ const login = async (e) => {
     );
     const token = res.data.token;
     cookie.set('token', token, { path: '/' /*, expires: d*/ });
-    ReactDOM.render(<Home />, document.getElementById('root'));
+    ReactDOM.render(
+      <Provider store={store}>
+        <Home />
+      </Provider>,
+      document.getElementById('root')
+    );
   } catch (err) {
     ReactDOM.render(<SignIn />, document.getElementById('root'));
   }

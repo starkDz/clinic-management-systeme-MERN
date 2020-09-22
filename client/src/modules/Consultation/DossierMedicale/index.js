@@ -41,24 +41,23 @@ const DossierMedicale = (props) => {
 
   useEffect(() => {
     async function fetchData() {
-
-      await axios
-        .get(url + '/api/rendezVous/' + props.idRendezVous)
+      axios
+        .get(url + '/api/patient/ById/' + props.idCurrentPatient)
         .then((response) => {
           setData({
             ...data,
-            nom: response.data.idPatient.nom,
-            prenom: response.data.idPatient.prenom,
+            nom: response.data.nom,
+            prenom: response.data.prenom,
           });
-          axios
-            .get(url + '/api/consultation/getCount/' + response.data.idPatient._id)
-            .then((response) => {
-              console.log(response.data);
-              setNombreVisite(response.data);
-            })
-            .catch((error) => console.log(error.response));
         })
         .catch((error) => console.log(error.response));
+      axios
+        .get(url + '/api/consultation/getCount/' + props.idCurrentPatient)
+        .then((response) => {
+          setNombreVisite(response.data);
+        })
+        .catch((error) => console.log(error.response));
+
       await axios
         .get(url + '/api/medicament')
         .then((response) => {
@@ -71,6 +70,7 @@ const DossierMedicale = (props) => {
   }, []);
   return (
     <Grid container spacing={0}>
+      {/* {props.idRendezVous + '------' + props.idPatient} */}
       <GridItem xs={12} sm={12} md={12} lg={4} height={100}>
         <Card>
           <CardHeader color='info' stats icon>
@@ -118,11 +118,18 @@ const DossierMedicale = (props) => {
         </Card>
       </GridItem>
       <GridItem xs={12} sm={12} md={12} lg={12} height={100}>
-        <Call_Api idPatient={props.idPatient} />
-
+        <Call_Api />
       </GridItem>
     </Grid>
   );
 };
-
-export default DossierMedicale;
+const mapDispatchProps = (dispatch) => {
+  return {};
+};
+const mapStateProps = (state) => {
+  return {
+    idCurrentRendezVous: state.idCurrentRendezVous,
+    idCurrentPatient: state.idCurrentPatient,
+  };
+};
+export default connect(mapStateProps, mapDispatchProps)(DossierMedicale);

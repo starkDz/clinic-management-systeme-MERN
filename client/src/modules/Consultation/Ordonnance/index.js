@@ -30,6 +30,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { connect } from 'react-redux';
 axios.defaults.baseURL = url;
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -90,18 +91,6 @@ const Ordonnance = (props) => {
         idPatient: props.idPatient,
         idRendezVous: props.idRendezVous,
       });
-      await axios
-        .get(
-          url +
-          '/api/consultation/getOrdonnance/' +
-          props.idRendezVous +
-          '&' +
-          props.idPatient
-        )
-        .then((response) => {
-          setIdOrdonnance(response.data.idOrdonnance);
-        })
-        .catch((error) => console.log(error.response));
 
       await axios
         .get(url + '/api/medicament')
@@ -137,7 +126,7 @@ const Ordonnance = (props) => {
     try {
       const body = JSON.stringify(element);
       const res = await axios.put(
-        '/api/ordonnance/newMedicament/' + idOrdonnance,
+        '/api/ordonnance/newMedicament/' + props.idCurrentOrdonnance,
         body,
         {
           headers: {
@@ -153,9 +142,10 @@ const Ordonnance = (props) => {
       });
       setItems(items.concat(elementAffich));
       console.log(JSON.stringify(items));
-    } catch (err) { }
+    } catch (err) {}
   };
-
+  console.log(props);
+  const patient = props;
   return (
     <div className={classes.root}>
       <Grid container justify='right' spacing={2}>
@@ -222,11 +212,10 @@ const Ordonnance = (props) => {
         <Grid item xs={12} sm={12} lg={8}>
           <Grid container spacing={2} xs={12} md={12} lg={12}>
             {items.map((option) => (
-
               <Grid item lg={12}>
-                <List dense={dense} >
+                <List dense={dense}>
                   <Paper className={classes.paper} elevation={3}>
-                    <Grid container wrap="nowrap" spacing={2}>
+                    <Grid container wrap='nowrap' spacing={2}>
                       <Grid item xs zeroMinWidth>
                         <ListItem>
                           <ListItemAvatar>
@@ -234,14 +223,9 @@ const Ordonnance = (props) => {
                               <FolderIcon />
                             </Avatar>
                           </ListItemAvatar>
-                          <ListItemText
-                            primary={
-                              option.nameMedicament
-                            }
-                          /><ListItemAvatar>
-                            <Avatar>
-                              {option.quantite}
-                            </Avatar>
+                          <ListItemText primary={option.nameMedicament} />
+                          <ListItemAvatar>
+                            <Avatar>{option.quantite}</Avatar>
                           </ListItemAvatar>
                           <ListItemSecondaryAction>
                             <IconButton edge='end' aria-label='delete'>
@@ -258,8 +242,12 @@ const Ordonnance = (props) => {
           </Grid>
         </Grid>
       </Grid>
-    </div >
+    </div>
   );
 };
-
-export default Ordonnance;
+const mapStateToProps = (state) => {
+  return {
+    idCurrentOrdonnance: state.idCurrentOrdonnance,
+  };
+};
+export default connect(mapStateToProps)(Ordonnance);

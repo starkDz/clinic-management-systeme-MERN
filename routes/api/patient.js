@@ -114,6 +114,49 @@ router.delete('/', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+// router.put('/update/:id', auth, async (req, res) => {
+//   const errors = validationResult(req);
+//   if (!errors.isEmpty()) {
+//     return res.status(400).json({ errors: errors.array() });
+//   }
+
+//   const {
+//     nom,
+//     prenom,
+//     telephone,
+//     address,
+//     sexe,
+//     dateNaissance,
+//     observation,
+//     code,
+//     groupage,
+//   } = req.body;
+
+//   //Build type objects
+//   const Fields = {};
+//   Fields.owner = req.user.id;
+//   if (nom) Fields.nom = nom;
+//   if (prenom) Fields.prenom = prenom;
+//   if (telephone) Fields.telephone = telephone;
+//   if (address) Fields.address = address;
+//   if (dateNaissance) Fields.dateNaissance = dateNaissance;
+//   if (sexe) Fields.sexe = sexe;
+//   if (observation) Fields.observation = observation;
+//   Fields.code = nom + '.' + prenom;
+//   if (groupage) Fields.groupage = groupage;
+
+//   try {
+//     const element = await Ordonnance.findOne({ _id: req.params.id });
+//     element.idMedicament.unshift(Fields);
+//     await element.save();
+//     res.json(element);
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send('Server Error');
+//   }
+// });
+
 router.get('/getCount', async (req, res) => {
   const Fields = {};
   try {
@@ -126,4 +169,61 @@ router.get('/getCount', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+router.post(
+  '/update/:id',
+  [
+    auth,
+    [
+      check('nom', 'nom is required').not().isEmpty(),
+      check('prenom', 'prenom is required').not().isEmpty(),
+      check('telephone', 'telephone is required').not().isEmpty(),
+    ],
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const {
+      nom,
+      prenom,
+      telephone,
+      address,
+      sexe,
+      dateNaissance,
+      observation,
+      code,
+      groupage,
+    } = req.body;
+
+    //Build type objects
+    const Fields = {};
+    Fields.owner = req.user.id;
+    if (nom) Fields.nom = nom;
+    if (prenom) Fields.prenom = prenom;
+    if (telephone) Fields.telephone = telephone;
+    if (address) Fields.address = address;
+    if (dateNaissance) Fields.dateNaissance = dateNaissance;
+    if (sexe) Fields.sexe = sexe;
+    if (observation) Fields.observation = observation;
+    Fields.code = nom + '.' + prenom;
+    if (groupage) Fields.groupage = groupage;
+
+    try {
+      element = await Patient.findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: Fields },
+        { new: true }
+      );
+
+      res.json(element);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
 module.exports = router;

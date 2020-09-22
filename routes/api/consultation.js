@@ -153,7 +153,9 @@ router.get('/pour/:id', async (req, res) => {
 });
 router.get('/getCount/:id', async (req, res) => {
   try {
-    const NumberConsultation = await Consultation.find({ idPatient: req.params.id }).countDocuments();
+    const NumberConsultation = await Consultation.find({
+      idPatient: req.params.id,
+    }).countDocuments();
     res.json(NumberConsultation);
   } catch (err) {
     console.error(err.message);

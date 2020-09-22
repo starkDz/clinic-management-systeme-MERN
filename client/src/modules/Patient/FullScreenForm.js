@@ -31,6 +31,7 @@ import Cookies from 'universal-cookie';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
 axios.defaults.baseURL = url;
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -62,7 +63,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog(props) {
+const FullScreenDialog = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
@@ -119,6 +120,8 @@ export default function FullScreenDialog(props) {
       });
       props.sendData(nom, prenom, address, telephone, sexe, res.data._id);
 
+      if (sexe == 'Homme') props.changeStates(1, 1, 0);
+      else props.changeStates(1, 0, 1);
       setOpen(false);
       // setFormData({
       //   nom: '',
@@ -167,8 +170,8 @@ export default function FullScreenDialog(props) {
         <Container maxWidth='md'>
           <div className={classes.root} lg={5}>
             <div className={classes.toolbar} />
-            <Grid container justify='left' spacing={2}>
-              <Grid container justify='center' xs={12} sm={12} lg={12}>
+            <Grid container spacing={2}>
+              <Grid container justify='center'>
                 <FontAwesomeIcon icon={faUser} size='8x' />
               </Grid>
               <Grid item xs={12} sm={12} lg={6}>
@@ -314,4 +317,21 @@ export default function FullScreenDialog(props) {
       </Dialog>
     </div>
   );
-}
+};
+
+const mapDispatchProps = (dispatch) => {
+  return {
+    changeStates: (NumberPatient, NumberMen, NumberWomen) => {
+      dispatch({
+        type: 'addPatientStates',
+        NumberPatient: NumberPatient,
+        NumberWomen: NumberWomen,
+        NumberMen: NumberMen,
+      });
+    },
+  };
+};
+const mapStateProps = (state) => {
+  return {};
+};
+export default connect(mapStateProps, mapDispatchProps)(FullScreenDialog);

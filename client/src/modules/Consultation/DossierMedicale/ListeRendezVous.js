@@ -46,6 +46,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
 import DoneIcon from '@material-ui/icons/Done';
+import { connect } from 'react-redux';
 import clsx from 'clsx';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
@@ -185,12 +186,12 @@ class Call_Api extends Component {
     }
   }
   async componentDidMount() {
-    const idPatient = localStorage.getItem('idPatient');
-    fetch(url + '/api/consultation/pour/' + idPatient)
+    // const idPatient = localStorage.getItem('idPatient');
+    fetch(url + '/api/consultation/pour/' + this.props.idCurrentPatient)
       .then((response) => response.json())
       .then(
         (res) => {
-          console.log(res)
+          console.log(res);
           this.setState({
             isLoaded: true,
             items: res,
@@ -244,7 +245,7 @@ class Call_Api extends Component {
             detailPanel={[
               {
                 tooltip: 'Show Name',
-                render: rowData => {
+                render: (rowData) => {
                   return (
                     <div
                       style={{
@@ -254,21 +255,27 @@ class Call_Api extends Component {
                     >
                       <Chip
                         avatar={<Avatar>M</Avatar>}
-                        label={"Antecedents Medicaux:   " + rowData.antecedentMedical}
+                        label={
+                          'Antecedents Medicaux:   ' + rowData.antecedentMedical
+                        }
                         clickable
-                        color="primary"
+                        color='primary'
                         deleteIcon={<DoneIcon />}
-                        variant="outlined"
-                      /><Chip
+                        variant='outlined'
+                      />
+                      <Chip
                         avatar={<Avatar>M</Avatar>}
-                        label={"Antecedents Chirurgical:   " + rowData.antecedentChirurgical}
+                        label={
+                          'Antecedents Chirurgical:   ' +
+                          rowData.antecedentChirurgical
+                        }
                         clickable
-                        color="primary"
+                        color='primary'
                         deleteIcon={<DoneIcon />}
-                        variant="outlined"
+                        variant='outlined'
                       />
                     </div>
-                  )
+                  );
                 },
               },
             ]}
@@ -303,6 +310,16 @@ class Call_Api extends Component {
               { title: 'Temperature', field: 'temperature', width: '10%' },
             ]}
             data={items}
+            actions={
+              [
+                // {
+                //   icon: () => <DeleteIcon color='secondary' />,
+                //   tooltip: 'Delete Consultation',
+                //   onClick: (event, rowData) =>
+                //     this.DeleteThis(rowData._id, rowData.tableData.id),
+                // },
+              ]
+            }
             onRowClick={(evt, selectedRow) => this.setState({ selectedRow })}
             options={{
               exportButton: true,
@@ -320,4 +337,20 @@ class Call_Api extends Component {
   }
 }
 
-export default Call_Api;
+const mapDispatchProps = (dispatch) => {
+  return {
+    changeStatesCurrentPatient: (id) => {
+      dispatch({
+        type: 'currentPatient',
+        idPatient: id,
+      });
+    },
+  };
+};
+const mapStateProps = (state) => {
+  return {
+    idCurrentRendezVous: state.idCurrentRendezVous,
+    idCurrentPatient: state.idCurrentPatient,
+  };
+};
+export default connect(mapStateProps, mapDispatchProps)(Call_Api);

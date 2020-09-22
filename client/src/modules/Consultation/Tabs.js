@@ -18,6 +18,7 @@ import DossierMedicale from './DossierMedicale';
 import Consultation from './Consultation';
 import { url } from '../../defaults/default';
 import axios from 'axios';
+import { connect } from 'react-redux';
 axios.defaults.baseURL = url;
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -59,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ScrollableTabsButtonForce(props) {
+const ScrollableTabsButtonForce = (props) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [idPatient, setIdPatient] = React.useState();
@@ -71,13 +72,13 @@ export default function ScrollableTabsButtonForce(props) {
 
   useEffect(() => {
     setIdRendezVous(props.identifier);
-    console.log('rendezVous :', idRendezVous);
+    // console.log('rendezVous :', props.idCurrentRendezVous);
     async function fetchData() {
       await axios
-        .get(url + '/api/rendezVous/' + idRendezVous)
+        .get(url + '/api/rendezVous/' + props.idCurrentRendezVous)
         .then((response) => {
           setIdPatient(response.data.idPatient._id);
-          localStorage.setItem('idPatient', response.data.idPatient._id);
+          //props.changeStatesCurrentPatient(response.data.idPatient._id);
         })
         .catch((error) => console.log(error.response));
     }
@@ -118,14 +119,48 @@ export default function ScrollableTabsButtonForce(props) {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0} className={classes.content}>
-        <DossierMedicale idRendezVous={idRendezVous} idPatient={idPatient} />
+        {/* {'idRendezVous' + props.idCurrentRendezVous}
+        {'idpatient' + idPatient} */}
+        <DossierMedicale
+        // idRendezVous={props.idCurrentRendezVous}
+        // idPatient={idPatient}
+        />
       </TabPanel>
       <TabPanel value={value} index={1} className={classes.content}>
-        <Consultation idRendezVous={idRendezVous} idPatient={idPatient} />
+        {/* {'idRendezVous' + props.idCurrentRendezVous}
+        {'idpatient' + idPatient} */}
+        <Consultation
+        // idRendezVous={props.idCurrentRendezVous}
+        // idPatient={idPatient}
+        />
       </TabPanel>
       <TabPanel value={value} index={2} className={classes.content}>
-        <Ordonnance idRendezVous={idRendezVous} idPatient={idPatient} />
+        {/* {'idRendezVous' + props.idCurrentRendezVous}
+        {'idpatient' + idPatient} */}
+        <Ordonnance
+        // idRendezVous={props.idCurrentRendezVous}
+        // idPatient={idPatient}
+        />
       </TabPanel>
     </div>
   );
-}
+};
+const mapDispatchProps = (dispatch) => {
+  return {
+    changeStatesCurrentPatient: (id) => {
+      dispatch({
+        type: 'currentPatient',
+        idPatient: id,
+      });
+    },
+  };
+};
+const mapStateProps = (state) => {
+  return {
+    idCurrentRendezVous: state.idCurrentRendezVous,
+  };
+};
+export default connect(
+  mapStateProps,
+  mapDispatchProps
+)(ScrollableTabsButtonForce);

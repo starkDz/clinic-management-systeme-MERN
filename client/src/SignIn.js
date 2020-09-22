@@ -19,6 +19,12 @@ import SignUp from './SignUp';
 import { url } from './defaults/default';
 import Cookies from 'universal-cookie';
 
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import rootReducer from './Reducers/rootReducer';
+axios.defaults.baseURL = url;
+
+const store = createStore(rootReducer);
 function Copyright() {
   return (
     <Typography variant='body2' color='textSecondary' align='center'>
@@ -85,7 +91,12 @@ export default function SignIn() {
       d.setTime(d.getTime() + 2 * 60 * 1000);
       const cookies = new Cookies();
       cookies.set('token', token, { path: '/' /*, expires: d*/ });
-      ReactDOM.render(<Home />, document.getElementById('root'));
+      ReactDOM.render(
+        <Provider store={store}>
+          <Home />
+        </Provider>,
+        document.getElementById('root')
+      );
       cookies.set('password', password, { path: '/' });
       cookies.set('email', email, { path: '/' });
       console.log('connexion avec Success');

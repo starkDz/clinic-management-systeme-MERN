@@ -30,6 +30,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { connect } from 'react-redux';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -65,14 +66,15 @@ const Consultation = (props) => {
   const classes = useStyles();
   const [dense, setDense] = React.useState(false);
   const [secondary, setSecondary] = React.useState(false);
-  const [idPatient, setIdPatient] = React.useState();
-  const [idRendezVous, setIdRendezVous] = React.useState(props.idRendezVous);
+  const [idPatient, setIdPatient] = React.useState(props.idCurrentPatient);
+  const [idRendezVous, setIdRendezVous] = React.useState(
+    props.idCurrentRendezVous
+  );
 
   const cookies = new Cookies();
   useEffect(() => {
-    console.log('rendezvous: ', props.idRendezvous);
-    setIdPatient(props.idPatient);
-    setIdRendezVous(props.idRendezVous);
+    // setIdPatient(props.idPatient);
+    // setIdRendezVous(props.idRendezVous);
   }, []);
   const [formData, setFormData] = React.useState({
     taille: '',
@@ -158,6 +160,7 @@ const Consultation = (props) => {
           },
         })
         .then((res) => {
+          props.changeStatesOrdonnace(res.data._id);
           creatConsultation(res.data._id);
         })
         .catch((error) => console.log(error.res));
@@ -352,4 +355,20 @@ const Consultation = (props) => {
   );
 };
 
-export default Consultation;
+const mapDispatchProps = (dispatch) => {
+  return {
+    changeStatesOrdonnace: (idO) => {
+      dispatch({
+        type: 'currentOrdonnnance',
+        idOrdonnance: idO,
+      });
+    },
+  };
+};
+const mapStateProps = (state) => {
+  return {
+    idCurrentRendezVous: state.idCurrentRendezVous,
+    idCurrentPatient: state.idCurrentPatient,
+  };
+};
+export default connect(mapStateProps, mapDispatchProps)(Consultation);

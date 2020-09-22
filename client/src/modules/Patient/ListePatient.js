@@ -40,8 +40,11 @@ import { Icon, InlineIcon } from '@iconify/react';
 import iRegistration from '@iconify/icons-medical-icon/i-registration';
 import FullScreenDialog from './FullScreenForm';
 import FullScreenDialogEnregistrement from './Enregistrement/FullScreenForm';
-
+import { connect } from 'react-redux';
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
+import VerticalLinearStepper from './Update/FormContent';
+import ScrollableTabsButtonForce from './Tabs';
+
 const tableIcons = {
   Add: forwardRef((props, ref: React.Ref<SVGSVGElement>) => (
     <AddBox {...props} ref={ref} />
@@ -121,6 +124,8 @@ class Call_Api extends Component {
       type: 'success',
       selectedRow: null,
       open: false,
+      openDossier: false,
+      openUpdate: false,
       opensnack: false,
       msg: 'Suppression a ete fait avec success',
       Title: 'Liste des Patients',
@@ -133,7 +138,11 @@ class Call_Api extends Component {
     this.getData = this.getData.bind(this);
 
     this.handleCloseRendezVous = this.handleCloseRendezVous.bind(this);
+    this.handleCloseDossier = this.handleCloseDossier.bind(this);
+    this.handleCloseUpdate = this.handleCloseUpdate.bind(this);
     this.handleClickOpen = this.handleClickOpen.bind(this);
+    this.handleClickOpenDossier = this.handleClickOpenDossier.bind(this);
+    this.handleClickOpenUpdate = this.handleClickOpenUpdate.bind(this);
   }
   getData = (nom, prenom, address, telephone, sexe, id) => {
     // do not forget to bind getData in constructor
@@ -166,13 +175,33 @@ class Call_Api extends Component {
       open: true,
     });
   }
+  handleClickOpenDossier() {
+    this.setState({
+      openDossier: true,
+    });
+  }
+  handleClickOpenUpdate() {
+    this.setState({
+      openUpdate: true,
+    });
+  }
 
   handleCloseRendezVous() {
     this.setState({
       open: false,
     });
   }
-  async DeleteThis(id, index) {
+  handleCloseDossier() {
+    this.setState({
+      openDossier: false,
+    });
+  }
+  handleCloseUpdate() {
+    this.setState({
+      openUpdate: false,
+    });
+  }
+  async DeleteThis(id, index, sexe) {
     try {
       const cookie = new Cookies();
       const res = await axios.delete(url + '/api/patient/' + id, {
@@ -189,6 +218,8 @@ class Call_Api extends Component {
       const { items } = this.state;
       items.splice(index, 1);
       this.setState({ items });
+      if (sexe == 'Homme') this.props.changeStatesDelete(1, 1, 0);
+      else this.props.changeStatesDelete(1, 0, 1);
     } catch {
       this.setState({
         opensnack: true,
@@ -225,6 +256,8 @@ class Call_Api extends Component {
       selectedRow,
       opensnack,
       open,
+      openDossier,
+      openUpdate,
       id,
       msg,
       type,
@@ -283,13 +316,30 @@ class Call_Api extends Component {
               {
                 icon: () => <EditIcon color='primary' />,
                 tooltip: 'Edit User',
-                onClick: (event, rowData) => alert('You saved ' + rowData._id),
+                onClick: (event, rowData) => {
+                  this.setState({ id: rowData._id });
+                  this.handleClickOpenUpdate();
+                },
               },
               {
                 icon: () => <DeleteIcon color='secondary' />,
                 tooltip: 'Delete User',
                 onClick: (event, rowData) =>
-                  this.DeleteThis(rowData._id, rowData.tableData.id),
+                  this.DeleteThis(
+                    rowData._id,
+                    rowData.tableData.id,
+                    rowData.sexe
+                  ),
+              },
+              {
+                icon: () => (
+                  <FolderSharedIcon color='primary' fontSize='large' />
+                ),
+                tooltip: 'Afficher le dossier medicale',
+                onClick: (event, rowData) => {
+                  this.setState({ id: rowData._id });
+                  this.handleClickOpenDossier();
+                },
               },
             ]}
             onRowClick={(evt, selectedRow) => this.setState({ selectedRow })}
@@ -353,10 +403,97 @@ class Call_Api extends Component {
               identifier={id}
             />
           </Dialog>
+
+          <Dialog
+            fullScreen
+            open={openDossier}
+            onClose={this.handleCloseDossier}
+            TransitionComponent={Transition}
+          >
+            <AppBar
+              style={{
+                position: 'relative',
+              }}
+            >
+              <Toolbar>
+                <IconButton
+                  edge='start'
+                  color='inherit'
+                  onClick={this.handleCloseDossier}
+                  aria-label='close'
+                >
+                  <CloseIcon />
+                </IconButton>
+                <Typography
+                  variant='h6'
+                  style={{
+                    flex: 1,
+                  }}
+                >
+                  Dossier Medicale
+                </Typography>
+                <IconButton color='inherit' aria-label='close'>
+                  <FolderSharedIcon style={{ fontSize: 50 }} />
+                </IconButton>
+              </Toolbar>
+            </AppBar>
+            <ScrollableTabsButtonForce identifier={id} />
+          </Dialog>
+
+          <Dialog
+            fullScreen
+            open={openUpdate}
+            onClose={this.handleCloseUpdate}
+            TransitionComponent={Transition}
+          >
+            <AppBar
+              style={{
+                position: 'relative',
+              }}
+            >
+              <Toolbar>
+                <IconButton
+                  edge='start'
+                  color='inherit'
+                  onClick={this.handleCloseUpdate}
+                  aria-label='close'
+                >
+                  <CloseIcon />
+                </IconButton>
+                <Typography
+                  variant='h6'
+                  style={{
+                    flex: 1,
+                  }}
+                >
+                  Modifier les information du Patient
+                </Typography>
+                <IconButton color='inherit' aria-label='close'>
+                  <FolderSharedIcon style={{ fontSize: 50 }} />
+                </IconButton>
+              </Toolbar>
+            </AppBar>
+            <VerticalLinearStepper identifier={id} />
+          </Dialog>
         </div>
       );
     }
   }
 }
 
-export default Call_Api;
+const mapDispatchProps = (dispatch) => {
+  return {
+    changeStatesDelete: (NumberPatient, NumberMen, NumberWomen) => {
+      dispatch({
+        type: 'deletePatientStates',
+        NumberPatient: NumberPatient,
+        NumberWomen: NumberWomen,
+        NumberMen: NumberMen,
+      });
+    },
+  };
+};
+const mapStateProps = (state) => {
+  return {};
+};
+export default connect(mapStateProps, mapDispatchProps)(Call_Api);
