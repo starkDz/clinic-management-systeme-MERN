@@ -7,10 +7,10 @@ import Configurations from './Configurations';
 import Statistique from './Statistiques';
 export default [
   Dashboard,
-  Enregistrement,
   Consultation,
-  Medicament,
   Patient,
+  Enregistrement,
+  Medicament,
   Configurations,
   Statistique,
 ];

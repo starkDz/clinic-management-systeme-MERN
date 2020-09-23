@@ -26,6 +26,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import FullScreenDialog from './FullScreenForm';
+import { connect } from 'react-redux';
 const tableIcons = {
   Add: forwardRef((props, ref: React.Ref<SVGSVGElement>) => (
     <AddBox {...props} ref={ref} />
@@ -152,6 +153,7 @@ class Call_Api extends Component {
       const { items } = this.state;
       items.splice(index, 1);
       this.setState({ items });
+      this.props.changeStatesDelete(1);
     } catch {
       this.setState({
         opensnack: true,
@@ -265,4 +267,17 @@ class Call_Api extends Component {
   }
 }
 
-export default Call_Api;
+const mapDispatchProps = (dispatch) => {
+  return {
+    changeStatesDelete: (number) => {
+      dispatch({
+        type: 'deleteMedicament',
+        NumberMedicament: number,
+      });
+    },
+  };
+};
+const mapStateProps = (state) => {
+  return {};
+};
+export default connect(mapStateProps, mapDispatchProps)(Call_Api);

@@ -75,20 +75,6 @@ const Add_New = () => {
 
   return (
     <Grid container spacing={0}>
-      <GridItem xs={12} sm={12} md={12} lg={4} height={100}>
-        <Card>
-          <CardHeader color='info' stats icon>
-            <CardIcon color='info'>
-              <Icon icon={iRegistration} height={40} />
-            </CardIcon>
-            <p className={classes.cardCategory}>Nombre des Rendez Vous</p>
-            <h1 className={classes.cardTitle}>{countData.NumberRendezVous}</h1>
-          </CardHeader>
-          <CardFooter stats>
-            <div className={classes.stats}></div>
-          </CardFooter>
-        </Card>
-      </GridItem>
       <GridItem xs={12} sm={12} md={12} lg={4}>
         <Card>
           <CardHeader color='danger' stats icon>
@@ -97,6 +83,20 @@ const Add_New = () => {
             </CardIcon>
             <p className={classes.cardCategory}>Nombre Totale des patients</p>
             <h1 className={classes.cardTitle}>{countData.NumberPatient}</h1>
+          </CardHeader>
+          <CardFooter stats>
+            <div className={classes.stats}></div>
+          </CardFooter>
+        </Card>
+      </GridItem>
+      <GridItem xs={12} sm={12} md={12} lg={4} height={100}>
+        <Card>
+          <CardHeader color='info' stats icon>
+            <CardIcon color='info'>
+              <Icon icon={iRegistration} height={40} />
+            </CardIcon>
+            <p className={classes.cardCategory}>Nombre des Rendez Vous</p>
+            <h1 className={classes.cardTitle}>{countData.NumberRendezVous}</h1>
           </CardHeader>
           <CardFooter stats>
             <div className={classes.stats}></div>

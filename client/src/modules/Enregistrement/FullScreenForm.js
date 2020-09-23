@@ -30,7 +30,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import { Icon, InlineIcon } from '@iconify/react';
 import iRegistration from '@iconify/icons-medical-icon/i-registration';
-
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 axios.defaults.baseURL = url;
 const useStyles = makeStyles((theme) => ({
@@ -63,7 +63,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog(props) {
+const FullScreenDialog = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
@@ -133,6 +133,7 @@ export default function FullScreenDialog(props) {
         },
       });
       props.sendData(nom, prenom, dateReservation, telephone, res.data._id);
+      props.changeStatesRendezVous(1);
       // setFormData({
       //   nom: '',
       //   prenom: '',
@@ -273,4 +274,19 @@ export default function FullScreenDialog(props) {
       </Dialog>
     </div>
   );
-}
+};
+
+const mapDispatchProps = (dispatch) => {
+  return {
+    changeStatesRendezVous: (number) => {
+      dispatch({
+        type: 'updateNumberRendezVous',
+        number: number,
+      });
+    },
+  };
+};
+const mapStateProps = (state) => {
+  return {};
+};
+export default connect(mapStateProps, mapDispatchProps)(FullScreenDialog);

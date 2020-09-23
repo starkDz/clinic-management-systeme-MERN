@@ -31,7 +31,7 @@ import Cookies from 'universal-cookie';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCapsules } from '@fortawesome/free-solid-svg-icons';
-
+import { connect } from 'react-redux';
 axios.defaults.baseURL = url;
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -63,7 +63,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog(props) {
+const FullScreenDialog = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
@@ -103,7 +103,7 @@ export default function FullScreenDialog(props) {
       });
 
       props.sendData(description_Fr, dosage, res.data._id);
-
+      props.changeStatesMedicament(1);
       setOpen(false);
       // setFormData({
       //   description_Fr: '',
@@ -194,4 +194,18 @@ export default function FullScreenDialog(props) {
       </Dialog>
     </div>
   );
-}
+};
+const mapDispatchProps = (dispatch) => {
+  return {
+    changeStatesMedicament: (number) => {
+      dispatch({
+        type: 'updateMedicament',
+        number: number,
+      });
+    },
+  };
+};
+const mapStateProps = (state) => {
+  return {};
+};
+export default connect(mapStateProps, mapDispatchProps)(FullScreenDialog);

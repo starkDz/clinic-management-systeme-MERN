@@ -31,6 +31,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { connect } from 'react-redux';
+import SpeedDial from './SpeedDial';
 axios.defaults.baseURL = url;
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -148,6 +149,7 @@ const Ordonnance = (props) => {
   const patient = props;
   return (
     <div className={classes.root}>
+      <SpeedDial style={{ zIndex: 1 }} id={props.idCurrentOrdonnance} />
       <Grid container justify='right' spacing={2}>
         <Grid item xs={12} sm={12} lg={4}>
           <Grid item xs={12} sm={12} lg={12}>

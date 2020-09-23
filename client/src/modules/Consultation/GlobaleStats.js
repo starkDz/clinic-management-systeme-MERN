@@ -44,22 +44,18 @@ import { Icon, InlineIcon } from '@iconify/react';
 import iRegistration from '@iconify/icons-medical-icon/i-registration';
 
 const useStyles = makeStyles(styles);
-const Add_New = () => {
+const Add_New = (props) => {
   const classes = useStyles();
-  const [countData, setCountData] = React.useState({
-    NumberRendezVous: 0,
-    NumberRendezVousValide: 0,
-  });
+  const NumberRendezVous = props.nombreTotaleRendezVous;
+  const NumberRendezVousValide = props.nombreTotalePatientTraite;
 
   useEffect(() => {
     async function fetchData() {
       await axios
         .get(url + '/api/stats/getCount')
         .then((response) => {
-          setCountData({
-            NumberRendezVous: response.data.NumberRendezVous,
-            NumberRendezVousValide: response.data.NumberRendezVousValide,
-          });
+          props.setNumberPatientTraite(response.data.NumberRendezVousValide);
+          props.setNumberRendezVous(response.data.NumberRendezVous);
         })
         .catch((error) => console.log(error.response));
     }
@@ -75,7 +71,7 @@ const Add_New = () => {
               <Icon icon={iRegistration} height={40} />
             </CardIcon>
             <p className={classes.cardCategory}>Nombre des Rendez Vous</p>
-            <h1 className={classes.cardTitle}>{countData.NumberRendezVous}</h1>
+            <h1 className={classes.cardTitle}>{NumberRendezVous}</h1>
           </CardHeader>
           <CardFooter stats>
             <div className={classes.stats}></div>
@@ -89,9 +85,7 @@ const Add_New = () => {
               <FontAwesomeIcon icon={faUserCheck} size='2x' />
             </CardIcon>
             <p className={classes.cardCategory}>Nombre des Patients traites</p>
-            <h1 className={classes.cardTitle}>
-              {countData.NumberRendezVousValide}
-            </h1>
+            <h1 className={classes.cardTitle}>{NumberRendezVousValide}</h1>
           </CardHeader>
           <CardFooter stats>
             <div className={classes.stats}></div>
@@ -101,4 +95,26 @@ const Add_New = () => {
     </Grid>
   );
 };
-export default Add_New;
+const mapDispatchProps = (dispatch) => {
+  return {
+    setNumberRendezVous: (nombreTotaleRendezVous) => {
+      dispatch({
+        type: 'numberRendezVous',
+        nombreTotaleRendezVous: nombreTotaleRendezVous,
+      });
+    },
+    setNumberPatientTraite: (nombreTotalePatientTraite) => {
+      dispatch({
+        type: 'numberRendezVousTraite',
+        nombreTotalePatientTraite: nombreTotalePatientTraite,
+      });
+    },
+  };
+};
+const mapStateProps = (state) => {
+  return {
+    nombreTotalePatientTraite: state.nombreTotalePatientTraite,
+    nombreTotaleRendezVous: state.nombreTotaleRendezVous,
+  };
+};
+export default connect(mapStateProps, mapDispatchProps)(Add_New);

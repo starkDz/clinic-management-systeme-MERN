@@ -27,22 +27,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCapsules, faUser } from '@fortawesome/free-solid-svg-icons';
 
 const useStyles = makeStyles(styles);
-const Add_New = () => {
+const Add_New = (props) => {
   const classes = useStyles();
-  const [countData, setCountData] = React.useState({
-    NumberMedicament: 0,
-    NumberPatient: 0,
-  });
 
+  const NumberMedicament = props.nombreTotaleMedicament;
+  const NumberPatient = props.NumberPatient;
   useEffect(() => {
     async function fetchData() {
       await axios
         .get(url + '/api/stats/getCount')
         .then((response) => {
-          setCountData({
-            NumberMedicament: response.data.NumberMedicament,
-            NumberPatient: response.data.NumberPatient,
-          });
+          props.setNumberMedicament(response.data.NumberMedicament);
+          props.setNumberPatient(response.data.NumberPatient);
         })
         .catch((error) => console.log(error.response));
     }
@@ -60,7 +56,7 @@ const Add_New = () => {
             <p className={classes.cardCategory}>
               Nombre des Medicaments inscrits
             </p>
-            <h1 className={classes.cardTitle}>{countData.NumberMedicament}</h1>
+            <h1 className={classes.cardTitle}>{NumberMedicament}</h1>
           </CardHeader>
           <CardFooter stats>
             <div className={classes.stats}></div>
@@ -74,7 +70,7 @@ const Add_New = () => {
               <FontAwesomeIcon icon={faUser} size='2x' />
             </CardIcon>
             <p className={classes.cardCategory}>Nombre Totale des patients</p>
-            <h1 className={classes.cardTitle}>{countData.NumberPatient}</h1>
+            <h1 className={classes.cardTitle}>{NumberPatient}</h1>
           </CardHeader>
           <CardFooter stats>
             <div className={classes.stats}></div>
@@ -84,4 +80,26 @@ const Add_New = () => {
     </Grid>
   );
 };
-export default Add_New;
+const mapDispatchProps = (dispatch) => {
+  return {
+    setNumberMedicament: (number) => {
+      dispatch({
+        type: 'numberMedicament',
+        nombreTotaleMedicament: number,
+      });
+    },
+    setNumberPatient: (nombreTotalePatient) => {
+      dispatch({
+        type: 'numberPatient',
+        nombreTotalePatient: nombreTotalePatient,
+      });
+    },
+  };
+};
+const mapStateProps = (state) => {
+  return {
+    NumberPatient: state.nombreTotalePatient,
+    nombreTotaleMedicament: state.nombreTotaleMedicament,
+  };
+};
+export default connect(mapStateProps, mapDispatchProps)(Add_New);

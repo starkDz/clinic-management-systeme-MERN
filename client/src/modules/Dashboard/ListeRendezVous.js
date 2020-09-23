@@ -100,6 +100,7 @@ class Call_Api extends Component {
       error: null,
       isLoaded: false,
       items: [],
+      validite: { true: 'primary', false: 'secondary' },
       secondary: false,
       dense: false,
       type: 'success',
@@ -174,6 +175,7 @@ class Call_Api extends Component {
       error,
       isLoaded,
       items,
+      validite,
       Title,
       selectedRow,
       opensnack,
@@ -205,6 +207,16 @@ class Call_Api extends Component {
             title={Title}
             columns={[
               {
+                title: 'Est Traite',
+                render: (rowData) =>
+                  rowData.estValide ? (
+                    <LensIcon color='primary' />
+                  ) : (
+                    <LensIcon color='secondary' />
+                  ),
+                width: '5%',
+              },
+              {
                 title: 'Nom',
                 field: 'idPatient.nom',
                 width: '15%',
@@ -223,13 +235,6 @@ class Call_Api extends Component {
               { title: 'Observation', field: 'observation', width: '20%' },
             ]}
             data={items}
-            actions={[
-              {
-                icon: () => <LensIcon color='secondary' />,
-                tooltip: 'Delete Consultation',
-                onClick: (event, rowData) => {},
-              },
-            ]}
             onRowClick={(evt, selectedRow) => this.setState({ selectedRow })}
             options={{
               exportButton: true,

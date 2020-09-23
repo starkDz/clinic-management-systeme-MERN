@@ -100,7 +100,12 @@ const Consultation = (props) => {
     heur,
     prix,
   } = formData;
-
+  const DeleteThis = () => {
+    const items = props.consultationItems;
+    items.splice(props.consultationIndex, 1);
+    props.updateItems(items);
+    props.changePatientTraite(1);
+  };
   const onChange = (e) =>
     setFormData({
       ...formData,
@@ -112,7 +117,7 @@ const Consultation = (props) => {
     };
     try {
       const body = JSON.stringify(element);
-      console.log(body);
+      //console.log(body);
       const res = await axios
         .post('/api/rendezVous/update/' + props.idCurrentRendezVous, body, {
           headers: {
@@ -146,7 +151,7 @@ const Consultation = (props) => {
 
     try {
       const body = JSON.stringify(element);
-      console.log(body);
+      //console.log(body);
       const res = await axios
         .post('/api/consultation', body, {
           headers: {
@@ -157,6 +162,7 @@ const Consultation = (props) => {
         })
         .then((res) => {
           validerRendezVous();
+          DeleteThis();
           setFormData({
             taille: '',
             poids: '',
@@ -388,12 +394,27 @@ const mapDispatchProps = (dispatch) => {
         idOrdonnance: idO,
       });
     },
+    changePatientTraite: (NumberPatientTraite) => {
+      dispatch({
+        type: 'updateTraite',
+        nombreTotalePatientTraite: NumberPatientTraite,
+      });
+    },
+    updateItems: (items) => {
+      dispatch({
+        type: 'setItems',
+        items: items,
+      });
+    },
   };
 };
 const mapStateProps = (state) => {
   return {
     idCurrentRendezVous: state.idCurrentRendezVous,
     idCurrentPatient: state.idCurrentPatient,
+    consultationItems: state.consultationItems,
+    consultationIndex: state.consultationIndex,
+    nombreTotalePatientTraite: state.nombreTotalePatientTraite,
   };
 };
 export default connect(mapStateProps, mapDispatchProps)(Consultation);

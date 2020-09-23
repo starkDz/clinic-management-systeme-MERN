@@ -127,7 +127,7 @@ class Call_Api extends Component {
     this.state = {
       error: null,
       isLoaded: false,
-      items: [],
+      items: this.props.consultationItems,
       secondary: false,
       dense: false,
       type: 'success',
@@ -157,30 +157,10 @@ class Call_Api extends Component {
     });
   }
 
-  async DeleteThis(id, index) {
-    try {
-      const cookie = new Cookies();
-      const res = await axios.delete(url + '/api/rendezVous/' + id, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'x-auth-token': cookie.get('token'),
-        },
-      });
-      this.setState({
-        opensnack: true,
-        type: 'success',
-        msg: 'Suppression a ete fait avec Success ',
-      });
-      const { items } = this.state;
-      items.splice(index, 1);
-      this.setState({ items });
-    } catch {
-      this.setState({
-        opensnack: true,
-        type: 'error',
-        msg: 'Erreur lors de la suppression',
-      });
-    }
+  DeleteThis(index) {
+    const { items } = this.state;
+    items.splice(index, 1);
+    this.setState({ items });
   }
   async componentDidMount() {
     fetch(url + '/api/rendezVous/nonValide')
@@ -189,8 +169,8 @@ class Call_Api extends Component {
         (res) => {
           this.setState({
             isLoaded: true,
-            items: res,
           });
+          this.props.updateItems(res);
         },
         (error) => {
           this.setState({
@@ -206,7 +186,7 @@ class Call_Api extends Component {
     const {
       error,
       isLoaded,
-      items,
+
       Title,
       selectedRow,
       opensnack,
@@ -215,6 +195,7 @@ class Call_Api extends Component {
       msg,
       type,
     } = this.state;
+    const items = this.props.consultationItems;
     if (error) {
       return <div>Erreur : {error.message}</div>;
     } else if (!isLoaded) {
@@ -266,12 +247,13 @@ class Call_Api extends Component {
                 tooltip: 'Afficher le dossier medicale',
                 onClick: (event, rowData) => {
                   this.handleClickOpen();
+                  this.props.updateIndex(rowData.tableData.id);
                   this.props.changeStatesCurrentRendezVousPatient(
                     rowData._id,
                     rowData.idPatient._id
                   );
                   this.setState({ id: rowData._id });
-                  console.log(items);
+                  //console.log(items);
                 },
               },
             ]}
@@ -347,9 +329,23 @@ const mapDispatchProps = (dispatch) => {
         idPatient: idP,
       });
     },
+    updateItems: (items) => {
+      dispatch({
+        type: 'setItems',
+        items: items,
+      });
+    },
+    updateIndex: (index) => {
+      dispatch({
+        type: 'setIndexConsultation',
+        index: index,
+      });
+    },
   };
 };
 const mapStateProps = (state) => {
-  return {};
+  return {
+    consultationItems: state.consultationItems,
+  };
 };
 export default connect(mapStateProps, mapDispatchProps)(Call_Api);
