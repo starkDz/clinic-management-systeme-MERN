@@ -106,7 +106,7 @@ const Consultation = (props) => {
       ...formData,
       [e.target.name]: e.target.value,
     });
-  const validerRendezVous = async (idRendezVous) => {
+  const validerRendezVous = async () => {
     const element = {
       estValide: true,
     };
@@ -114,7 +114,7 @@ const Consultation = (props) => {
       const body = JSON.stringify(element);
       console.log(body);
       const res = await axios
-        .post('/api/rendezVous/update/' + idRendezVous, body, {
+        .post('/api/rendezVous/update/' + props.idCurrentRendezVous, body, {
           headers: {
             'Content-Type': 'application/json;charset=UTF-8',
             'Access-Control-Allow-Origin': '*',
@@ -156,7 +156,7 @@ const Consultation = (props) => {
           },
         })
         .then((res) => {
-          props.validerRendezVous(idRendezVous);
+          validerRendezVous();
           setFormData({
             taille: '',
             poids: '',
