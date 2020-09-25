@@ -29,10 +29,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 import StorageIcon from '@material-ui/icons/Storage';
 import LanguageIcon from '@material-ui/icons/Language';
 import modules from './modules'; // All the parent knows is that it has modules ...
-import confs from './Conf'; // All the parent knows is that it has modules ...
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHospitalUser } from '@fortawesome/free-solid-svg-icons';
-import { url } from './defaults/default';
+
+import Button from '@material-ui/core/Button';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -141,7 +141,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
 export default function Home() {
   const [currentTab, setCurrentTab] = useState(null);
   const classes = useStyles();
@@ -346,25 +345,6 @@ export default function Home() {
             ))}
           </List>
           <Divider />
-          <List>
-            {confs.map((
-              module // with a name, and routes
-            ) => (
-              <Tooltip title={module.name} key={module.name} placement='right'>
-                <ListItem
-                  button
-                  key={module.name}
-                  component={Link}
-                  to={module.routeProps.path}
-                  alignItems='flex'
-                  onClick={() => setCurrentTab(module.name)}
-                >
-                  <ListItemIcon>{module.icon}</ListItemIcon>
-                  <ListItemText primary={module.name} />
-                </ListItem>
-              </Tooltip>
-            ))}
-          </List>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />

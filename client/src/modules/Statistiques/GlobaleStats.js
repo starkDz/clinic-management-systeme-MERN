@@ -87,7 +87,7 @@ const Add_New = () => {
 
   return (
     <Grid container spacing={0}>
-      <GridItem xs={12} sm={12} md={12} lg={4} height={100}>
+      <GridItem xs={12} sm={12} md={12} lg={3} height={100}>
         <Card>
           <CardHeader color='info' stats icon>
             <CardIcon color='info'>
@@ -103,7 +103,7 @@ const Add_New = () => {
           </CardFooter>
         </Card>
       </GridItem>
-      <GridItem xs={12} sm={12} md={12} lg={4}>
+      <GridItem xs={12} sm={12} md={12} lg={3}>
         <Card>
           <CardHeader color='success' stats icon>
             <CardIcon color='success'>
@@ -117,7 +117,7 @@ const Add_New = () => {
           </CardFooter>
         </Card>
       </GridItem>
-      <GridItem xs={12} sm={12} md={12} lg={4}>
+      <GridItem xs={12} sm={12} md={12} lg={3}>
         <Card>
           <CardHeader color='danger' stats icon>
             <CardIcon color='warning'>
@@ -131,14 +131,15 @@ const Add_New = () => {
           </CardFooter>
         </Card>
       </GridItem>
-      <GridItem xs={12} sm={12} md={12} lg={4} height={100}>
+      <GridItem xs={12} sm={12} md={12} lg={3} height={100}>
         <Card>
           <CardHeader color='info' stats icon>
             <CardIcon color='info'>
               <Icon icon={iRegistration} height={40} />
             </CardIcon>
             <p className={classes.cardCategory}>
-              Nombre Totale des Rendez Vous Enregistre Aujourd'hui
+              Nombre Totale des Rendez Vous
+              {/* Nombre Totale des Rendez Vous Enregistre Aujourd'hui */}
             </p>
             <h1 className={classes.cardTitle}>{countData.NumberRendezVous}</h1>
           </CardHeader>
@@ -183,7 +184,7 @@ const Add_New = () => {
           </CardFooter>
         </Card>
       </GridItem>
-      <GridItem xs={12} sm={12} md={12} lg={12}>
+      <GridItem xs={12} sm={12} md={12} lg={4}>
         <Card>
           <CardHeader color='danger' stats icon>
             <CardIcon color='warning'>

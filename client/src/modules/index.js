@@ -5,6 +5,8 @@ import Medicament from './Medicament';
 import Consultation from './Consultation';
 import Configurations from './Configurations';
 import Statistique from './Statistiques';
+import A_Propos from './A_Propos';
+import Documentation from './Documentation';
 export default [
   Dashboard,
   Consultation,
@@ -13,4 +15,6 @@ export default [
   Medicament,
   Configurations,
   Statistique,
+  Documentation,
+  A_Propos,
 ];

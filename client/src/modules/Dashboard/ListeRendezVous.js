@@ -27,6 +27,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import TripOriginIcon from '@material-ui/icons/TripOrigin';
 import LensIcon from '@material-ui/icons/Lens';
+import { connect } from 'react-redux';
 import Brightness1Icon from '@material-ui/icons/Brightness1';
 const tableIcons = {
   Add: forwardRef((props, ref: React.Ref<SVGSVGElement>) => (
@@ -95,15 +96,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 class Call_Api extends Component {
   constructor(props) {
-    super();
+    super(props);
+    const d = new Date();
+    const month = ('0' + (d.getMonth() + 1)).slice(-2);
     this.state = {
       error: null,
       isLoaded: false,
-      items: [],
+      items: this.props.dashboardItems,
       validite: { true: 'primary', false: 'secondary' },
       secondary: false,
       dense: false,
       type: 'success',
+      date: d.getFullYear() + '-' + month + '-' + d.getDate(),
       selectedRow: null,
       opensnack: false,
       msg: 'Suppression a ete fait avec success',
@@ -152,14 +156,15 @@ class Call_Api extends Component {
     }
   }
   async componentDidMount() {
-    fetch(url + '/api/rendezVous/')
+    const { date } = this.state;
+    fetch(url + '/api/rendezVous/ByDate/' + date)
       .then((response) => response.json())
       .then(
         (res) => {
           this.setState({
             isLoaded: true,
-            items: res,
           });
+          this.props.updateItems(res);
         },
         (error) => {
           this.setState({
@@ -174,7 +179,6 @@ class Call_Api extends Component {
     const {
       error,
       isLoaded,
-      items,
       validite,
       Title,
       selectedRow,
@@ -182,6 +186,7 @@ class Call_Api extends Component {
       msg,
       type,
     } = this.state;
+    const items = this.props.dashboardItems;
     if (error) {
       return <div>Erreur : {error.message}</div>;
     } else if (!isLoaded) {
@@ -263,4 +268,19 @@ class Call_Api extends Component {
   }
 }
 
-export default Call_Api;
+const mapDispatchProps = (dispatch) => {
+  return {
+    updateItems: (items) => {
+      dispatch({
+        type: 'setDashboardItems',
+        items: items,
+      });
+    },
+  };
+};
+const mapStateProps = (state) => {
+  return {
+    dashboardItems: state.dashboardItems,
+  };
+};
+export default connect(mapStateProps, mapDispatchProps)(Call_Api);

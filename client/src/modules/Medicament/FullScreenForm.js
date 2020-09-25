@@ -32,6 +32,8 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCapsules } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 axios.defaults.baseURL = url;
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -59,6 +61,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant='filled' {...props} />;
+}
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
@@ -69,7 +74,16 @@ const FullScreenDialog = (props) => {
   const handleClickOpen = () => {
     setOpen(true);
   };
+  const handleCloseSnack = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
 
+    setFormData({
+      ...formData,
+      opensnack: false,
+    });
+  };
   const handleClose = () => {
     setOpen(false);
   };
@@ -78,6 +92,10 @@ const FullScreenDialog = (props) => {
   const [formData, setFormData] = React.useState({
     description_Fr: '',
     dosage: '',
+    type: 'success',
+    opensnack: false,
+    msg: 'Suppression a ete fait avec success',
+    Title: 'Liste des Medicaments',
   });
   const { description_Fr, dosage } = formData;
   const onChange = (e) =>
@@ -85,6 +103,7 @@ const FullScreenDialog = (props) => {
       ...formData,
       [e.target.name]: e.target.value,
     });
+
   const send = async (e) => {
     e.preventDefault();
     const element = {
@@ -104,6 +123,13 @@ const FullScreenDialog = (props) => {
 
       props.sendData(description_Fr, dosage, res.data._id);
       props.changeStatesMedicament(1);
+
+      setFormData({
+        ...formData,
+        opensnack: true,
+        type: 'success',
+        msg: "l'Ajout a ete fait avec Success ",
+      });
       setOpen(false);
       // setFormData({
       //   description_Fr: '',
@@ -111,6 +137,7 @@ const FullScreenDialog = (props) => {
       // });
     } catch (err) {}
   };
+  const { Title, opensnack, msg, type } = formData;
   return (
     <div>
       <Fab
@@ -192,6 +219,16 @@ const FullScreenDialog = (props) => {
           </div>
         </Container>
       </Dialog>
+      <Snackbar
+        open={opensnack}
+        autoHideDuration={2000}
+        onClose={handleCloseSnack}
+        style={{ zIndex: 1 }}
+      >
+        <Alert onClose={handleCloseSnack} severity={type} style={{ zIndex: 1 }}>
+          {msg}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

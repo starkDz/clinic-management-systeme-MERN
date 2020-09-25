@@ -49,7 +49,7 @@ export default class Demo extends React.PureComponent {
     const { data: chartData } = this.state;
 
     return (
-      <Paper lg={8}>
+      <Paper>
         <Chart data={chartData}>
           <ArgumentAxis />
           <ValueAxis />

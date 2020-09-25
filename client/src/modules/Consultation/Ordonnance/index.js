@@ -152,6 +152,29 @@ const Ordonnance = (props) => {
       <SpeedDial style={{ zIndex: 1 }} id={props.idCurrentOrdonnance} />
       <Grid container justify='right' spacing={2}>
         <Grid item xs={12} sm={12} lg={4}>
+          {/* <Grid item xs={12} sm={12} lg={4}>
+            <Autocomplete
+              helperText=''
+              fullWidth
+              margin='normal'
+              variant='outlined'
+              options={Medicament}
+              getOptionLabel={(option) => option.description_Fr}
+              key={(option) => option._id}
+              fullWidth
+              onChange={(e) => onChange(e)}
+              value={(option) => option.description_Fr}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  name='description_Fr'
+                  label='Nom de Medicament'
+                  placeholder='Nom de Medicament'
+                  variant='outlined'
+                />
+              )}
+            />
+          </Grid> */}
           <Grid item xs={12} sm={12} lg={12}>
             <FormControl
               variant='outlined'

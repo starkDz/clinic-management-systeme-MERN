@@ -35,6 +35,7 @@ router.post(
 
     try {
       element = new RendezVous(Fields);
+      console.log(element);
       await element.save();
       res.json(element);
     } catch (err) {
@@ -85,6 +86,33 @@ router.get('/', async (req, res) => {
 router.get('/nonValide', async (req, res) => {
   try {
     const elements = await RendezVous.find({ estValide: false })
+      .populate('owner', ['name'])
+      .populate('idPatient');
+    res.json(elements);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+router.get('/nonValideByDate/:thisDay', async (req, res) => {
+  try {
+    const elements = await RendezVous.find({
+      estValide: false,
+      dateReservation: req.params.thisDay,
+    })
+      .populate('owner', ['name'])
+      .populate('idPatient');
+    res.json(elements);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+router.get('/ByDate/:thisDay', async (req, res) => {
+  try {
+    const elements = await RendezVous.find({
+      dateReservation: req.params.thisDay,
+    })
       .populate('owner', ['name'])
       .populate('idPatient');
     res.json(elements);

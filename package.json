@@ -20,6 +20,10 @@
   "author": "Djehinet Fateh",
   "license": "MIT",
   "dependencies": {
+    "@devexpress/dx-chart-core": "^2.7.1",
+    "@devexpress/dx-react-chart": "^2.7.1",
+    "@devexpress/dx-react-chart-material-ui": "^2.7.1",
+    "@devexpress/dx-react-core": "^2.7.1",
     "@react-pdf/renderer": "^1.6.11",
     "axios": "^0.20.0",
     "bcryptjs": "^2.4.3",

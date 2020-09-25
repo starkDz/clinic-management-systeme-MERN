@@ -76,6 +76,8 @@ const Consultation = (props) => {
     // setIdPatient(props.idPatient);
     // setIdRendezVous(props.idRendezVous);
   }, []);
+  const d = new Date();
+  const month = ('0' + (d.getMonth() + 1)).slice(-2);
   const [formData, setFormData] = React.useState({
     taille: '',
     poids: '',
@@ -85,6 +87,7 @@ const Consultation = (props) => {
     temperature: '',
     freCardiaque: '',
     prix: '',
+    dateConsultation: d.getFullYear() + '-' + month + '-' + d.getDate(),
     diagnostic: '',
   });
   const {

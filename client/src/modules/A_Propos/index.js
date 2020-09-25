@@ -1,6 +1,11 @@
 import React from 'react';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
-const A_Propos = () => <div>A propos</div>;
+import Add_New from './GlobaleStats';
+const A_Propos = () => (
+  <div padding={40} spacing={40} margin={40}>
+    <Add_New />
+  </div>
+);
 
 export default {
   routeProps: {

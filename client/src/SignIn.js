@@ -101,7 +101,7 @@ export default function SignIn() {
       cookies.set('email', email, { path: '/' });
       console.log('connexion avec Success');
     } catch (err) {
-      alert('connexion a echoue ' + url + '/api/auth');
+      alert('connexion a echoue ');
     }
   };
   return (

@@ -124,6 +124,8 @@ const useStyles = makeStyles((theme) => ({
 class Call_Api extends Component {
   constructor(props) {
     super(props);
+    const d = new Date();
+    const month = ('0' + (d.getMonth() + 1)).slice(-2);
     this.state = {
       error: null,
       isLoaded: false,
@@ -134,6 +136,7 @@ class Call_Api extends Component {
       selectedRow: null,
       opensnack: false,
       open: false,
+      date: d.getFullYear() + '-' + month + '-' + d.getDate(),
       msg: 'Suppression a ete fait avec success',
       Title: 'Liste des Rendez-Vous',
       a: null,
@@ -163,10 +166,13 @@ class Call_Api extends Component {
     this.setState({ items });
   }
   async componentDidMount() {
-    fetch(url + '/api/rendezVous/nonValide')
+    const { date } = this.state;
+    console.log(url + '/api/rendezVous/nonValideByDate/' + date);
+    fetch(url + '/api/rendezVous/nonValideByDate/' + date)
       .then((response) => response.json())
       .then(
         (res) => {
+          // console.log("helloWorld");
           this.setState({
             isLoaded: true,
           });
