@@ -1,23 +1,17 @@
 const mongoose = require('mongoose');
-const MedicamentSchema = new mongoose.Schema({
+const VaccinSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
   },
-  description_Fr: {
+  code: {
     type: String,
     required: true,
   },
-  dosage: {
+  description_Fr: {
     type: String,
   },
-  dci: {
-    type: String,
-  },
-  condit: {
-    type: String,
-  },
-  forme: {
+  age: {
     type: String,
   },
   date_Cre: {
@@ -26,4 +20,4 @@ const MedicamentSchema = new mongoose.Schema({
   },
 });
 
-module.exports = Medicament = mongoose.model('medicament', MedicamentSchema);
+module.exports = Vaccin = mongoose.model('vaccin', VaccinSchema);

@@ -92,12 +92,14 @@ const FullScreenDialog = (props) => {
   const [formData, setFormData] = React.useState({
     description_Fr: '',
     dosage: '',
+    condit: '',
+    forme: '',
     type: 'success',
     opensnack: false,
     msg: 'Suppression a ete fait avec success',
     Title: 'Liste des Medicaments',
   });
-  const { description_Fr, dosage } = formData;
+  const { description_Fr, dosage, condit, forme } = formData;
   const onChange = (e) =>
     setFormData({
       ...formData,
@@ -109,6 +111,8 @@ const FullScreenDialog = (props) => {
     const element = {
       description_Fr,
       dosage,
+      condit,
+      forme,
     };
 
     try {
@@ -121,7 +125,7 @@ const FullScreenDialog = (props) => {
         },
       });
 
-      props.sendData(description_Fr, dosage, res.data._id);
+      props.sendData(description_Fr, dosage, forme, condit, res.data._id);
       props.changeStatesMedicament(1);
 
       setFormData({
@@ -198,10 +202,33 @@ const FullScreenDialog = (props) => {
                   placeholder='Dosage'
                   helperText=''
                   fullWidth
-                  type='number'
                   variant='outlined'
                   name='dosage'
                   value={dosage}
+                  onChange={(e) => onChange(e)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} lg={12}>
+                <TextField
+                  label='Condition'
+                  placeholder='Condition'
+                  helperText=''
+                  fullWidth
+                  variant='outlined'
+                  name='condit'
+                  value={condit}
+                  onChange={(e) => onChange(e)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} lg={12}>
+                <TextField
+                  label='Forme'
+                  placeholder='Forme'
+                  helperText=''
+                  fullWidth
+                  variant='outlined'
+                  name='forme'
+                  value={forme}
                   onChange={(e) => onChange(e)}
                 />
               </Grid>

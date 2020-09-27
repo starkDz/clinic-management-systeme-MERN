@@ -18,6 +18,9 @@ app.use('/api/consultation', require('./routes/api/consultation'));
 app.use('/api/analyse', require('./routes/api/analyse'));
 app.use('/api/ordonnance', require('./routes/api/ordonnance'));
 app.use('/api/stats', require('./routes/api/stats'));
+app.use('/api/vaccin', require('./routes/api/vaccin'));
+app.use('/api/wilaya', require('./routes/api/wilaya'));
+app.use('/api/country', require('./routes/api/country'));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

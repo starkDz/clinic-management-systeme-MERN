@@ -114,7 +114,7 @@ class Call_Api extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.getData = this.getData.bind(this);
   }
-  getData = (description_Fr, dosage, id) => {
+  getData = (description_Fr, dosage, condit, forme, id) => {
     // do not forget to bind getData in constructor
     this.setState({
       ...this.state,
@@ -122,6 +122,8 @@ class Call_Api extends Component {
         {
           description_Fr: description_Fr,
           dosage: dosage,
+          condit: condit,
+          forme: forme,
           _id: id,
         },
       ]),
@@ -222,7 +224,9 @@ class Call_Api extends Component {
                 width: '20%',
               },
               { title: 'Dosage', field: 'dosage', width: '20%' },
-              { title: 'Recu par', field: 'owner.name', width: '10%' },
+              { title: 'condit', field: 'condit', width: '20%' },
+              { title: 'Forme', field: 'forme', width: '20%' },
+              { title: 'Cree par', field: 'owner.name', width: '10%' },
             ]}
             data={items}
             actions={[
@@ -241,7 +245,7 @@ class Call_Api extends Component {
             onRowClick={(evt, selectedRow) => this.setState({ selectedRow })}
             options={{
               exportButton: true,
-              pageSize: 10,
+              pageSize: 100,
               pageSizeOptions: [5, 10, 20, 50, 100],
               sorting: true,
               filtering: true,
