@@ -4,6 +4,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import SpeedDial from './SpeedDial';
 import Add_New from './GlobaleStats';
 import Call_Api from './ListePatient';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 const Patient = () => (
   <div>
     <Add_New />
@@ -18,5 +19,5 @@ export default {
     component: Patient,
   },
   name: 'Patient',
-  icon: <FontAwesomeIcon icon={faUser} size='2x' />,
+  icon: <PeopleAltIcon fontSize='large' />,
 };

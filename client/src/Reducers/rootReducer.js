@@ -1,5 +1,17 @@
 const initState = {
   patient: { nom: 'djehinet', prenom: 'fateh', age: 28 },
+  currentModule: {
+    dashboard: '',
+    consultation: '',
+    patient: '',
+    enregistrement: '',
+    medicament: '',
+    paiement: '',
+    config: '',
+    stats: '',
+    document: '',
+    propos: '',
+  },
   nombreTotalePatient: 0,
   nombreTotalePatientTraite: 0,
   nombreTotaleRendezVous: 0,
@@ -26,6 +38,15 @@ const rootReducer = (state = initState, action) => {
         return {
           ...state,
           patient: newPatient,
+        };
+      }
+      break;
+    case 'Modules':
+      {
+        let newCurrentModule = action.items;
+        return {
+          ...state,
+          currentModule: newCurrentModule,
         };
       }
       break;

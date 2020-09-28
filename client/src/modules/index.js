@@ -7,12 +7,14 @@ import Configurations from './Configurations';
 import Statistique from './Statistiques';
 import A_Propos from './A_Propos';
 import Documentation from './Documentation';
+import Paiement from './Paiement';
 export default [
   Dashboard,
   Consultation,
   Patient,
   Enregistrement,
   Medicament,
+  Paiement,
   Configurations,
   Statistique,
   Documentation,

@@ -242,22 +242,12 @@ class Call_Api extends Component {
                   this.DeleteThis(rowData._id, rowData.tableData.id),
               },
             ]}
-            onRowClick={(evt, selectedRow) => this.setState({ selectedRow })}
             options={{
               exportButton: true,
               pageSize: 100,
-              pageSizeOptions: [5, 10, 20, 50, 100],
+              pageSizeOptions: [5, 10, 20, 50, 100, 100],
               sorting: true,
-              filtering: true,
               grouping: true,
-              rowStyle: true,
-              rowStyle: (rowData) => ({
-                backgroundColor:
-                  this.state.selectedRow &&
-                  this.state.selectedRow.tableData.id === rowData.tableData.id
-                    ? '#EEE'
-                    : '#FFF',
-              }),
               headerStyle: {
                 backgroundColor: '#3f51b5',
                 color: '#FFF',
