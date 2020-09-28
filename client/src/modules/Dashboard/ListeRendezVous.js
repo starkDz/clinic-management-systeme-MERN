@@ -29,6 +29,7 @@ import TripOriginIcon from '@material-ui/icons/TripOrigin';
 import LensIcon from '@material-ui/icons/Lens';
 import { connect } from 'react-redux';
 import Brightness1Icon from '@material-ui/icons/Brightness1';
+import FullScreenDialog from './ajouterPatient/FullScreenForm';
 const tableIcons = {
   Add: forwardRef((props, ref: React.Ref<SVGSVGElement>) => (
     <AddBox {...props} ref={ref} />
@@ -262,6 +263,7 @@ class Call_Api extends Component {
               },
             }}
           />
+          <FullScreenDialog />
         </div>
       );
     }
