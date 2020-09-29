@@ -187,6 +187,7 @@ export default function Home() {
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open,
           })}
+          // style={{ backgroundColor: '#b53f91' }}
         >
           <Toolbar>
             <IconButton

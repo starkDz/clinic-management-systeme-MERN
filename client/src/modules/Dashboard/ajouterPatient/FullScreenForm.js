@@ -139,12 +139,12 @@ const FullScreenDialog = (props) => {
       <Fab
         onClick={handleClickOpen}
         variant='extended'
-        color='primary'
+        style={{ backgroundColor: '#e83f3cdb', color: 'white' }}
         aria-label='Ajouter un patient'
         className={classes.fateh}
       >
         <AddIcon />
-        Ajouter un Nouveau patient
+        Nouveau patient
         <FontAwesomeIcon icon={faUser} size='2x' pull='right' />
       </Fab>
       <Dialog

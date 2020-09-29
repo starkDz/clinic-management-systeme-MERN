@@ -78,7 +78,8 @@ const FullScreenDialog = (props) => {
   const d = new Date();
   const month = ('0' + (d.getMonth() + 1)).slice(-2);
   const [formData, setFormData] = React.useState({
-    dateReservation: d.getFullYear() + '-' + month + '-' + d.getDate(),
+    dateReservation: '',
+    // dateReservation: d.getFullYear() + '-' + month + '-' + d.getDate(),
     observation: '/',
   });
   const {

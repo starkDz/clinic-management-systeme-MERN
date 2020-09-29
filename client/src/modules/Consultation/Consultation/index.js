@@ -87,7 +87,8 @@ const Consultation = (props) => {
     temperature: '',
     freCardiaque: '',
     prix: '',
-    dateConsultation: d.getFullYear() + '-' + month + '-' + d.getDate(),
+    dateConsultation: '',
+    // dateConsultation: d.getFullYear() + '-' + month + '-' + d.getDate(),
     diagnostic: '',
   });
   const {
