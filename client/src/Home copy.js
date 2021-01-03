@@ -345,9 +345,12 @@ export default function Home() {
                   to={module.routeProps.path}
                   onClick={() => setCurrentTabIndex(module.name, index)}
                 >
-                  <ListItemIcon
-                    style={selectedIndex === index ? { color: 'primary' } : {}}
-                  >
+                  <ListItemIcon>
+                    <Icon
+                      style={
+                        selectedIndex === index ? { color: 'primary' } : {}
+                      }
+                    />
                     {module.icon}
                   </ListItemIcon>
                   <ListItemText primary={module.name} />
